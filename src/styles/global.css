@@ -1,0 +1,62 @@
+@import "tailwindcss";
+
+body {
+    background: #333;
+}
+
+a, p {
+    font-family: 'raleway';
+    font-size: 1rem;
+}
+
+@font-face {
+    font-family: 'raleway';
+    src: url('/fonts/raleway.ttf') format('ttf');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'roboto slab';
+    src: url('/fonts/robotoslab.ttf') format('ttf');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Roboto Slab', serif;
+  font-weight: bold; /* Bold */
+  margin: 0.5em 0;
+}
+
+h1 {
+  font-size: 2.5rem; /* ~40px */
+  line-height: 1.2;
+}
+
+h2 {
+  font-size: 2rem; /* ~32px */
+  line-height: 1.3;
+}
+
+h3 {
+  font-size: 1.75rem; /* ~28px */
+  line-height: 1.35;
+}
+
+h4 {
+  font-size: 1.5rem; /* ~24px */
+  line-height: 1.4;
+}
+
+h5 {
+  font-size: 1.25rem; /* ~20px */
+  line-height: 1.45;
+}
+
+h6 {
+  font-size: 1rem; /* ~16px */
+  line-height: 1.5;
+}
