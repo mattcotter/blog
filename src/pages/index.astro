@@ -2,8 +2,25 @@
 import './src/styles/global.css';
 import { Image } from 'astro:assets';
 import logo from '../assets/matt-cotter-logo.png';
-const pageTitle = "Matt Cotter"
-const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true }));
+import ImageRotator from '../components/ImageRotator.astro';
+import type { MarkdownInstance } from 'astro';
+
+interface BlogPostFrontmatter {
+  pubDate: string;
+  title: string;
+}
+
+const pageTitle = "Matt Cotter";
+
+const allPosts = Object.values(import.meta.glob('./posts/*.md', { eager: true })) as MarkdownInstance<BlogPostFrontmatter>[];
+
+const sortedPosts = allPosts.sort((a, b) => {
+    const dateA = new Date(a.frontmatter.pubDate);
+    const dateB = new Date(b.frontmatter.pubDate);
+    return dateB.getTime() - dateA.getTime();
+});
+const latestPost = sortedPosts.length > 0 ? sortedPosts[0] : null;
+
 const icons = [
   {
     name: 'Work',
@@ -24,54 +41,173 @@ const icons = [
     </svg>`
   },
   {
-  name: 'Blog',
-  href: '/blog',
-  svg: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
-    viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-    <path stroke-linecap="round" stroke-linejoin="round"
-      d="M16.862 3.487a2.1 2.1 0 0 1 2.97 2.97L7.5 18.79 3 21l2.21-4.5L16.862 3.487z" />
-  </svg>`
-}
+    name: 'Blog',
+    href: '/blog',
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+        viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+        <path stroke-linecap="round" stroke-linejoin="round"
+        d="M16.862 3.487a2.1 2.1 0 0 1 2.97 2.97L7.5 18.79 3 21l2.21-4.5L16.862 3.487z" />
+    </svg>`
+    }
+];
 
+const socialLinks = [
+  {
+    name: 'GitHub',
+    href: 'https://github.com/mattcotter',
+    svg: `<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="currentColor">
+  <path d="M12 .297c-6.63 0-12 5.373-12 12 
+    0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 
+    0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61
+    C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 
+    1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998
+    .108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 
+    0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 
+    0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 
+    1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23
+    .645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 
+    0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 
+    0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57 
+    C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+</svg>`
+  },
+  {
+    name: 'Bluesky',
+    href: 'https://bsky.app/profile/mattcotter.dev',
+    svg: `<svg class="h-6 w-6" version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 530" fill="#1185fe">
+    <path d="m135.72 44.03c66.496 49.921 138.02 151.14 164.28 205.46 26.262-54.316 97.782-155.54 164.28-205.46 
+    47.98-36.021 125.72-63.892 125.72 24.795 0 17.712-10.155 148.79-16.111 170.07-20.703 73.984-96.144 92.854-163.25 81.433 
+    117.3 19.964 147.14 86.092 82.697 152.22-122.39 125.59-175.91-31.511-189.63-71.766-2.514-7.3797-3.6904-10.832-3.7077-7.8964
+    -0.0174-2.9357-1.1937 0.51669-3.7077 7.8964-13.714 40.255-67.233 197.36-189.63 71.766-64.444-66.128-34.605-132.26 
+    82.697-152.22-67.108 11.421-142.55-7.4491-163.25-81.433-5.9562-21.282-16.111-152.36-16.111-170.07 
+    0-88.687 77.742-60.816 125.72-24.795z"/>
+    </svg>
+`
+  },
+  {
+    name: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/cotterm',
+    svg: `<svg class="h-6 w-6" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 382 382" xml:space="preserve"><path style="fill:#0077B7;" d="M347.445,0H34.555C15.471,0,0,15.471,0,34.555v312.889C0,366.529,15.471,382,34.555,382h312.889  C366.529,382,382,366.529,382,347.444V34.555C382,15.471,366.529,0,347.445,0z M118.207,329.844c0,5.554-4.502,10.056-10.056,10.056  H65.345c-5.554,0-10.056-4.502-10.056-10.056V150.403c0-5.554,4.502-10.056,10.056-10.056h42.806  c5.554,0,10.056,4.502,10.056,10.056V329.844z M86.748,123.432c-22.459,0-40.666-18.207-40.666-40.666S64.289,42.1,86.748,42.1  s40.666,18.207,40.666,40.666S109.208,123.432,86.748,123.432z M341.91,330.654c0,5.106-4.14,9.246-9.246,9.246H286.73  c-5.106,0-9.246-4.14-9.246-9.246v-84.168c0-12.556,3.683-55.021-32.813-55.021c-28.309,0-34.051,29.066-35.204,42.11v97.079  c0,5.106-4.139,9.246-9.246,9.246h-44.426c-5.106,0-9.246-4.14-9.246-9.246V149.593c0-5.106,4.14-9.246,9.246-9.246h44.426  c5.106,0,9.246,4.14,9.246,9.246v15.655c10.497-15.753,26.097-27.912,59.312-27.912c73.552,0,73.131,68.716,73.131,106.472  L341.91,330.654L341.91,330.654z"/></svg>`
+  },
+  {
+    name: 'Email',
+    href: 'mailto:cotter.m@gmail.com',
+    svg: `<svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+      viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+      <path stroke-linecap="round" stroke-linejoin="round"
+        d="M3 6.75v10.5A2.25 2.25 0 0 0 5.25 19.5h13.5A2.25 2.25 0 0 0 21 17.25V6.75A2.25 2.25 0 0 0 18.75 4.5H5.25A2.25 2.25 0 0 0 3 6.75z" />
+      <path stroke-linecap="round" stroke-linejoin="round"
+        d="m3 6.75 9 6.75 9-6.75" />
+    </svg>`
+  }
 ];
 
 ---
 
 <html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{pageTitle}</title>
-	</head>
-	<body>
+    <head>
+        <meta charset="utf-8" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{pageTitle}</title>
+    </head>
+    <body>
+        <style>
+          @keyframes text-rainbow-cycle {
+            0%, 100% { color: #ef4444; }
+            20% { color: #f97316; }
+            40% { color: #eab308; }
+            60% { color: #22c55e; }
+            80% { color: #3b82f6; }
+          }
 
-<header class="bg-[#383838] shadow">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-start h-16 space-x-8">
-      <a href="/" class="flex-shrink-0">
-        <h1>mattcotter.dev</h1>
-      </a>
-    </div>
-  </div>
-</header>
+          @keyframes slide-down {
+            0% {
+              transform: translateY(-100%);
+              opacity: 0;
+            }
+            100% {
+              transform: translateY(0);
+              opacity: 1;
+            }
+          }
 
-		{allPosts.map((post: any) => <li><a href={post.url}>{post.frontmatter.title}</a></li>)}
-		<div class="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-white shadow-lg rounded-2xl px-4 py-2 flex items-center space-x-4 z-50 border border-gray-200">
-			<!-- Logo -->
-			<a href="/" class="flex-shrink-0">
-			  <Image src={logo} alt="Logo" class="h-8 w-auto" />
-			</a>
-		  
-			<!-- Icons -->
-			<div class="flex items-center space-x-4">
-			  {icons.map((icon) => (
-				<a href={icon.href} class="text-gray-600 hover:text-blue-500 transition">
-					<span set:html={icon.svg} class="h-6 w-6"></span>
-				</a>
-			  ))}
-			</div>
-		  </div>
-	</body>
+          .animate-slide-down {
+            animation: slide-down 0.5s ease-out forwards;
+          }
+        </style>
+
+        {latestPost && (
+          <div class="fixed top-0 left-0 w-full z-50">
+            <a href={latestPost.url} class="block text-center bg-gradient-to-r from-green-400 to-green-600 text-white text-sm py-2 px-4 animate-slide-down">
+              🎉 Latest Blog Post: <span class="font-bold">{latestPost.frontmatter.title}</span>
+            </a>
+          </div>
+        )}
+        <button id="theme-toggle" aria-label="Toggle dark mode" class="theme-toggle">
+            <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="currentColor" viewBox="0 0 24 24" stroke-width="1.5" class="size-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
+            </svg>
+        </button>
+          
+        <ImageRotator />
+        
+        <div class="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-[#ecf0f1] shadow-lg rounded-2xl px-4 py-2 flex items-center space-x-4 z-50 border border-gray-200">
+            <a href="/" class="flex-shrink-0">
+              <Image src={logo} alt="Logo" class="h-8 w-auto" />
+            </a>
+          
+            <div class="flex items-center space-x-4">
+                {icons.map((icon) => (
+                <a href={icon.href} class="text-gray-600 hover:text-blue-500 transition">
+                    <span set:html={icon.svg} class="h-6 w-6"></span>
+                </a>
+                ))}
+
+                <div class="h-6 w-px bg-gray-300"></div>
+
+                {socialLinks.map((link) => (
+                <a href={link.href} class="text-gray-600 hover:text-blue-500 transition" target="_blank" rel="noopener noreferrer">
+                    <span set:html={link.svg} class="h-6 w-6"></span>
+                </a>
+                ))}
+            </div>
+        </div>
+    </body>
 </html>
+
+<script is:inline>
+    const toggleButton = document.getElementById('theme-toggle');
+    const icon = document.getElementById('theme-icon');
+
+    const sunIconPath = '<path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />';
+    const moonIconPath = '<path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />';
+
+    function setTheme(theme) {
+      document.documentElement.classList.toggle('dark', theme === 'dark');
+      localStorage.setItem('theme', theme);
+
+      if (theme === 'dark') {
+        icon.innerHTML = sunIconPath;
+       } else {
+        icon.innerHTML = moonIconPath;
+      }
+    }
+
+    toggleButton.addEventListener('click', () => {
+      const currentThemeIsDark = document.documentElement.classList.contains('dark');
+      const newTheme = currentThemeIsDark ? 'light' : 'dark';
+      setTheme(newTheme);
+    });
+
+    let initialTheme = 'light';
+    const savedTheme = localStorage.getItem('theme');
+
+    if (savedTheme) {
+      initialTheme = savedTheme;
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      initialTheme = 'dark';
+    }
+    setTheme(initialTheme);
+</script>

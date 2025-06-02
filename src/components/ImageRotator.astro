@@ -1,0 +1,68 @@
+---
+import matt1 from '../assets/matt-1.png';
+import matt2 from '../assets/matt-2.png';
+import matt3 from '../assets/matt-3.png';
+import matt4 from '../assets/matt-4.png';
+import matt5 from '../assets/matt-5.png';
+import matt6 from '../assets/matt-6.png';
+import matt7 from '../assets/matt-7.png';
+
+const images = [matt1.src, matt2.src, matt3.src, matt4.src, matt5.src, matt6.src, matt7.src];
+---
+<div class="flex items-center justify-center min-h-screen px-4">
+    <span class="text-lg md:text-xl max-w-2xl text-black dark:text-gray-200 text-left">
+    <h1>
+      <a href="/about" id="aboutLink" class="group inline-flex items-center no-underline">
+        <span class="font-bold relative inline-block pb-1 transition-colors duration-300 group-hover:animate-[text-rainbow-cycle_3s_linear_infinite_alternate]">
+          Matt Cotter
+          <span class="absolute bottom-0 left-0 w-full h-0.5 bg-blue-400 transition-all duration-300 ease-out group-hover:h-1 group-hover:bg-blue-600"></span>
+          <span class="absolute bottom-0 left-0 w-full h-0.5 bg-purple-500 transition-all duration-300 ease-out delay-100 opacity-0 group-hover:opacity-100 group-hover:h-1"></span>
+        </span>
+        <img
+          id="rotatingImage"
+          src={images[0]}
+          alt="Rotating Image"
+          class="w-12 h-12 object-contain ml-2 inline-block"
+          data-images={JSON.stringify(images)}
+        />
+      </a> is a web developer with over 12 years of experience, based in Cincinnati, Ohio.</h1>
+      <h3>He specializes in building fast, responsive, and user-friendly websites for everyone. When he’s not coding, he enjoys life with his wife & daughter.</h3>
+    </span>
+  </div>
+  
+  <script is:inline type="module">
+    const aboutLink = document.getElementById('aboutLink');
+    const image = document.getElementById('rotatingImage');
+    const images = JSON.parse(image.dataset.images || '[]');
+    let index = 0;
+    let rotationInterval;
+  
+    const isTouch = window.matchMedia('(hover: none)').matches;
+  
+    const startRotation = () => {
+      if (!rotationInterval) {
+        rotationInterval = setInterval(() => {
+          index = (index + 1) % images.length;
+          image.src = images[index];
+        }, 500);
+      }
+    };
+  
+    const stopRotation = () => {
+      clearInterval(rotationInterval);
+      rotationInterval = null;
+      image.src = images[0];
+      index = 0;
+    };
+  
+    if (isTouch) {
+      const rotateOnce = () => {
+        index = (index + 1) % images.length;
+        image.src = images[index];
+      };
+      image.addEventListener('click', rotateOnce);
+    } else {
+      aboutLink.addEventListener('mouseenter', startRotation);
+      aboutLink.addEventListener('mouseleave', stopRotation);
+    }
+  </script>
