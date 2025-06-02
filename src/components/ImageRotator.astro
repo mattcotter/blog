@@ -10,8 +10,8 @@ import matt7 from '../assets/matt-7.png';
 const images = [matt1.src, matt2.src, matt3.src, matt4.src, matt5.src, matt6.src, matt7.src];
 ---
 <div class="flex items-center justify-center min-h-screen px-4">
-    <span class="text-lg md:text-xl max-w-2xl text-black dark:text-gray-200 text-left">
-    <h1>
+    <div class="text-lg md:text-xl max-w-2xl text-left">
+    <h1 class="">
       <a href="/about" id="aboutLink" class="group inline-flex items-center no-underline">
         <span class="font-bold relative inline-block pb-1 transition-colors duration-300 group-hover:animate-[text-rainbow-cycle_3s_linear_infinite_alternate]">
           Matt Cotter
@@ -25,9 +25,9 @@ const images = [matt1.src, matt2.src, matt3.src, matt4.src, matt5.src, matt6.src
           class="w-12 h-12 object-contain ml-2 inline-block"
           data-images={JSON.stringify(images)}
         />
-      </a> is a web developer with over 12 years of experience, based in Cincinnati, Ohio.</h1>
-      <h3>He specializes in building fast, responsive, and user-friendly websites for everyone. When he’s not coding, he enjoys life with his wife & daughter.</h3>
-    </span>
+      </a> is a front-end developer with over 12 years of experience, based in Cincinnati, Ohio.</h1>
+      <h3>He specializes in building fast, responsive, & user-friendly websites for everyone. When he’s not coding, he enjoys life with his wife & daughter.</h3>
+    </div>
   </div>
   
   <script is:inline type="module">

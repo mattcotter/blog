@@ -19,45 +19,43 @@ body {
 :root {
     --bg: #ffffff;
     --text: #000000;
-    }
+}
     
-    .dark {
+.dark {
     --bg: #121212;
     --text: #f5f5f5;
-    }
+}
     
-    body {
-    background-color: var(--bg);
-    color: var(--text);
+body {
     transition: background 0.3s ease, color 0.3s ease;
-    }
+}
     
-    /* Toggle Button Styling */
-    /* Base styles for .theme-toggle */
-    .theme-toggle {
-        position: fixed;
-        top: 1rem;
-        right: 1rem;
-        border: none;
-        cursor: pointer;
-        padding: 0.5rem;
-        border-radius: 0.5rem;
-        color: var(--text); /* This handles the icon color based on theme */
-        z-index: 1000;
-    
-        /* Default background for LIGHT mode */
-        background-color: #eee; /* Dark background for the button in light mode */
-    
-        /* Add transition for background-color as well if you want it to animate */
-        transition: background-color 0.3s ease, color 0.3s ease;
-    }
-    
-    /* Dark mode: Override background for the button */
-    /* This selector (.dark .theme-toggle) is more specific than just .theme-toggle */
-    .dark .theme-toggle {
-        background-color: #333; /* Light background for the button in dark mode */
-        /* The icon color (var(--text)) will automatically be light due to the .dark class on <html> */
-    }   
+/* Toggle Button Styling */
+/* Base styles for .theme-toggle */
+.theme-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    color: var(--text); /* This handles the icon color based on theme */
+    z-index: 1000;
+
+    /* Default background for LIGHT mode */
+    background-color: #eee; /* Dark background for the button in light mode */
+
+    /* Add transition for background-color as well if you want it to animate */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Dark mode: Override background for the button */
+/* This selector (.dark .theme-toggle) is more specific than just .theme-toggle */
+.dark .theme-toggle {
+    background-color: #333; /* Light background for the button in dark mode */
+    /* The icon color (var(--text)) will automatically be light due to the .dark class on <html> */
+}   
 
 @font-face {
     font-family: 'raleway';
