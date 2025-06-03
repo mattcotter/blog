@@ -29,7 +29,11 @@ body {
 body {
     transition: background 0.3s ease, color 0.3s ease;
 }
-    
+
+a.about-link:hover {
+    cursor: pointer;
+    transition: text-shadow 0.3s ease-in-out;
+  }
 /* Toggle Button Styling */
 /* Base styles for .theme-toggle */
 .theme-toggle {
@@ -49,6 +53,19 @@ body {
     /* Add transition for background-color as well if you want it to animate */
     transition: background-color 0.3s ease, color 0.3s ease;
 }
+
+#custom-cursor {
+    position: fixed;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    font-size: 0.85rem;
+    background: white;
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    z-index: 9999;
+  }
 
 /* Dark mode: Override background for the button */
 /* This selector (.dark .theme-toggle) is more specific than just .theme-toggle */

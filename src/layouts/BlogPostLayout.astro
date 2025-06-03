@@ -1,0 +1,36 @@
+---
+// src/layouts/BlogPostLayout.astro
+import NavLayout from './NavLayout.astro';
+
+interface Props {
+  title: string;
+  pubDate: Date;
+  author?: string; // Optional
+  image?: string;  // Optional
+  tags?: string[]; // Optional
+}
+
+const { title, pubDate, author, image, tags } = Astro.props;
+---
+
+<NavLayout pageTitle={title}>
+  <article class="prose lg:prose-xl mx-auto py-8">
+    <h1 class="text-4xl font-bold mb-4">{title}</h1>
+    <p class="text-gray-600 text-sm">Published: {pubDate.toLocaleDateString()}</p>
+    {author && <p class="text-gray-600 text-sm">By: {author}</p>}
+    {tags && (
+      <div class="flex flex-wrap gap-2 mt-2">
+        {tags.map((tag) => (
+          <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2.5 py-0.5 rounded-full">
+            {tag}
+          </span>
+        ))}
+      </div>
+    )}
+    {image && <img src={image} alt={title} class="w-full h-auto mt-4 rounded-lg" />}
+
+    <div class="mt-8">
+      <slot /> {/* This is where the Markdown content will be rendered */}
+    </div>
+  </article>
+</NavLayout>

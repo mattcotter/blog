@@ -9,14 +9,14 @@ import matt7 from '../assets/matt-7.png';
 
 const images = [matt1.src, matt2.src, matt3.src, matt4.src, matt5.src, matt6.src, matt7.src];
 ---
-<div class="flex items-center justify-center min-h-screen px-4">
-    <div class="text-lg md:text-xl max-w-2xl text-left">
+<div class="flex flex-col md:flex-row items-center justify-center min-h-screen px-4 text-center md:text-left">
+    <div class="text-lg md:text-xl leading-relaxed space-y-4 max-w-2xl">
     <h1 class="">
-      <a href="/about" id="aboutLink" class="group inline-flex items-center no-underline">
-        <span class="font-bold relative inline-block pb-1 transition-colors duration-300 group-hover:animate-[text-rainbow-cycle_3s_linear_infinite_alternate]">
+      <a href="/about" id="aboutLink" class="about-link group inline-flex items-center no-underline">
+        <span class="font-bold relative inline-block pb-1 transition-colors duration-300 animate-[text-rainbow-cycle_3s_linear_infinite_alternate] md:animate-none md:group-hover:animate-[text-rainbow-cycle_3s_linear_infinite_alternate]">
           Matt Cotter
-          <span class="absolute bottom-0 left-0 w-full h-0.5 bg-blue-400 transition-all duration-300 ease-out group-hover:h-1 group-hover:bg-blue-600"></span>
-          <span class="absolute bottom-0 left-0 w-full h-0.5 bg-purple-500 transition-all duration-300 ease-out delay-100 opacity-0 group-hover:opacity-100 group-hover:h-1"></span>
+          <span class="absolute bottom-0 left-0 w-full h-0.5 bg-blue-600 transition-all duration-300 ease-out md:h-0.5 md:bg-blue-400 md:group-hover:h-1 md:group-hover:bg-blue-600"></span>
+          <span class="absolute bottom-0 left-0 w-full h-0.5 bg-purple-500 transition-all duration-300 ease-out delay-100 opacity-100 md:opacity-0 md:group-hover:opacity-100 md:group-hover:h-1"></span>
         </span>
         <img
           id="rotatingImage"
@@ -25,7 +25,9 @@ const images = [matt1.src, matt2.src, matt3.src, matt4.src, matt5.src, matt6.src
           class="w-12 h-12 object-contain ml-2 inline-block"
           data-images={JSON.stringify(images)}
         />
-      </a> is a front-end developer with over 12 years of experience, based in Cincinnati, Ohio.</h1>
+      </a>
+      <div id="custom-cursor" class="text-gray-900">👋 Hey, that's me!</div>
+       is a front-end developer with over 12 years of experience, based in Cincinnati, Ohio.</h1>
       <h3>He specializes in building fast, responsive, & user-friendly websites for everyone. When he’s not coding, he enjoys life with his wife & daughter.</h3>
     </div>
   </div>
@@ -36,9 +38,22 @@ const images = [matt1.src, matt2.src, matt3.src, matt4.src, matt5.src, matt6.src
     const images = JSON.parse(image.dataset.images || '[]');
     let index = 0;
     let rotationInterval;
+    const cursor = document.getElementById('custom-cursor');
+
+    // Custom cursor logic (stays the same, as it's for hover)
+    aboutLink.addEventListener('mouseenter', () => cursor.style.opacity = 1);
+    aboutLink.addEventListener('mouseleave', () => cursor.style.opacity = 0);
+    aboutLink.addEventListener('mousemove', (e) => {
+      cursor.style.left = `${e.pageX + 15}px`;
+      cursor.style.top = `${e.pageY + 15}px`;
+    });
   
+    // Check for touch device capability (no hover)
     const isTouch = window.matchMedia('(hover: none)').matches;
-  
+    // Check if the screen width is less than the MD breakpoint (e.g., 768px)
+    // This is for screens that might have hover capabilities but are still small.
+    const isSmallScreen = window.innerWidth < 768; 
+
     const startRotation = () => {
       if (!rotationInterval) {
         rotationInterval = setInterval(() => {
@@ -51,17 +66,18 @@ const images = [matt1.src, matt2.src, matt3.src, matt4.src, matt5.src, matt6.src
     const stopRotation = () => {
       clearInterval(rotationInterval);
       rotationInterval = null;
-      image.src = images[0];
-      index = 0;
+      image.src = images[0]; // Reset to first image
+      index = 0; // Reset index
     };
   
-    if (isTouch) {
-      const rotateOnce = () => {
-        index = (index + 1) % images.length;
-        image.src = images[index];
-      };
-      image.addEventListener('click', rotateOnce);
+    // Image Rotation Logic
+    if (isTouch || isSmallScreen) {
+      // For pure touch devices OR screens smaller than desktop breakpoint, start rotation immediately
+      startRotation();
+      // On these devices, the rotation will continue indefinitely on load.
+      // If you need a tap to stop it, add an event listener here.
     } else {
+      // For desktop (non-touch, large screens), use existing hover logic
       aboutLink.addEventListener('mouseenter', startRotation);
       aboutLink.addEventListener('mouseleave', stopRotation);
     }

@@ -1,0 +1,119 @@
+---
+import NavLayout from '../layouts/NavLayout.astro';
+import { Image } from 'astro:assets';
+import logo from '../assets/matt-cotter-logo.png';
+
+const pageTitle = "Matt Cotter || 👨‍💻 About Me";
+---
+
+<NavLayout pageTitle={pageTitle}>
+    <div class="w-full max-w-5xl rounded-lg p-8 md:p-12 mx-auto">
+        <h1>Hi, I'm Matt.</h1>
+        <h2 class="pb-5">I'm a Front End Developer with over 12 years experience.</h2>
+        <hr class="pb-10"/>
+        <div class="w-full max-w-4xl mx-auto">
+
+            <div class="flex">
+                <div class="flex-1/4">
+                    <h2 class="border-2 p-2 w-fit text-3xl font-bold mb-4">WORK</h2>
+                </div>
+        
+                <div class="flex-3/4">
+                    <div class="relative group inline-block">
+                        <h2 class="relative border-2 p-2 group text-lg md:text-2xl font-bold cursor-help">
+                            <span class="relative z-10">Reborn Consultants</span>
+                            <span class="absolute left-0 bottom-0 h-1 w-full bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full z-0"></span>
+                          </h2>
+                        <div class="absolute top-1/2 -right-32 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-yellow-400 text-2xl whitespace-nowrap">
+                          ⭐️⭐️⭐️⭐️⭐️
+                        </div>
+                      </div>
+                      
+                    <h5><em>Lead Web Developer</em></h5>
+                    <p><em>July 2024 – <strong>Present</strong></em></p>
+                    <ul class="list-disc list-outside pl-6 space-y-2">
+                        <li>Designed and customized WordPress websites using Elementor and Beaver Builder, leveraging Advanced Custom Fields (ACF) for enhanced functionality.</li>
+                        <li>Created high-fidelity designs and prototypes in Figma to ensure visually appealing and user-friendly interfaces.</li>
+                        <li>Configured and managed Cloudflare DNS settings to optimize website performance and security.</li>
+                        <li>Administered cPanel and database management, overseeing multiple domains and e-commerce sites.</li>
+                        <li>Developed and integrated dynamic forms with Gravity Forms to streamline user interactions and data collection.</li>
+                        <li>Built and implemented third-party API integrations utilizing user data to enhance website functionality.</li>
+                        <li>Managed and customized WooCommerce stores, optimizing product listings, checkout processes, and overall user experience.</li>
+                        <li>Developed custom Retool applications for delivery drivers, leveraging JavaScript and MySQL to streamline operations and improve efficiency.</li>
+                      </ul>
+                      <div class="relative group inline-block">
+                        <h2 class="relative border-2 p-2 group text-lg md:text-2xl font-bold cursor-help">
+                            <span class="relative z-10">Self-employed</span>
+                            <span class="absolute left-0 bottom-0 h-1 w-full bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full z-0"></span>
+                          </h2>
+                        <div class="absolute top-1/2 -right-32 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-yellow-400 text-2xl whitespace-nowrap">
+                          ⭐️⭐️⭐️⭐️⭐️
+                        </div>
+                      </div>
+                      <h5><em>Freelance Web Developer</em></h5>
+                      <p><em>November 2023 – <strong>Present</strong></em></p>
+                      <ul class="list-disc list-outside pl-6 space-y-2">
+                        <li>Managed digital and social media campaigns for Chicory Tea Co. and Willows Home & Gifts.</li>
+                        <li>Designed, administered, and maintained CMS platforms including WordPress, WooCommerce, Shopify.</li>
+                        <li>Integrated Moneris, Square, Stripe payment systems.</li>
+                        <li>Produced marketing videos and branding graphics.</li>
+                        <li>Multiple employee of the month awards.</li>
+                      </ul>
+                      <div class="relative group inline-block">
+                        <h2 class="relative border-2 p-2 group text-lg md:text-2xl font-bold cursor-help">
+                            <span class="relative z-10">Stratacache</span>
+                            <span class="absolute left-0 bottom-0 h-1 w-full bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full z-0"></span>
+                          </h2>
+                        <div class="absolute top-1/2 -right-32 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-yellow-400 text-2xl whitespace-nowrap">
+                          ⭐️✨
+                        </div>
+                      </div>
+                      <h5><em>Application Developer</em></h5>
+                      <p><em>October 2021 - January 2024</em></p>
+                      <ul class="list-disc list-outside pl-6 space-y-2">
+                        <li>Maintained digital menu board systems for <strong>McDonald's, Popeyes, and Tim Hortons.</strong></li>
+                        <li>Used Vue.js, TypeScript, HTML/CSS, and SASS.</li>
+                        <li>Collaborated with Brand Managers and QA for visual implementation across dayparts.</li>
+                      </ul>
+                      <div class="relative group inline-block">
+                        <h2 class="relative border-2 p-2 group text-lg md:text-2xl font-bold cursor-help">
+                            <span class="relative z-10">NASIC, Department of Defense</span>
+                            <span class="absolute left-0 bottom-0 h-1 w-full bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full z-0"></span>
+                          </h2>
+                        <div class="absolute top-1/2 -right-32 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-yellow-400 text-2xl whitespace-nowrap">
+                          ⭐️
+                        </div>
+                      </div>
+                      <h5><em>IT Specialist – Wright-Patterson Air Force Base</em></h3>
+                      <p><em>September 2020 – October 2021</em></p>
+                      <ul class="list-disc list-outside pl-6 space-y-2">
+                        <li>Held Top Security Clearance while building web apps for base operations.</li>
+                        <li>Used Agile methodologies, Vue.js, Nuxt.js, Django, HTML/CSS, and SASS.</li>
+                        <li>Built mockups in Adobe XD and presented functional demos to stakeholders.</li>
+                      </ul>
+                  
+                      <div class="relative group inline-block">
+                        <h2 class="relative border-2 p-2 group text-lg md:text-2xl font-bold cursor-help">
+                            <span class="relative z-10">GE Aerospace</span>
+                            <span class="absolute left-0 bottom-0 h-1 w-full bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full z-0"></span>
+                          </h2>
+                        <div class="absolute top-1/2 -right-32 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-yellow-400 text-2xl whitespace-nowrap">
+                          ⭐️⭐️⭐️⭐️✨
+                        </div>
+                      </div>
+                      <h5><em>Lead Front End Developer</em></h5>
+                      <p><em>October 2018 – April 2020</em></p>
+                      <ul class="list-disc list-outside pl-6 space-y-2">
+                        <li>Led front-end for GE Aviation's internal Auxiliary Design System.</li>
+                        <li>Worked in Agile sprints, collaborating with UX Designers and 600+ developers globally.</li>
+                        <li>Maintained source documentation and assisted internal teams with integration.</li>
+                      </ul>
+                      
+                </div>
+            </div>
+        
+        </div>
+        
+    
+    </div>
+</NavLayout>
