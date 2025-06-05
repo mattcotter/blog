@@ -36,16 +36,31 @@ const latestPosts = sortedPosts.slice(0, 2);
   </div>
 
   <div class="max-w-3xl flex gap-4">
-    {latestPosts.map(post => (
-      <div class="w-1/2 border-t-2 border-r-2 border-blue-400 rounded-tr-lg p-4">
-        <a href={post.url} class="text-lg font-semibold text-blue-300 hover:underline">
-          {post.frontmatter.title}
-        </a>
-        <p class="text-sm text-gray-400">{new Date(post.frontmatter.pubDate).toLocaleDateString()}</p>
-        {post.frontmatter.description && (
-          <p class="text-gray-300 mt-1">{post.frontmatter.description}</p>
-        )}
-      </div>
-    ))}
+	{latestPosts.map(post => (
+	  <a 
+		href={post.url} 
+		class="w-1/2 border-t-2 border-r-2 border-blue-400 rounded-tr-lg p-4 relative block hover:bg-gray-900/50 transition"
+	  >
+		<!-- Top-left corner icon -->
+		<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="absolute top-2 right-2 w-5 h-5 text-blue-400 opacity-70 group-hover:opacity-100 pointer-events-none">
+			<path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+		</svg>
+
+		<div class="pl-2"> 
+		  <span class="text-lg font-semibold text-blue-300 mb-1">{post.frontmatter.title}</span>
+		  <p class="text-sm text-gray-400">{new Date(post.frontmatter.pubDate).toLocaleDateString()}</p>
+		  {post.frontmatter.description && (
+			<p class="text-gray-300 mt-2 text-sm">{post.frontmatter.description}</p>
+		  )}
+		</div>
+	  </a>
+	))}
+  </div>
+
+  <div class="max-w-3xl py-6 flex justify-between items-center">
+    <h2 class="text-2xl font-bold">Projects</h2>
+    <a href="/blog" class="inline-block px-6 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+      View Work
+    </a>
   </div>
 </NavLayout>
