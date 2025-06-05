@@ -1,0 +1,127 @@
+---
+// Import Swiper CSS
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+
+const jobs = [
+  {
+    company: "Reborn Consultants",
+    stars: "Wordpress, Retool, PHP",
+    role: "Lead Web Developer",
+    dates: "July 2024 – Present",
+    details: [
+      "Designed and customized WordPress websites using Elementor and Beaver Builder, leveraging Advanced Custom Fields (ACF) for enhanced functionality.",
+      "Created high-fidelity designs and prototypes in Figma to ensure visually appealing and user-friendly interfaces.",
+      "Configured and managed Cloudflare DNS settings to optimize website performance and security.",
+      "Administered cPanel and database management, overseeing multiple domains and e-commerce sites.",
+      "Developed and integrated dynamic forms with Gravity Forms to streamline user interactions and data collection.",
+      "Built and implemented third-party API integrations utilizing user data to enhance website functionality.",
+      "Managed and customized WooCommerce stores, optimizing product listings, checkout processes, and overall user experience.",
+      "Developed custom Retool applications, leveraging JavaScript and MySQL to streamline operations and improve efficiency."
+    ]
+  },
+  {
+    company: "Self-employed",
+    stars: "Wordpress, Shopify, PHP",
+    role: "Freelance Web Developer",
+    dates: "November 2023 – Present",
+    details: [
+      "Managed digital and social media campaigns for Chicory Tea Co. and Willows Home & Gifts.",
+      "Designed, administered, and maintained CMS platforms including WordPress, WooCommerce, Shopify.",
+      "Integrated Moneris, Square, Stripe payment systems.",
+      "Produced marketing videos and branding graphics.",
+      "Multiple employee of the month awards."
+    ]
+  },
+  {
+    company: "Stratacache",
+    stars: "Vue, Typescript",
+    role: "Application Developer",
+    dates: "October 2021 - January 2024",
+    details: [
+      "Maintained digital menu board systems for McDonald's, Popeyes, and Tim Hortons.",
+      "Used Vue.js, TypeScript, HTML/CSS, and SASS.",
+      "Collaborated with Brand Managers and QA for visual implementation across dayparts."
+    ]
+  },
+  {
+    company: "NASIC, Department of Defense",
+    stars: "Vue, Django, Nuxt.js",
+    role: "IT Specialist – Wright-Patterson Air Force Base",
+    dates: "September 2020 – October 2021",
+    details: [
+      "Held Top Security Clearance while building web apps for base operations.",
+      "Used Agile methodologies, Vue.js, Nuxt.js, Django, HTML/CSS, and SASS.",
+      "Built mockups in Adobe XD and presented functional demos to stakeholders."
+    ]
+  },
+  {
+    company: "GE Aerospace",
+    stars: "Vue, Javascript, CI/CD, AWS",
+    role: "Lead Front End Developer",
+    dates: "October 2018 – April 2020",
+    details: [
+      "Led front-end work for GE Aerospace's internal Auxiliary Design System.",
+      "Collaborated with UX Designers and 600+ developers globally.",
+      "Maintained source documentation and assisted internal teams with integration."
+    ]
+  },
+];
+---
+
+<section class="w-full py-10 bg-gray-950/50 text-white border rounded-xl">
+  
+        <div class="relative swiper mySwiper max-w-4xl mx-auto">
+        <div class="swiper-wrapper">
+            {jobs.map((job, i) => (
+            <div class="swiper-slide px-10">
+                <div class="p-6 rounded-lg shadow-lg h-full">
+                <div class="relative group inline-block mb-2">
+                    <h2
+                    class={`relative border-2 mb-2 p-2 group text-lg md:text-2xl font-bold cursor-help custom-cursor-trigger ${i === 0 ? null : 'mt-5'}`}
+                    data-stars={job.stars}
+                    >
+                    <span class="relative z-10">{job.company}</span>
+                    <span class="absolute left-0 bottom-0 h-1 w-full bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full z-0"></span>
+                    </h2>
+                </div>
+                <h5 class="italic text-pink-400">{job.role}</h5>
+                <p class="text-sm text-gray-400 mb-4 italic">{job.dates}</p>
+                <ul class="list-disc list-outside pl-6 space-y-2 text-sm">
+                    {job.details.map((detail) => (
+                    <li>{detail}</li>
+                    ))}
+                </ul>
+                </div>
+            </div>
+            ))}
+        </div>
+  
+        <div class="swiper-button-prev !text-white absolute -left-10 top-1/2 -translate-y-1/2 z-10"></div>
+        <div class="swiper-button-next !text-white absolute -right-10 top-1/2 -translate-y-1/2 z-10"></div>
+
+
+      <div class="swiper-pagination mt-4"></div>
+    </div>
+  </section>
+  
+  <script>
+    import Swiper from 'swiper';
+    import { Navigation, Pagination } from 'swiper/modules';
+  
+    new Swiper('.mySwiper', {
+      modules: [Navigation, Pagination],
+      slidesPerView: 1,
+      spaceBetween: 30,
+      loop: true,
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+    });
+  </script>

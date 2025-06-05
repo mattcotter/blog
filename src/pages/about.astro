@@ -1,119 +1,149 @@
 ---
+import JobSwiper from '../components/JobSwiper.astro';
 import NavLayout from '../layouts/NavLayout.astro';
-import { Image } from 'astro:assets';
-import logo from '../assets/matt-cotter-logo.png';
 
 const pageTitle = "Matt Cotter || 👨‍💻 About Me";
+
+import matt1 from '../assets/matt-1.png';
+import matt2 from '../assets/matt-2.png';
+import matt3 from '../assets/matt-3.png';
+import matt4 from '../assets/matt-4.png';
+import matt5 from '../assets/matt-5.png';
+import matt6 from '../assets/matt-6.png';
+import matt7 from '../assets/matt-7.png';
+
+const images = [matt1.src, matt2.src, matt3.src, matt4.src, matt5.src, matt6.src, matt7.src];
 ---
 
 <NavLayout pageTitle={pageTitle}>
-    <div class="w-full max-w-5xl rounded-lg p-8 md:p-12 mx-auto">
-        <h1>Hi, I'm Matt.</h1>
-        <h2 class="pb-5">I'm a Front End Developer with over 12 years experience.</h2>
-        <hr class="pb-10"/>
-        <div class="w-full max-w-4xl mx-auto">
-
-            <div class="flex">
-                <div class="flex-1/4">
-                    <h2 class="border-2 p-2 w-fit text-3xl font-bold mb-4">WORK</h2>
-                </div>
-        
-                <div class="flex-3/4">
-                    <div class="relative group inline-block">
-                        <h2 class="relative border-2 p-2 group text-lg md:text-2xl font-bold cursor-help">
-                            <span class="relative z-10">Reborn Consultants</span>
-                            <span class="absolute left-0 bottom-0 h-1 w-full bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full z-0"></span>
-                          </h2>
-                        <div class="absolute top-1/2 -right-32 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-yellow-400 text-2xl whitespace-nowrap">
-                          ⭐️⭐️⭐️⭐️⭐️
-                        </div>
-                      </div>
-                      
-                    <h5><em>Lead Web Developer</em></h5>
-                    <p><em>July 2024 – <strong>Present</strong></em></p>
-                    <ul class="list-disc list-outside pl-6 space-y-2">
-                        <li>Designed and customized WordPress websites using Elementor and Beaver Builder, leveraging Advanced Custom Fields (ACF) for enhanced functionality.</li>
-                        <li>Created high-fidelity designs and prototypes in Figma to ensure visually appealing and user-friendly interfaces.</li>
-                        <li>Configured and managed Cloudflare DNS settings to optimize website performance and security.</li>
-                        <li>Administered cPanel and database management, overseeing multiple domains and e-commerce sites.</li>
-                        <li>Developed and integrated dynamic forms with Gravity Forms to streamline user interactions and data collection.</li>
-                        <li>Built and implemented third-party API integrations utilizing user data to enhance website functionality.</li>
-                        <li>Managed and customized WooCommerce stores, optimizing product listings, checkout processes, and overall user experience.</li>
-                        <li>Developed custom Retool applications for delivery drivers, leveraging JavaScript and MySQL to streamline operations and improve efficiency.</li>
-                      </ul>
-                      <div class="relative group inline-block">
-                        <h2 class="relative border-2 p-2 group text-lg md:text-2xl font-bold cursor-help">
-                            <span class="relative z-10">Self-employed</span>
-                            <span class="absolute left-0 bottom-0 h-1 w-full bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full z-0"></span>
-                          </h2>
-                        <div class="absolute top-1/2 -right-32 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-yellow-400 text-2xl whitespace-nowrap">
-                          ⭐️⭐️⭐️⭐️⭐️
-                        </div>
-                      </div>
-                      <h5><em>Freelance Web Developer</em></h5>
-                      <p><em>November 2023 – <strong>Present</strong></em></p>
-                      <ul class="list-disc list-outside pl-6 space-y-2">
-                        <li>Managed digital and social media campaigns for Chicory Tea Co. and Willows Home & Gifts.</li>
-                        <li>Designed, administered, and maintained CMS platforms including WordPress, WooCommerce, Shopify.</li>
-                        <li>Integrated Moneris, Square, Stripe payment systems.</li>
-                        <li>Produced marketing videos and branding graphics.</li>
-                        <li>Multiple employee of the month awards.</li>
-                      </ul>
-                      <div class="relative group inline-block">
-                        <h2 class="relative border-2 p-2 group text-lg md:text-2xl font-bold cursor-help">
-                            <span class="relative z-10">Stratacache</span>
-                            <span class="absolute left-0 bottom-0 h-1 w-full bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full z-0"></span>
-                          </h2>
-                        <div class="absolute top-1/2 -right-32 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-yellow-400 text-2xl whitespace-nowrap">
-                          ⭐️✨
-                        </div>
-                      </div>
-                      <h5><em>Application Developer</em></h5>
-                      <p><em>October 2021 - January 2024</em></p>
-                      <ul class="list-disc list-outside pl-6 space-y-2">
-                        <li>Maintained digital menu board systems for <strong>McDonald's, Popeyes, and Tim Hortons.</strong></li>
-                        <li>Used Vue.js, TypeScript, HTML/CSS, and SASS.</li>
-                        <li>Collaborated with Brand Managers and QA for visual implementation across dayparts.</li>
-                      </ul>
-                      <div class="relative group inline-block">
-                        <h2 class="relative border-2 p-2 group text-lg md:text-2xl font-bold cursor-help">
-                            <span class="relative z-10">NASIC, Department of Defense</span>
-                            <span class="absolute left-0 bottom-0 h-1 w-full bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full z-0"></span>
-                          </h2>
-                        <div class="absolute top-1/2 -right-32 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-yellow-400 text-2xl whitespace-nowrap">
-                          ⭐️
-                        </div>
-                      </div>
-                      <h5><em>IT Specialist – Wright-Patterson Air Force Base</em></h3>
-                      <p><em>September 2020 – October 2021</em></p>
-                      <ul class="list-disc list-outside pl-6 space-y-2">
-                        <li>Held Top Security Clearance while building web apps for base operations.</li>
-                        <li>Used Agile methodologies, Vue.js, Nuxt.js, Django, HTML/CSS, and SASS.</li>
-                        <li>Built mockups in Adobe XD and presented functional demos to stakeholders.</li>
-                      </ul>
-                  
-                      <div class="relative group inline-block">
-                        <h2 class="relative border-2 p-2 group text-lg md:text-2xl font-bold cursor-help">
-                            <span class="relative z-10">GE Aerospace</span>
-                            <span class="absolute left-0 bottom-0 h-1 w-full bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full z-0"></span>
-                          </h2>
-                        <div class="absolute top-1/2 -right-32 transform -translate-y-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-yellow-400 text-2xl whitespace-nowrap">
-                          ⭐️⭐️⭐️⭐️✨
-                        </div>
-                      </div>
-                      <h5><em>Lead Front End Developer</em></h5>
-                      <p><em>October 2018 – April 2020</em></p>
-                      <ul class="list-disc list-outside pl-6 space-y-2">
-                        <li>Led front-end for GE Aviation's internal Auxiliary Design System.</li>
-                        <li>Worked in Agile sprints, collaborating with UX Designers and 600+ developers globally.</li>
-                        <li>Maintained source documentation and assisted internal teams with integration.</li>
-                      </ul>
-                      
-                </div>
-            </div>
-        
+  <div>
+    <h1 class="pb-4">Hi, I'm Matt.</h1>
+    <h2 class="pb-4">I'm a Front End Developer with over 12 years experience.</h2>
+    <p class="pb-4">
+      I've worked with companies, both large & small. I've made a career of taking on new challenges, from helping <strong>McDonald's Digital Menuboards</strong> to <strong>GE Aerospace's Design System</strong>.
+    </p>
+    <hr class="pb-10" />
+    <div class="w-full">
+      <div class="flex">
+  
+        <div>
+          <JobSwiper />
         </div>
-        
-    
+      </div>
     </div>
+  </div>
+
+  <div class="fixed bottom-4 right-4 w-[300px] h-[300px] z-40"> {/* Container for image and button */}
+      <img
+          id="rotatingImage"
+          src={images[0]}
+          alt="Rotating Image"
+          class="w-full h-full object-cover rounded-lg"
+          data-images={JSON.stringify(images)}
+      />
+      <button
+          id="restartRotationBtn"
+          class="absolute bottom-2 right-2 bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full shadow-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+          aria-label="Restart image rotation"
+          title="Restart rotation"
+      >
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+      </svg>
+      
+      </button>
+  </div>
+
+  <div id="custom-cursor" class="fixed z-50 opacity-0 bg-blue-950 text-2xl transition-opacity duration-200"></div>
 </NavLayout>
+
+<script is:inline>
+  console.log('Custom cursor script is attempting to run!');
+
+  const customCursor = document.getElementById('custom-cursor');
+  console.log('Custom cursor element found:', customCursor);
+
+  document.addEventListener('mousemove', (e) => {
+    if (customCursor) {
+      customCursor.style.position = 'fixed';
+      customCursor.style.left = `${e.clientX + 3}px`;
+      customCursor.style.top = `${e.clientY + 3}px`;
+    }
+  });
+
+  console.log('Global mousemove listener attached.');
+
+  const triggerElements = document.querySelectorAll('.custom-cursor-trigger');
+  console.log('Trigger elements found:', triggerElements);
+
+  triggerElements.forEach(element => {
+    console.log('Attaching event listeners to:', element);
+    element.addEventListener('mouseenter', () => {
+      console.log('Mouse entered:', element.textContent);
+      if (customCursor) {
+        const stars = element.dataset.stars;
+        console.log('Stars to display:', stars);
+        if (stars) {
+          customCursor.innerHTML = stars;
+        }
+        customCursor.style.opacity = 1;
+      }
+    });
+
+    element.addEventListener('mouseleave', () => {
+      console.log('Mouse left:', element.textContent);
+      if (customCursor) {
+        customCursor.style.opacity = 0;
+        customCursor.innerHTML = '';
+      }
+    });
+  });
+  console.log('All trigger elements processed.');
+
+  // --- Image Rotation Logic ---
+  const rotatingImage = document.getElementById('rotatingImage');
+  const restartRotationBtn = document.getElementById('restartRotationBtn');
+  const images = JSON.parse(rotatingImage.dataset.images || '[]');
+  let currentRotationIndex = 0;
+  let rotationTimeout;
+  const baseDelay = 250; // Increased base delay for slower start
+  const maxDelayIncrease = 500; // Maximum additional delay for slowdown
+  const numberOfFullCycles = 2; // How many full times it rotates before stopping
+  const totalRotationSteps = images.length * numberOfFullCycles;
+  let finalImageIndex; // This will be set randomly on each new rotation
+
+  const animateRotation = (step = 0) => {
+    if (step < totalRotationSteps) {
+      // Rotate through images for the specified number of cycles
+      rotatingImage.src = images[step % images.length];
+
+      // Calculate delay, slowing down as it approaches the end of the cycles
+      // This creates a gradual slowdown.
+      const progress = step / totalRotationSteps;
+      const currentDelay = baseDelay + (progress * maxDelayIncrease);
+      
+      rotationTimeout = setTimeout(() => animateRotation(step + 1), currentDelay);
+    } else {
+      // Once the full cycles are done, set the final random image with a slight pause
+      rotationTimeout = setTimeout(() => {
+        rotatingImage.src = images[finalImageIndex];
+      }, 300); // Small pause before showing the final image
+    }
+  };
+
+  const startRandomRotation = () => {
+    clearTimeout(rotationTimeout); // Clear any existing animation
+    currentRotationIndex = 0; // Reset the rotation counter
+    finalImageIndex = Math.floor(Math.random() * images.length); // Choose a new random image to end on
+    rotatingImage.src = images[0]; // Immediately show the first image to start the sequence
+    animateRotation(); // Begin the animation
+  };
+
+  // Start the rotation when the page loads
+  document.addEventListener('DOMContentLoaded', startRandomRotation);
+
+  // Attach event listener to the restart button
+  if (restartRotationBtn) {
+    restartRotationBtn.addEventListener('click', startRandomRotation);
+  }
+</script>

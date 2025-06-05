@@ -14,18 +14,19 @@ interface NavLayoutProps {
 }
 
 const { pageTitle } = Astro.props;
+const currentPath = Astro.url.pathname;
 
-// Fetch the latest blog post for the notification bar
-const allPosts = Object.values(import.meta.glob('../pages/posts/*.md', { eager: true })) as MarkdownInstance<BlogPostFrontmatter>[];
+// Define all navigation pages, including Home, with a strikethroughColor
+const navPages = [
+  { name: 'Home', href: '/', strikethroughColor: '#ef4444' }, // red-500
+  { name: 'Portfolio', href: '/portfolio', strikethroughColor: '#f97316' }, // orange-500
+  { name: 'About', href: '/about', strikethroughColor: '#eab308' }, // yellow-500
+  { name: 'Blog', href: '/blog', strikethroughColor: '#22c55e' }, // green-500
+];
 
-const sortedPosts = allPosts.sort((a, b) => {
-    const dateA = new Date(a.frontmatter.pubDate);
-    const dateB = new Date(b.frontmatter.pubDate);
-    return dateB.getTime() - dateA.getTime();
-});
-const latestPost = sortedPosts.length > 0 ? sortedPosts[0] : null;
 
-// Navigation icons
+
+// Navigation icons (these will still be used within the top-left navigation)
 const icons = [
   {
     name: 'Portfolio',
@@ -117,103 +118,96 @@ const socialLinks = [
         <meta name="generator" content={Astro.generator} />
         <title>{pageTitle}</title>
     </head>
-    <body>
+    <body class="bg-gray-700 text-gray-100">
         <style>
-          @keyframes text-rainbow-cycle {
-            0%, 100% { color: #ef4444; }
-            20% { color: #f97316; }
-            40% { color: #eab308; }
-            60% { color: #22c55e; }
-            80% { color: #3b82f6; }
-          }
+.background-gradient-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
 
-          @keyframes slide-down {
-            0% {
-              transform: translateY(-100%);
-              opacity: 0;
-            }
-            100% {
-              transform: translateY(0);
-              opacity: 1;
-            }
-          }
+.background-gradient-animation::before,
+.background-gradient-animation::after {
+  content: "";
+  position: absolute;
+  width: 60vw;
+  height: 60vw;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.5;
+  animation: animateGradient 30s ease-in-out infinite;
+}
 
-          .animate-slide-down {
-            animation: slide-down 0.5s ease-out forwards;
-          }
+.background-gradient-animation::before {
+  top: 10%;
+  left: 5%;
+  background: radial-gradient(circle, rgba(66, 153, 225, 0.3), transparent 70%);
+  animation-delay: 0s;
+}
+
+.background-gradient-animation::after {
+  bottom: 10%;
+  right: 5%;
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.25), transparent 70%);
+  animation-delay: 10s;
+}
+
+@keyframes animateGradient {
+  0% {
+    transform: scale(1) translate(0, 0);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.2) translate(10px, -10px);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(1) translate(0, 0);
+    opacity: 0.4;
+  }
+}
+
+
         </style>
 
-        {latestPost && (
-          <div class="fixed top-0 left-0 w-full z-50">
-            <a href={latestPost.url} class="block text-center bg-gradient-to-r from-green-400 to-green-600 text-white text-sm py-2 px-4 animate-slide-down">
-              🎉 Latest Blog Post: <span class="font-bold">{latestPost.frontmatter.title}</span>
-            </a>
-          </div>
-        )}
-        <button id="theme-toggle" aria-label="Toggle dark mode" class="theme-toggle">
-            <svg id="theme-icon" xmlns="http://www.w3.org/2000/svg" stroke="currentColor" fill="currentColor" viewBox="0 0 24 24" stroke-width="1.5" class="size-6">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
-            </svg>
-        </button>
-        <main class="pt-12 pb-20">
-            <slot /> 
-        </main>
-        
-        <div class="fixed bottom-4 left-1/2 transform -translate-x-1/2 bg-[#ecf0f1] shadow-lg rounded-2xl px-4 py-2 flex items-center space-x-4 z-50 border border-gray-200">
+        {/* Background Animation Layer */}
+        <div class="background-animation-container">
+            {/* Choose ONE of the following (uncomment the one you want) */}
+            <div class="background-gradient-animation"></div>
+            {/* <div class="background-noise-animation"></div> */}
+        </div>
+
+        {/* Top-left navigation bar */}
+        <div class="top-left-nav">
             <a href="/" class="flex-shrink-0">
               <Image src={logo} alt="Logo" class="h-8 w-auto" />
             </a>
           
-            <div class="flex items-center space-x-4">
+            <div class="flex items-center space-x-4 ml-4"> {/* Added ml-4 for spacing */}
                 {icons.map((icon) => (
-                <a href={icon.href} class="text-gray-600 hover:text-blue-500 transition h-6 w-6">
+                <a href={icon.href} class="text-gray-600 hover:text-blue-400 transition h-6 w-6">
                     <span set:html={icon.svg} class="h-6 w-6"></span>
                 </a>
                 ))}
 
-                <div class="h-6 w-px bg-gray-300 hidden lg:inline-block"></div>
+                <div class="h-6 w-px bg-gray-500 hidden lg:inline-block"></div>
 
                 {socialLinks.map((link) => (
-                <a href={link.href} class="hidden md:inline-block text-gray-600 hover:text-blue-500 transition h-6 w-6" target="_blank" rel="noopener noreferrer">
+                <a href={link.href} class="hidden md:inline-block text-gray-600 hover:text-blue-400 transition h-6 w-6" target="_blank" rel="noopener noreferrer">
                     <span set:html={link.svg} class="h-6 w-6"></span>
                 </a>
                 ))}
             </div>
         </div>
+
+        <main class="pt-30 pb-30 flex flex-col md:flex-col px-4 text-center md:text-left max-w-3xl space-y-4">
+            <slot /> 
+        </main>
+        
     </body>
 </html>
-
-<script is:inline>
-    const toggleButton = document.getElementById('theme-toggle');
-    const icon = document.getElementById('theme-icon');
-
-    const sunIconPath = '<path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />';
-    const moonIconPath = '<path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />';
-
-    function setTheme(theme) {
-      document.documentElement.classList.toggle('dark', theme === 'dark');
-      localStorage.setItem('theme', theme);
-
-      if (theme === 'dark') {
-        icon.innerHTML = sunIconPath;
-       } else {
-        icon.innerHTML = moonIconPath;
-      }
-    }
-
-    toggleButton.addEventListener('click', () => {
-      const currentThemeIsDark = document.documentElement.classList.contains('dark');
-      const newTheme = currentThemeIsDark ? 'light' : 'dark';
-      setTheme(newTheme);
-    });
-
-    let initialTheme = 'light';
-    const savedTheme = localStorage.getItem('theme');
-
-    if (savedTheme) {
-      initialTheme = savedTheme;
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-      initialTheme = 'dark';
-    }
-    setTheme(initialTheme);
-</script>

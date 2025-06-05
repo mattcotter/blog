@@ -1,37 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
 @import "tailwindcss";
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
 
-/* Light mode styles */
-body {
-  @apply bg-white text-black transition-colors duration-300;
-}
 
 /* Dark mode styles */
-.dark body {
-  @apply bg-black text-white;
-}
-
-.dark .theme-toggle svg { 
-    fill: #fff;
-    stroke: #fff;
-}
-
-:root {
-    --bg: #ffffff;
-    --text: #000000;
-}
-    
-.dark {
-    --bg: #121212;
-    --text: #f5f5f5;
-}
-    
 body {
-    transition: background 0.3s ease, color 0.3s ease;
+  @apply bg-gray-800 text-blue-50;
 }
 
 a.about-link:hover {
-    cursor: pointer;
+    cursor: se-resize;
     transition: text-shadow 0.3s ease-in-out;
   }
 /* Toggle Button Styling */
@@ -54,13 +34,17 @@ a.about-link:hover {
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+.custom-cursor-trigger {
+    cursor: se-resize;
+}
+
 #custom-cursor {
     position: fixed;
     pointer-events: none;
+    cursor: ne-resize;
     opacity: 0;
     transition: opacity 0.2s;
     font-size: 0.85rem;
-    background: white;
     padding: 0.3rem 0.6rem;
     border-radius: 6px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
@@ -93,7 +77,6 @@ a.about-link:hover {
 h1, h2, h3, h4, h5, h6 {
     font-family: "Roboto Mono", monospace;
     font-optical-sizing: auto;
-  margin: 0.5em 0;
 }
 
 h1 {
@@ -147,4 +130,58 @@ h6 {
   
   .animate-slide-down {
     animation: slide-down 0.5s ease-out forwards;
+  }
+
+  @keyframes slide-down {
+    0% {
+      transform: translateY(100%);
+      opacity: 0;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .animate-slide-down {
+    animation: slide-down 0.5s ease-out forwards;
+  }
+
+  /* General styling for top-left navigation on all screen sizes */
+  .top-left-nav {
+    position: fixed;
+    top: 1rem; /* Adjust as needed for top margin */
+    left: 1rem; /* Adjust as needed for left margin */
+    z-index: 50;
+    background-color: #ecf0f1; /* Darker gray for the nav bar */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 1rem; /* rounded-2xl */
+    padding: 0.5rem 1rem; /* px-4 py-2 */
+    display: flex;
+    align-items: center;
+    border: 1px solid #64748b; /* Slightly lighter border for contrast */
+  }
+
+  /* Mobile centering for the top-left navigation */
+  @media (max-width: 767px) {
+    .top-left-nav {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }f
+
+  /* Added padding to the body to prevent content overlap with fixed nav */
+  body {
+    padding-top: 13rem; /* Adjust based on the height of your fixed nav elements (top-left-nav + page-titles-container) */
+    padding-left: 1rem; /* Maintain left alignment for main content */
+    padding-right: 1rem; /* Maintain right alignment for main content */
+    min-height: 100vh; /* Ensure body takes full viewport height */
+    box-sizing: border-box; /* Include padding in element's total width and height */
+  }
+
+  @media (max-width: 767px) {
+    body {
+        padding-left: 0.5rem; /* Adjust padding for smaller screens if needed */
+        padding-right: 0.5rem;
+    }
   }

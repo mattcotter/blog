@@ -9,8 +9,7 @@ import matt7 from '../assets/matt-7.png';
 
 const images = [matt1.src, matt2.src, matt3.src, matt4.src, matt5.src, matt6.src, matt7.src];
 ---
-<div class="flex flex-col md:flex-row items-center justify-center min-h-screen px-4 text-center md:text-left">
-    <div class="text-lg md:text-xl leading-relaxed space-y-4 max-w-2xl">
+    <div class="text-lg md:text-xl space-y-4">
     <h1 class="">
       <a href="/about" id="aboutLink" class="about-link group inline-flex items-center no-underline">
         <span class="font-bold relative inline-block pb-1 transition-colors duration-300 animate-[text-rainbow-cycle_3s_linear_infinite_alternate] md:animate-none md:group-hover:animate-[text-rainbow-cycle_3s_linear_infinite_alternate]">
@@ -26,11 +25,9 @@ const images = [matt1.src, matt2.src, matt3.src, matt4.src, matt5.src, matt6.src
           data-images={JSON.stringify(images)}
         />
       </a>
-      <div id="custom-cursor" class="text-gray-900">👋 Hey, that's me!</div>
+      <div id="custom-cursor" class="text-gray-900 bg-white">👋 Hey, that's me!</div>
        is a front-end developer with over 12 years of experience, based in Cincinnati, Ohio.</h1>
-      <h3>He specializes in building fast, responsive, & user-friendly websites for everyone. When he’s not coding, he enjoys life with his wife & daughter.</h3>
     </div>
-  </div>
   
   <script is:inline type="module">
     const aboutLink = document.getElementById('aboutLink');
@@ -44,8 +41,8 @@ const images = [matt1.src, matt2.src, matt3.src, matt4.src, matt5.src, matt6.src
     aboutLink.addEventListener('mouseenter', () => cursor.style.opacity = 1);
     aboutLink.addEventListener('mouseleave', () => cursor.style.opacity = 0);
     aboutLink.addEventListener('mousemove', (e) => {
-      cursor.style.left = `${e.pageX + 15}px`;
-      cursor.style.top = `${e.pageY + 15}px`;
+      cursor.style.left = `${e.pageX + 0}px`;
+      cursor.style.top = `${e.pageY + 0}px`;
     });
   
     // Check for touch device capability (no hover)
