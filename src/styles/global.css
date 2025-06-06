@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 @import "tailwindcss";
 @import 'swiper/css';
 @import 'swiper/css/navigation';
@@ -109,6 +110,48 @@ h6 {
   line-height: 1.5;
 }
 
+p {
+    font-family: "Inter", sans-serif;
+    color: #d1d5db; 
+    line-height: 2rem;
+    margin-bottom: 1.25rem;
+    max-width: 65ch;
+  }
+  
+  /* Unordered List */
+  ul {
+    font-family: "Inter", sans-serif;
+    padding-left: 1.5rem;
+    margin-bottom: 1.25rem;
+    color: #d1d5db;
+    list-style-type: disc;
+  }
+  
+  /* Ordered List */
+  ol {
+    font-family: "Inter", sans-serif;
+    padding-left: 1.5rem;
+    margin-bottom: 1.25rem;
+    color: #d1d5db;
+    list-style-type: decimal;
+  }
+  
+  /* List Items */
+  li {
+    margin-bottom: 0.5rem;
+    line-height: 1.6;
+  }
+  
+  /* Blockquotes */
+  blockquote {
+    font-family: "Inter", sans-serif;
+    border-left: 4px solid #7c3aed; /* Tailwind purple-600 */
+    padding-left: 1rem;
+    margin: 2rem 0;
+    color: #c4b5fd; /* Tailwind purple-300 */
+    font-style: italic;
+  }
+
 @keyframes text-rainbow-cycle {
     0%, 100% { color: #ef4444; } /* Tailwind's red-500 */
     20% { color: #f97316; } /* Tailwind's orange-500 */
@@ -150,8 +193,9 @@ h6 {
   /* General styling for top-left navigation on all screen sizes */
   .top-left-nav {
     position: fixed;
-    top: 1rem; /* Adjust as needed for top margin */
-    left: 1rem; /* Adjust as needed for left margin */
+    /* top: 1rem; // Adjust as needed for top margin */
+    bottom: 1rem; /* Adjust as needed for left margin */
+    left: 1rem;
     z-index: 50;
     background-color: #ecf0f1; /* Darker gray for the nav bar */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);

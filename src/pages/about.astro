@@ -16,24 +16,24 @@ const images = [matt1.src, matt2.src, matt3.src, matt4.src, matt5.src, matt6.src
 ---
 
 <NavLayout pageTitle={pageTitle}>
-  <div>
+  <div class="w-full">
     <h1 class="pb-4">Hi, I'm Matt.</h1>
     <h2 class="pb-4">I'm a Front End Developer with over 12 years experience.</h2>
     <p class="pb-4">
-      I've worked with companies, both large & small. I've made a career of taking on new challenges, from helping <strong>McDonald's Digital Menuboards</strong> to <strong>GE Aerospace's Design System</strong>.
+      I’ve worked with companies both large and small, building robust, user-focused solutions across a wide range of industries. I’ve made a career of diving into complex challenges—whether that meant streamlining internal tooling for the Department of Defense, designing marketing websites for small businesses, or managing multi-domain WordPress environments with advanced custom functionality.
+    </p>
+    <p>
+      From developing custom Retool apps to support operations at Reborn Consultants, to maintaining digital signage systems for global brands like McDonald’s and Popeyes, I bring a pragmatic approach to solving problems with clean code and thoughtful UI. At GE Aerospace, I led front-end efforts for an internal design system used by hundreds of engineers around the world, helping unify their interface standards. No matter the size of the project, I focus on delivering dependable work that bridges design and development.
     </p>
     <hr class="pb-10" />
     <div class="w-full">
       <div class="flex">
-  
-        <div>
           <JobSwiper />
-        </div>
       </div>
     </div>
   </div>
 
-  <div class="fixed bottom-4 right-4 w-[300px] h-[300px] z-40"> {/* Container for image and button */}
+  <div class="fixed bottom-4 right-4 w-[300px] h-[300px] z-40">
       <img
           id="rotatingImage"
           src={images[0]}
@@ -53,53 +53,9 @@ const images = [matt1.src, matt2.src, matt3.src, matt4.src, matt5.src, matt6.src
       
       </button>
   </div>
-
-  <div id="custom-cursor" class="fixed z-50 opacity-0 bg-blue-950 text-2xl transition-opacity duration-200"></div>
 </NavLayout>
 
 <script is:inline>
-  console.log('Custom cursor script is attempting to run!');
-
-  const customCursor = document.getElementById('custom-cursor');
-  console.log('Custom cursor element found:', customCursor);
-
-  document.addEventListener('mousemove', (e) => {
-    if (customCursor) {
-      customCursor.style.position = 'fixed';
-      customCursor.style.left = `${e.clientX + 3}px`;
-      customCursor.style.top = `${e.clientY + 3}px`;
-    }
-  });
-
-  console.log('Global mousemove listener attached.');
-
-  const triggerElements = document.querySelectorAll('.custom-cursor-trigger');
-  console.log('Trigger elements found:', triggerElements);
-
-  triggerElements.forEach(element => {
-    console.log('Attaching event listeners to:', element);
-    element.addEventListener('mouseenter', () => {
-      console.log('Mouse entered:', element.textContent);
-      if (customCursor) {
-        const stars = element.dataset.stars;
-        console.log('Stars to display:', stars);
-        if (stars) {
-          customCursor.innerHTML = stars;
-        }
-        customCursor.style.opacity = 1;
-      }
-    });
-
-    element.addEventListener('mouseleave', () => {
-      console.log('Mouse left:', element.textContent);
-      if (customCursor) {
-        customCursor.style.opacity = 0;
-        customCursor.innerHTML = '';
-      }
-    });
-  });
-  console.log('All trigger elements processed.');
-
   // --- Image Rotation Logic ---
   const rotatingImage = document.getElementById('rotatingImage');
   const restartRotationBtn = document.getElementById('restartRotationBtn');

@@ -7,7 +7,7 @@ import 'swiper/css/pagination';
 const jobs = [
   {
     company: "Reborn Consultants",
-    stars: "Wordpress, Retool, PHP",
+    tldr: "🚀 TL;DR: Wordpress, Retool, API, Javascript, PHP",
     role: "Lead Web Developer",
     dates: "July 2024 – Present",
     details: [
@@ -23,7 +23,7 @@ const jobs = [
   },
   {
     company: "Self-employed",
-    stars: "Wordpress, Shopify, PHP",
+    tldr: "🚀 TL;DR: Wordpress, Shopify, PHP",
     role: "Freelance Web Developer",
     dates: "November 2023 – Present",
     details: [
@@ -36,7 +36,7 @@ const jobs = [
   },
   {
     company: "Stratacache",
-    stars: "Vue, Typescript",
+    tldr: "🚀 TL;DR: Vue, Typescript",
     role: "Application Developer",
     dates: "October 2021 - January 2024",
     details: [
@@ -47,7 +47,7 @@ const jobs = [
   },
   {
     company: "NASIC, Department of Defense",
-    stars: "Vue, Django, Nuxt.js",
+    tldr: "🚀 TL;DR: Vue, Django, Nuxt.js, Agile, TS Clearance",
     role: "IT Specialist – Wright-Patterson Air Force Base",
     dates: "September 2020 – October 2021",
     details: [
@@ -58,7 +58,7 @@ const jobs = [
   },
   {
     company: "GE Aerospace",
-    stars: "Vue, Javascript, CI/CD, AWS",
+    tldr: "🚀 TL;DR: Vue, Javascript, CI/CD, API, Agile",
     role: "Lead Front End Developer",
     dates: "October 2018 – April 2020",
     details: [
@@ -79,8 +79,8 @@ const jobs = [
                 <div class="p-6 rounded-lg shadow-lg h-full">
                 <div class="relative group inline-block mb-2">
                     <h2
-                    class={`relative border-2 mb-2 p-2 group text-lg md:text-2xl font-bold cursor-help custom-cursor-trigger ${i === 0 ? null : 'mt-5'}`}
-                    data-stars={job.stars}
+                    class={`relative border-2 mb-2 p-2 group text-lg md:text-2xl font-bold cursor-help custom-cursor-trigger`}
+                    data-tldr={job.tldr}
                     >
                     <span class="relative z-10">{job.company}</span>
                     <span class="absolute left-0 bottom-0 h-1 w-full bg-gradient-to-r from-purple-500 via-pink-500 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full z-0"></span>
@@ -104,6 +104,7 @@ const jobs = [
 
       <div class="swiper-pagination mt-4"></div>
     </div>
+    <div id="custom-cursor" class="fixed z-50 opacity-0 bg-white text-black text-2xl transition-opacity duration-200"></div>
   </section>
   
   <script>
@@ -124,4 +125,44 @@ const jobs = [
         clickable: true,
       },
     });
+
+    console.log('Custom cursor script is attempting to run!');
+
+  const customCursor = document.getElementById('custom-cursor');
+  console.log('Custom cursor element found:', customCursor);
+
+  document.addEventListener('mousemove', (e) => {
+    if (customCursor) {
+      customCursor.style.position = 'fixed';
+      customCursor.style.left = `${e.clientX + 3}px`;
+      customCursor.style.top = `${e.clientY + 3}px`;
+    }
+  });
+
+  console.log('Global mousemove listener attached.');
+
+  const triggerElements = document.querySelectorAll('.custom-cursor-trigger');
+  console.log('Trigger elements found:', triggerElements);
+
+  triggerElements.forEach(element => {
+    console.log('Attaching event listeners to:', element);
+    element.addEventListener('mouseenter', () => {
+      console.log('Mouse entered:', element.textContent);
+      if (customCursor) {
+        const tldr = element.dataset.tldr;
+        console.log('tldr to display:', tldr);
+        if (tldr) {
+          customCursor.innerHTML = tldr;
+        }
+        customCursor.style.opacity = 1;
+      }
+    });
+    element.addEventListener('mouseleave', () => {
+    console.log('Mouse left:', element.textContent);
+    if (customCursor) {
+      customCursor.style.opacity = 0;
+      customCursor.innerHTML = ''; // optional: clear content
+    }
+  });
+  });
   </script>
