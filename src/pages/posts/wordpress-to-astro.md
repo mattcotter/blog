@@ -1,5 +1,5 @@
 ---
-title: 'My First Blog Post'
+title: 'Wordpress to Astro: Why?'
 pubDate: 2025-06-06
 description: "A Wordpress Developer's Journey to Astro"
 author: 'Matt Cotter'
