@@ -1,10 +1,39 @@
 ---
 import NavLayout from '../layouts/NavLayout.astro';
-import ImageRotator from '../components/ImageRotator.astro';
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
 
 const pageTitle = "Matt Cotte || ✍️ Blog";
+const blogDir = './src/pages/blog';
+const files = fs.readdirSync(blogDir).filter(file => file.endsWith('.md'));
+
+// Parse frontmatter
+const posts = files.map(file => {
+  const filePath = path.join(blogDir, file);
+  const content = fs.readFileSync(filePath, 'utf-8');
+  const { data } = matter(content);
+
+  return {
+    ...data,
+    url: `/blog/${file.replace('.md', '')}`,
+  };
+});
 ---
 
 <NavLayout pageTitle={pageTitle}>
-    
+    <h1 class="text-3xl font-bold mb-6">Blog</h1>
+    <ul class="space-y-4">
+    {posts.map(post => (
+        <li>
+        <a href={post.url} class="text-xl text-blue-600 hover:underline">
+            {post.title}
+        </a>
+        <p class="text-sm text-gray-500">{new Date(post.pubDate).toLocaleDateString()}</p>
+        </li>
+    ))}
+    </ul>
 </NavLayout>
+
+
+

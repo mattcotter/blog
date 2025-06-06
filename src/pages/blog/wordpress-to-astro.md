@@ -1,4 +1,5 @@
 ---
+layout: ../../layouts/BlogPostLayout.astro
 title: 'Wordpress to Astro: Why?'
 pubDate: 2025-06-06
 description: "A Wordpress Developer's Journey to Astro"
@@ -8,9 +9,7 @@ image:
     alt: ''
 tags: ["astro", "wordpress", "design system"]
 ---
-# My First Blog Post
-
-Published on: 2025-06-01
+# Wordpress to Astro: Why?
 
 I’ve been working with WordPress and other PHP-based content management systems for most of my career. My switch to JavaScript back in 2018 was a swift departure from what I was used to, and it came with a number of challenges.
 
