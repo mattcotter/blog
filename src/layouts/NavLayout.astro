@@ -118,77 +118,71 @@ const socialLinks = [
         <meta name="generator" content={Astro.generator} />
         <title>{pageTitle}</title>
     </head>
-    <body class="bg-gray-700 text-gray-100">
+    <body class="text-gray-100">
         <style is:global>
-.background-gradient-animation {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: -1;
-  overflow: hidden;
-}
+          .background-gradient-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+          }
 
-.background-gradient-animation::before,
-.background-gradient-animation::after {
-  content: "";
-  position: absolute;
-  width: 60vw;
-  height: 60vw;
-  border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.5;
-  animation: animateGradient 30s ease-in-out infinite;
-}
+          .background-gradient-animation::before,
+          .background-gradient-animation::after {
+            content: "";
+            position: absolute;
+            width: 60vw;
+            height: 60vw;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.5;
+            animation: animateGradient 30s ease-in-out infinite;
+          }
 
-.background-gradient-animation::before {
-  top: 10%;
-  left: 5%;
-  background: radial-gradient(circle, rgba(66, 153, 225, 0.3), transparent 70%);
-  animation-delay: 0s;
-}
+          .background-gradient-animation::before {
+            top: 10%;
+            left: 5%;
+            background: radial-gradient(circle, rgba(66, 153, 225, 0.3), transparent 70%);
+            animation-delay: 0s;
+          }
 
-.background-gradient-animation::after {
-  bottom: 10%;
-  right: 5%;
-  background: radial-gradient(circle, rgba(239, 68, 68, 0.25), transparent 70%);
-  animation-delay: 10s;
-}
+          .background-gradient-animation::after {
+            bottom: 10%;
+            right: 5%;
+            background: radial-gradient(circle, rgba(239, 68, 68, 0.25), transparent 70%);
+            animation-delay: 10s;
+          }
 
-@keyframes animateGradient {
-  0% {
-    transform: scale(1) translate(0, 0);
-    opacity: 0.4;
-  }
-  50% {
-    transform: scale(1.2) translate(10px, -10px);
-    opacity: 0.6;
-  }
-  100% {
-    transform: scale(1) translate(0, 0);
-    opacity: 0.4;
-  }
-}
-
-
+          @keyframes animateGradient {
+            0% {
+              transform: scale(1) translate(0, 0);
+              opacity: 0.4;
+            }
+            50% {
+              transform: scale(1.2) translate(10px, -10px);
+              opacity: 0.6;
+            }
+            100% {
+              transform: scale(1) translate(0, 0);
+              opacity: 0.4;
+            }
+          }
         </style>
 
-        {/* Background Animation Layer */}
         <div class="background-animation-container">
-            {/* Choose ONE of the following (uncomment the one you want) */}
             <div class="background-gradient-animation"></div>
-            {/* <div class="background-noise-animation"></div> */}
         </div>
 
-        {/* Top-left navigation bar */}
         <div class="top-left-nav">
             <a href="/" class="flex-shrink-0">
               <Image src={logo} alt="Logo" class="h-8 w-auto" />
             </a>
           
-            <div class="flex items-center space-x-4 ml-4"> {/* Added ml-4 for spacing */}
+            <div class="flex items-center space-x-4 ml-4">
                 {icons.map((icon) => (
                 <a href={icon.href} class="text-gray-600 hover:text-blue-400 transition h-6 w-6">
                     <span set:html={icon.svg} class="h-6 w-6"></span>
