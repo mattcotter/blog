@@ -12,7 +12,7 @@ interface BlogPostFrontmatter {
 const pageTitle = "Matt Cotter";
 
 // Get all blog posts
-const allPosts = Object.values(import.meta.glob('../pages/posts/*.md', { eager: true })) as MarkdownInstance<BlogPostFrontmatter>[];
+const allPosts = Object.values(import.meta.glob('./blog/*.md', { eager: true }));
 
 const sortedPosts = allPosts.sort((a, b) => {
   const dateA = new Date(a.frontmatter.pubDate);

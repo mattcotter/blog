@@ -17,41 +17,46 @@ const images = [matt1.src, matt2.src, matt3.src, matt4.src, matt5.src, matt6.src
 
 <NavLayout pageTitle={pageTitle}>
   <div class="w-full">
-    <h1 class="pb-4">Hi, I'm Matt.</h1>
-    <h2 class="pb-4">I'm a Front End Developer with over 12 years experience.</h2>
-    <p class="pb-4">
-      I’ve worked with companies both large and small, building robust, user-focused solutions across a wide range of industries. I’ve made a career of diving into complex challenges—whether that meant streamlining internal tooling for the Department of Defense, designing marketing websites for small businesses, or managing multi-domain WordPress environments with advanced custom functionality.
-    </p>
-    <p>
-      From developing custom Retool apps to support operations at Reborn Consultants, to maintaining digital signage systems for global brands like McDonald’s and Popeyes, I bring a pragmatic approach to solving problems with clean code and thoughtful UI. At GE Aerospace, I led front-end efforts for an internal design system used by hundreds of engineers around the world, helping unify their interface standards. No matter the size of the project, I focus on delivering dependable work that bridges design and development.
-    </p>
-    <hr class="pb-10" />
-    <div class="w-full">
-      <div class="flex">
-          <JobSwiper />
+    <div class="text-lg md:text-xl  bg-white mt-5 pt-5 pl-10 pr-10 pb-5 rounded-4xl text-black box-shadow">
+      <h1 class="">About</h1>
+    </div>
+    <div class="p-10">
+      <h2 class="pb-4">Hey, I'm Matt!</h2>
+      <h3 class="pb-4">I'm a Front End Developer with over 12 years experience.</h3>
+      <p class="pb-4">
+        I’ve worked with companies both large and small, building robust, user-focused solutions across a wide range of industries. I’ve made a career of diving into complex challenges—whether that meant streamlining internal tooling for the Department of Defense, designing marketing websites for small businesses, or managing multi-domain WordPress environments with advanced custom functionality.
+      </p>
+      <p class="pb-4">
+        From developing custom Retool apps to support operations at Reborn Consultants, to maintaining digital signage systems for global brands like McDonald’s and Popeyes, I bring a pragmatic approach to solving problems with clean code and thoughtful UI. At GE Aerospace, I led front-end efforts for an internal design system used by hundreds of engineers around the world, helping unify their interface standards. No matter the size of the project, I focus on delivering dependable work that bridges design and development.
+      </p>
+      <hr class="pb-10" />
+      <div class="w-full">
+        <div class="flex">
+            <JobSwiper />
+        </div>
       </div>
     </div>
-  </div>
 
-  <div class="fixed bottom-4 right-4 w-[300px] h-[300px] z-40">
-      <img
-          id="rotatingImage"
-          src={images[0]}
-          alt="Rotating Image"
-          class="w-full h-full object-cover rounded-lg"
-          data-images={JSON.stringify(images)}
-      />
-      <button
-          id="restartRotationBtn"
-          class="absolute bottom-2 right-2 bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full shadow-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
-          aria-label="Restart image rotation"
-          title="Restart rotation"
-      >
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
-      </svg>
-      
-      </button>
+    <div class="fixed bottom-4 right-4 w-[300px] h-[300px] z-40">
+        <img
+            id="rotatingImage"
+            src={images[0]}
+            alt="Rotating Image"
+            class="w-full h-full object-cover rounded-lg"
+            data-images={JSON.stringify(images)}
+        />
+        <button
+            id="restartRotationBtn"
+            class="absolute bottom-2 right-2 bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full shadow-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
+            aria-label="Restart image rotation"
+            title="Restart rotation"
+        >
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
+        </svg>
+        
+        </button>
+    </div>
   </div>
 </NavLayout>
 
