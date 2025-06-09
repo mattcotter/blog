@@ -193,9 +193,9 @@ p {
   /* General styling for top-left navigation on all screen sizes */
   .top-left-nav {
     position: fixed;
-    /* top: 1rem; // Adjust as needed for top margin */
-    bottom: 1rem; /* Adjust as needed for left margin */
-    left: 1rem;
+    left: 1rem; 
+    /* bottom: 1rem; */
+    top: 1rem;
     z-index: 50;
     background-color: #ecf0f1; /* Darker gray for the nav bar */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -204,6 +204,10 @@ p {
     display: flex;
     align-items: center;
     border: 1px solid #64748b; /* Slightly lighter border for contrast */
+  }
+
+  .box-shadow {
+    box-shadow: 5px 6px 0px 0px rgba(0,0,0,1);
   }
 
   /* Mobile centering for the top-left navigation */

@@ -5,19 +5,15 @@ const {frontmatter} = Astro.props
 ---
 
 <NavLayout pageTitle={frontmatter.title}>
-  <a href="/blog" class="inline-flex items-center text-sm text-blue-400 hover:text-white mb-4 group transition-all">
-    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1 transition-transform group-hover:-translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-    </svg>
-    Back to Blog
-  </a>
-
-  <article class="prose lg:prose-xl mx-auto py-8 border-t-2 border-r-2 border-blue-400 rounded-tr-lg p-10">
+  <article class="prose lg:prose-xl">
+    <div class="text-lg md:text-xl  bg-white mt-5 pt-5 pl-10 pr-10 pb-5 rounded-4xl text-black box-shadow">
       <h1>{frontmatter.title}</h1>
-      <div class="text-sm text-gray-400 mb-6">
+      <div class="text-sm text-gray-400">
         <span>By {frontmatter.author}</span> · <time datetime={frontmatter.pubDate}>{new Date(frontmatter.pubDate).toLocaleDateString()}</time>
       </div>
-  
+    </div>
+    <div class="p-10">
       <slot />
+    </div>
   </article>
 </NavLayout>
