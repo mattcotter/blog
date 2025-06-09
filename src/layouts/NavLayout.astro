@@ -183,13 +183,13 @@ const socialLinks = [
             </a>
           
             <div class="flex items-center space-x-4 ml-4">
-                {icons.map((icon) => (
-                <a href={icon.href} class="text-gray-600 hover:text-blue-400 transition h-6 w-6">
+                {icons.map((icon, i) => (
+                <a href={icon.href} class={`text-gray-600 hover:text-blue-400 transition h-6 ${i == icons.length - 1 ? 'sm:mr-0 md:mr-3' : null}`}>
                     <span set:html={icon.svg} class="h-6 w-6"></span>
                 </a>
                 ))}
 
-                <div class="h-6 w-px bg-gray-500 hidden lg:inline-block"></div>
+                <div class="h-6 w-px bg-gray-500 hidden md:inline-block"></div>
 
                 {socialLinks.map((link) => (
                 <a href={link.href} class="hidden md:inline-block text-gray-600 hover:text-blue-400 transition h-6 w-6" target="_blank" rel="noopener noreferrer">
@@ -199,7 +199,7 @@ const socialLinks = [
             </div>
         </div>
 
-        <main class="pt-10 pb-30 flex flex-col md:flex-col px-4 text-center md:text-left max-w-3xl space-y-4">
+        <main class="pt-10 pb-10 flex flex-col md:flex-col px-4 text-center md:text-left md:ml-5 max-w-3xl space-y-4">
             <slot /> 
         </main>
         
