@@ -119,85 +119,85 @@ const socialLinks = [
         <title>{pageTitle}</title>
     </head>
     <body class="text-gray-100">
-        <style is:global>
-          .background-gradient-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            pointer-events: none;
-            z-index: -1;
-            overflow: hidden;
+      <style is:global>
+        .background-gradient-animation {
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100vw;
+          height: 100vh;
+          pointer-events: none;
+          z-index: -1;
+          overflow: hidden;
+        }
+
+        .background-gradient-animation::before,
+        .background-gradient-animation::after {
+          content: "";
+          position: absolute;
+          width: 60vw;
+          height: 60vw;
+          border-radius: 50%;
+          filter: blur(100px);
+          opacity: 0.5;
+          animation: animateGradient 30s ease-in-out infinite;
+        }
+
+        .background-gradient-animation::before {
+          top: 10%;
+          left: 5%;
+          background: radial-gradient(circle, rgba(66, 153, 225, 0.3), transparent 70%);
+          animation-delay: 0s;
+        }
+
+        .background-gradient-animation::after {
+          bottom: 10%;
+          right: 5%;
+          background: radial-gradient(circle, rgba(239, 68, 68, 0.25), transparent 70%);
+          animation-delay: 10s;
+        }
+
+        @keyframes animateGradient {
+          0% {
+            transform: scale(1) translate(0, 0);
+            opacity: 0.4;
           }
-
-          .background-gradient-animation::before,
-          .background-gradient-animation::after {
-            content: "";
-            position: absolute;
-            width: 60vw;
-            height: 60vw;
-            border-radius: 50%;
-            filter: blur(100px);
-            opacity: 0.5;
-            animation: animateGradient 30s ease-in-out infinite;
+          50% {
+            transform: scale(1.2) translate(10px, -10px);
+            opacity: 0.6;
           }
-
-          .background-gradient-animation::before {
-            top: 10%;
-            left: 5%;
-            background: radial-gradient(circle, rgba(66, 153, 225, 0.3), transparent 70%);
-            animation-delay: 0s;
+          100% {
+            transform: scale(1) translate(0, 0);
+            opacity: 0.4;
           }
+        }
+      </style>
 
-          .background-gradient-animation::after {
-            bottom: 10%;
-            right: 5%;
-            background: radial-gradient(circle, rgba(239, 68, 68, 0.25), transparent 70%);
-            animation-delay: 10s;
-          }
+      <div class="background-animation-container">
+          <div class="background-gradient-animation"></div>
+      </div>
 
-          @keyframes animateGradient {
-            0% {
-              transform: scale(1) translate(0, 0);
-              opacity: 0.4;
-            }
-            50% {
-              transform: scale(1.2) translate(10px, -10px);
-              opacity: 0.6;
-            }
-            100% {
-              transform: scale(1) translate(0, 0);
-              opacity: 0.4;
-            }
-          }
-        </style>
+      <header class="top-left-nav box-shadow">
+          <a href="/" class="flex-shrink-0">
+            <Image src={logo} alt="Logo" class="h-8 w-auto" />
+          </a>
+        
+          <div class="flex items-center space-x-4 ml-4">
+              {icons.map((icon, i) => (
+              <a href={icon.href} class={`text-gray-600 hover:text-blue-400 transition h-6 ${i == icons.length - 1 ? 'sm:mr-0 md:mr-3' : null}`}>
+                  <span set:html={icon.svg} class="h-6 w-6"></span>
+              </a>
+              ))}
 
-        <div class="background-animation-container">
-            <div class="background-gradient-animation"></div>
-        </div>
+              <div class="h-6 w-px bg-gray-500 hidden md:inline-block"></div>
 
-        <div class="top-left-nav box-shadow">
-            <a href="/" class="flex-shrink-0">
-              <Image src={logo} alt="Logo" class="h-8 w-auto" />
-            </a>
-          
-            <div class="flex items-center space-x-4 ml-4">
-                {icons.map((icon, i) => (
-                <a href={icon.href} class={`text-gray-600 hover:text-blue-400 transition h-6 ${i == icons.length - 1 ? 'sm:mr-0 md:mr-3' : null}`}>
-                    <span set:html={icon.svg} class="h-6 w-6"></span>
-                </a>
-                ))}
-
-                <div class="h-6 w-px bg-gray-500 hidden md:inline-block"></div>
-
-                {socialLinks.map((link) => (
-                <a href={link.href} class="hidden md:inline-block text-gray-600 hover:text-blue-400 transition h-6 w-6" target="_blank" rel="noopener noreferrer">
-                    <span set:html={link.svg} class="h-6 w-6"></span>
-                </a>
-                ))}
-            </div>
-        </div>
+              {socialLinks.map((link) => (
+              <a href={link.href} class="hidden md:inline-block text-gray-600 hover:text-blue-400 transition h-6 w-6" target="_blank" rel="noopener noreferrer">
+                  <span set:html={link.svg} class="h-6 w-6"></span>
+              </a>
+              ))}
+          </div>
+        </header>
 
         <main class="pt-10 pb-10 flex flex-col md:flex-col px-4 text-center md:text-left md:ml-5 max-w-3xl space-y-4">
             <slot /> 

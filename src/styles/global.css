@@ -6,7 +6,7 @@
 @import 'swiper/css/pagination';
 
 
-/* Dark mode styles */
+
 body {
   @apply bg-gray-800 text-blue-50;
 }
@@ -15,8 +15,7 @@ a.about-link:hover {
     cursor: se-resize;
     transition: text-shadow 0.3s ease-in-out;
   }
-/* Toggle Button Styling */
-/* Base styles for .theme-toggle */
+
 .theme-toggle {
     position: fixed;
     top: 1rem;
@@ -25,13 +24,9 @@ a.about-link:hover {
     cursor: pointer;
     padding: 0.5rem;
     border-radius: 0.5rem;
-    color: var(--text); /* This handles the icon color based on theme */
+    color: var(--text); 
     z-index: 1000;
-
-    /* Default background for LIGHT mode */
-    background-color: #eee; /* Dark background for the button in light mode */
-
-    /* Add transition for background-color as well if you want it to animate */
+    background-color: #eee; 
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
@@ -52,11 +47,11 @@ a.about-link:hover {
     z-index: 9999;
   }
 
-/* Dark mode: Override background for the button */
-/* This selector (.dark .theme-toggle) is more specific than just .theme-toggle */
+
+
 .dark .theme-toggle {
-    background-color: #333; /* Light background for the button in dark mode */
-    /* The icon color (var(--text)) will automatically be light due to the .dark class on <html> */
+    background-color: #333; 
+    
 }   
 
 @font-face {
@@ -75,38 +70,56 @@ a.about-link:hover {
     font-display: swap;
 }
 
+header a, header a:visited {
+  color: #333;
+}
+
+header a:hover, header a:focus {
+  color: #3b82f6;
+}
+
+a, a:visited {
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+a:hover, a:focus {
+  color: #eee;
+  text-decoration: none;
+}
+
 h1, h2, h3, h4, h5, h6 {
     font-family: "Roboto Mono", monospace;
     font-optical-sizing: auto;
 }
 
 h1 {
-  font-size: 2.5rem; /* ~40px */
+  font-size: 2.5rem; 
   line-height: 1.2;
 }
 
 h2 {
-  font-size: 2rem; /* ~32px */
+  font-size: 2rem; 
   line-height: 1.3;
 }
 
 h3 {
-  font-size: 1.75rem; /* ~28px */
+  font-size: 1.75rem; 
   line-height: 1.35;
 }
 
 h4 {
-  font-size: 1.5rem; /* ~24px */
+  font-size: 1.5rem; 
   line-height: 1.4;
 }
 
 h5 {
-  font-size: 1.25rem; /* ~20px */
+  font-size: 1.25rem; 
   line-height: 1.45;
 }
 
 h6 {
-  font-size: 1rem; /* ~16px */
+  font-size: 1rem; 
   line-height: 1.5;
 }
 
@@ -118,7 +131,7 @@ p {
     max-width: 65ch;
   }
   
-  /* Unordered List */
+  
   ul {
     font-family: "Inter", sans-serif;
     padding-left: 1.5rem;
@@ -127,7 +140,7 @@ p {
     list-style-type: disc;
   }
   
-  /* Ordered List */
+  
   ol {
     font-family: "Inter", sans-serif;
     padding-left: 1.5rem;
@@ -136,28 +149,28 @@ p {
     list-style-type: decimal;
   }
   
-  /* List Items */
+  
   li {
     margin-bottom: 0.5rem;
     line-height: 1.6;
   }
   
-  /* Blockquotes */
+  
   blockquote {
     font-family: "Inter", sans-serif;
-    border-left: 4px solid #7c3aed; /* Tailwind purple-600 */
+    border-left: 4px solid #7c3aed; 
     padding-left: 1rem;
     margin: 2rem 0;
-    color: #c4b5fd; /* Tailwind purple-300 */
+    color: #c4b5fd; 
     font-style: italic;
   }
 
 @keyframes text-rainbow-cycle {
-    0%, 100% { color: #ef4444; } /* Tailwind's red-500 */
-    20% { color: #f97316; } /* Tailwind's orange-500 */
-    40% { color: #eab308; } /* Tailwind's yellow-500 */
-    60% { color: #22c55e; } /* Tailwind's green-500 */
-    80% { color: #3b82f6; } /* Tailwind's blue-500 */
+    0%, 100% { color: #ef4444; } 
+    20% { color: #f97316; } 
+    40% { color: #eab308; } 
+    60% { color: #22c55e; } 
+    80% { color: #3b82f6; } 
 }
 
 @keyframes slide-down {
@@ -190,27 +203,27 @@ p {
     animation: slide-down 0.5s ease-out forwards;
   }
 
-  /* General styling for top-left navigation on all screen sizes */
+  
   .top-left-nav {
     position: fixed;
     left: 1rem; 
-    /* bottom: 1rem; */
+    
     top: 1rem;
     z-index: 50;
-    background-color: #ecf0f1; /* Darker gray for the nav bar */
+    background-color: #ecf0f1; 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 1rem; /* rounded-2xl */
-    padding: 0.5rem 1rem; /* px-4 py-2 */
+    border-radius: 1rem; 
+    padding: 0.5rem 1rem; 
     display: flex;
     align-items: center;
-    border: 1px solid #64748b; /* Slightly lighter border for contrast */
+    border: 1px solid #64748b; 
   }
 
   .box-shadow {
     box-shadow: 5px 6px 0px 0px rgba(0,0,0,1);
   }
 
-  /* Mobile centering for the top-left navigation */
+  
   @media (max-width: 767px) {
     .top-left-nav {
       left: 50%;
@@ -218,18 +231,18 @@ p {
     }
   }f
 
-  /* Added padding to the body to prevent content overlap with fixed nav */
+  
   body {
-    padding-top: 13rem; /* Adjust based on the height of your fixed nav elements (top-left-nav + page-titles-container) */
-    padding-left: 1rem; /* Maintain left alignment for main content */
-    padding-right: 1rem; /* Maintain right alignment for main content */
-    min-height: 100vh; /* Ensure body takes full viewport height */
-    box-sizing: border-box; /* Include padding in element's total width and height */
+    padding-top: 13rem; 
+    padding-left: 1rem; 
+    padding-right: 1rem; 
+    min-height: 100vh; 
+    box-sizing: border-box; 
   }
 
   @media (max-width: 767px) {
     body {
-        padding-left: 0.5rem; /* Adjust padding for smaller screens if needed */
+        padding-left: 0.5rem; 
         padding-right: 0.5rem;
     }
   }
