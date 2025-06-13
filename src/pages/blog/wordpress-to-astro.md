@@ -5,7 +5,7 @@ pubDate: 2025-06-06
 description: "A Wordpress Developer's Journey to Astro"
 author: 'Matt Cotter'
 image:
-    url: '/astro-to-wordpress.jpg'
+    url: '/public/astro-to-wordpress.jpg'
     alt: 'Astro to Wordpress'
 tags: ["astro", "wordpress", "design system"]
 ---
