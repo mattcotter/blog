@@ -1,14 +1,14 @@
 ---
 import NavLayout from '../layouts/NavLayout.astro';
+import { getCollection } from 'astro:content';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
 
-const pageTitle = "Matt Cotte || ✍️ Blog";
+const pageTitle = "Matt Cotter || ✍️ Blog";
 const blogDir = './src/pages/blog';
 const files = fs.readdirSync(blogDir).filter(file => file.endsWith('.md'));
 
-// Parse frontmatter
 const posts = files.map(file => {
   const filePath = path.join(blogDir, file);
   const content = fs.readFileSync(filePath, 'utf-8');
@@ -19,26 +19,73 @@ const posts = files.map(file => {
     url: `/blog/${file.replace('.md', '')}`,
   };
 });
+
+function getTags(posts) {
+  const tags = new Set();
+  posts.forEach(post => {
+    post.tags?.forEach(tag => tags.add(tag));
+  });
+  return Array.from(tags);
+}
+
+const tags = getTags(posts);
 ---
 
 <NavLayout pageTitle={pageTitle}>
-    <div class="text-lg md:text-xl space-y-4 bg-white/5 ml-5 text-white p-10 rounded-4xl box-shadow border-1 border-black">
+    <div class="text-lg md:text-xl space-y-4 bg-white/5 md:ml-5 text-white p-10 rounded-4xl box-shadow border-1 border-black">
       <h1 class="text-3xl font-bold">Blog</h1>
     </div>
-    <ul class="list-none space-y-4 ml-5 mr-5">
+    <ul class="list-none space-y-4 mx-5">
       {posts.map((post, i) => (
-        <li class={`border-b-2 p-5 border-black ${ i == 0 ? '' : 'border-t-2'}`}>
-          <div class="flex items-baseline space-x-2">
-            <span class="text-sm text-gray-500">
-              {new Date(post.pubDate).toLocaleDateString()}
-            </span>
-            <a href={post.url} class="text-xl text-blue-600 hover:underline">
-              {post.title}
-            </a>
+        <li class="border-b-2 border-black p-5" key={i}>
+          <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+            
+            {/* Image (first on mobile, last on desktop) */}
+            <div class="order-1 sm:order-2 flex justify-center sm:justify-end">
+              <img
+                src={post.image.url}
+                alt={post.title}
+                class="w-32 h-32 object-cover rounded-lg"
+              />
+            </div>
+    
+            {/* Text Content (second on mobile, first on desktop) */}
+            <div class="order-2 sm:order-1 flex-1 space-y-2">
+              {/* Date + Title */}
+              <div class="flex flex-col sm:flex-row sm:items-baseline sm:space-x-2">
+                <span class="text-sm text-gray-500">
+                  {new Date(post.pubDate).toLocaleDateString()}
+                </span>
+                <a
+                  href={post.url}
+                  class="text-xl text-blue-600 hover:underline"
+                >
+                  {post.title}
+                </a>
+              </div>
+    
+              {/* Tags */}
+              <div class="flex flex-wrap justify-center sm:justify-start gap-2">
+                {post.tags?.map(tag => (
+                  <a
+                    key={tag}
+                    href={`/tags/${tag}`}
+                    class="inline-block bg-gray-800 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-sm hover:bg-gray-700 transition"
+                  >
+                    {tag}
+                  </a>
+                ))}
+              </div>
+            </div>
+    
           </div>
         </li>
       ))}
     </ul>
+    
+        
+    
+    
 </NavLayout>
 
 
