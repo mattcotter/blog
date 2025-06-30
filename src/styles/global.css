@@ -240,3 +240,8 @@ p {
         padding-right: 0.5rem;
     }
   }
+
+  pre {
+    padding: 15px;
+    border-radius: 8px;
+  }
