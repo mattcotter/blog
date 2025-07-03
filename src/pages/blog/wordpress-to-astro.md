@@ -1,25 +1,35 @@
 ---
 layout: ../../layouts/BlogPostLayout.astro
-title: 'Wordpress to Astro: Why?'
+title: 'From WordPress to Astro: Why I Made the Switch'
 pubDate: 2025-06-06
-description: "A Wordpress Developer's Journey to Astro"
+description: "A WordPress Developer's Journey to Astro"
 author: 'Matt Cotter'
 image:
     url: '/public/astro-to-wordpress.jpg'
-    alt: 'Astro to Wordpress'
+    alt: 'WordPress to Astro'
 tags: ["astro", "wordpress", "design system"]
 ---
 
-I’ve been working with WordPress and other PHP-based content management systems for most of my career. My switch to JavaScript back in 2018 was a swift departure from what I was used to, and it came with a number of challenges.
+After years of building websites with WordPress and other PHP-based CMS platforms, I made a pivot that surprised even me: I moved to JavaScript.
 
-Still, I made that change because I wanted to become a better developer. I felt like doing the same things over and over again would eventually box me in - or, maybe, typecast me (see what I did there?) - as just a “PHP developer.” Not that there’s anything wrong with that, but it wasn’t a label I wanted to wear forever.
+Back in 2018, diving into the JavaScript ecosystem felt like stepping into an entirely different world. It was exciting, sometimes frustrating, and constantly evolving. But I didn’t make the leap just to chase trends—I did it because I wanted to grow. Repeating the same workflows day in and day out was beginning to box me in. I didn’t want to be seen as “just” a PHP developer.
 
-## Finding My Happy Place
+(Not that there’s anything wrong with PHP—it’s a reliable workhorse. But it wasn’t the only label I wanted.)
 
-Ironically, working in JavaScript sometimes made me feel exactly how I was afraid I’d feel if I stuck with PHP. Aside from my experience at GE Aerospace, where I worked on their Auxiliary Design System, much of my time as a Vue developer felt more one-note than my PHP days ever did. I eventually found my place where I'm happier.
+## Finding My Groove
 
-That said, I chose this path — and I do love working with JavaScript and constantly learning new things. It’s part of what makes this work so rewarding.
+Ironically, jumping into JavaScript sometimes made me feel the exact way I was trying to avoid: stuck. Outside of my work at GE Aerospace, where I contributed to their Auxiliary Design System, much of my Vue work began to feel repetitive—less flexible than my WordPress projects ever were.
 
-I had originally planned to build this site with Gatsby.js, but to my surprise, it seems like Gatsby has fallen out of favor.
+Eventually, I found balance. I still love JavaScript, and I’ve come to appreciate the constant learning it demands. That curiosity is what drew me to a new tool.
 
-So I built this platform with Astro — a modern static site generator that feels lightweight, fast, and developer-friendly. The community around it is active and welcoming, and I’m excited to share what I’ve learned as I explore more of what Astro can do.
+I initially planned to build this site with Gatsby.js but somewhere along the way, Gatsby lost its spark. It felt like trying to plug into a party that had already moved to a better venue.
+
+That better venue? **Astro**.
+
+## Why Astro?
+
+Astro is a modern static site generator that feels tailor-made for developers like me: fast, lightweight, and refreshingly straightforward. The developer experience is top-tier, the documentation is solid, and the community is both active and welcoming.
+
+This site you're reading now? Built with Astro.
+
+I’ll be sharing more soon. Design patterns, performance tweaks, content workflows, and lessons from building this platform. If you’re a WordPress developer curious about what’s next, Astro might just be your next stop, too.

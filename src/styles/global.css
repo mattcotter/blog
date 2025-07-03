@@ -79,11 +79,13 @@ header a:hover, header a:focus {
 }
 
 a, a:visited {
+  font-family: "Roboto Mono", monospace;
   color: #3b82f6;
   text-decoration: none;
 }
 
 a:hover, a:focus {
+  font-family: "Roboto Mono", monospace;
   color: #eee;
   text-decoration: none;
 }
@@ -152,9 +154,7 @@ p {
   
   blockquote {
     font-family: "Inter", sans-serif;
-    border-left: 4px solid #7c3aed; 
     padding-left: 1rem;
-    margin: 2rem 0;
     color: #c4b5fd; 
     font-style: italic;
   }
@@ -239,4 +239,9 @@ p {
         padding-left: 0.5rem; 
         padding-right: 0.5rem;
     }
+  }
+
+  pre {
+    padding: 15px;
+    border-radius: 8px;
   }

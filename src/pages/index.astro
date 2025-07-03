@@ -1,6 +1,8 @@
 ---
 import NavLayout from '../layouts/NavLayout.astro';
 import ImageRotator from '../components/ImageRotator.astro';
+import { Image } from 'astro:assets';
+import amy from '../assets/amy.png';
 import type { MarkdownInstance } from 'astro';
 
 interface BlogPostFrontmatter {
@@ -15,8 +17,8 @@ const pageTitle = "Matt Cotter";
 const allPosts = Object.values(import.meta.glob('./blog/*.md', { eager: true }));
 
 const sortedPosts = allPosts.sort((a, b) => {
-  const dateA = new Date(a.frontmatter.pubDate);
-  const dateB = new Date(b.frontmatter.pubDate);
+  const dateA = new Date((a as BlogPostFrontmatter).pubDate);
+  const dateB = new Date((b as BlogPostFrontmatter).pubDate);
   return dateB.getTime() - dateA.getTime();
 });
 
@@ -27,19 +29,33 @@ const latestPosts = sortedPosts.slice(0, 2);
   <ImageRotator />
 
   <div class="max-w-3xl py-6 flex justify-between rounded-4xl m-5 p-5">
-    <h2 class="text-2xl font-bold">Latest Posts</h2>
-    <a href="/blog" class="inline-block px-6 py-2">
-      View Posts
+    <h2 class="text-2xl font-bold">Testimonial</h2>
+    <a href="/portfolio" class="inline-block px-6 py-2">
+      View Work
     </a>
   </div>
 
+  <blockquote class="text-lg md:text-xl space-y-4 bg-white/5 ml-5 text-white p-10 rounded-4xl box-shadow border-1 border-[#7c3aed] flex flex-col md:flex-row items-center gap-6">
+	<Image src={amy} alt="Amy Samford" class="w-15 h-15 rounded-full object-cover border-2 border-white shadow-lg self-start" />
+	<div class="space-y-2">
+	  <p class="italic">“I've worked with Matt for nearly 2 years building my website. I am very proud of the website he's created from scratch. Matt is honest, communicative and knows how to bring a vision to life. If you're looking for a conscientious, down-to-earth guy you can trust, discuss visions with and build a strong product, he's your guy!”</p>
+	  <footer class="font-semibold">— Amy Sanford Hammond, Amy Denae Weight Loss</footer>
+	</div>
+  </blockquote>
+
+  <div class="max-w-3xl py-6 flex justify-between rounded-4xl m-5 p-5">
+    <h2 class="text-2xl font-bold">Blog</h2>
+    <a href="/blog" class="inline-block px-6 py-2">
+      View Blog
+    </a>
+  </div>
+  
   <div class="max-w-3xl ml-5 flex gap-4">
 	{latestPosts.map(post => (
 	  <a 
 		href={post.url} 
 		class="space-y-1 bg-white/5 text-white pl-5 pt-5 pr-5 relative rounded-4xl box-shadow border-1 border-black"
 	  >
-		<!-- Top-left corner icon -->
 		<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="absolute top-3 right-3 w-5 h-5 text-blue-400 opacity-70 group-hover:opacity-100 pointer-events-none">
 			<path stroke-linecap="round" stroke-linejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
 		</svg>
