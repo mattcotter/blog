@@ -74,8 +74,17 @@ const socialLinks = [
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
         <title>{pageTitle}</title>
+        <script is:inline>
+          (function () {
+            const stored = localStorage.getItem('theme');
+            const theme = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+            document.documentElement.setAttribute('data-theme', theme);
+          })();
+        </script>
     </head>
     <body>
+      <div class="top-bar"></div>
+
       <nav class="top-nav">
           <a href="/" class="shrink-0 flex items-center">
             <Image src={logo} alt="Matt Cotter" class="h-6 w-auto" />
@@ -98,6 +107,15 @@ const socialLinks = [
           </div>
       </nav>
 
+      <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle color theme">
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1.5m0 15V21m8.485-8.485h-1.5m-13.97 0h-1.5m14.849-6.364-1.06 1.06M6.196 17.804l-1.06 1.06m12.728 0-1.06-1.06M6.196 6.196l-1.06-1.06M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Z" />
+        </svg>
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+        </svg>
+      </button>
+
       <main class="container">
         <slot />
       </main>
@@ -113,5 +131,15 @@ const socialLinks = [
         <a href="mailto:cotter.m@gmail.com" class="meta block mt-3">cotter.m@gmail.com</a>
         <p class="meta mt-1">© {new Date().getFullYear()} Matt Cotter</p>
       </footer>
+
+      <script is:inline>
+        const themeToggle = document.getElementById('theme-toggle');
+        themeToggle.addEventListener('click', () => {
+          const current = document.documentElement.getAttribute('data-theme');
+          const next = current === 'light' ? 'dark' : 'light';
+          document.documentElement.setAttribute('data-theme', next);
+          localStorage.setItem('theme', next);
+        });
+      </script>
     </body>
 </html>
