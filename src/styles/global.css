@@ -272,3 +272,81 @@ code {
   padding: 1.5rem 1.25rem 2.5rem;
   border-top: 1px solid var(--border);
 }
+
+/* Number-guessing game */
+.game-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: rgba(0, 0, 0, 0.65);
+}
+
+.game-overlay[hidden] {
+  display: none;
+}
+
+.game-modal-box {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  padding: 1.75rem;
+  border: 3px solid #ffffff;
+  border-radius: 0.25rem;
+  background: var(--bg);
+  text-align: center;
+}
+
+.game-close {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.6rem;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  line-height: 1;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.game-close:hover {
+  color: var(--text);
+}
+
+.game-input-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.game-input-row input {
+  width: 4rem;
+  padding: 0.4rem 0.5rem;
+  border-radius: 0.4rem;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  text-align: center;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.game-input-row button {
+  padding: 0.45rem 1rem;
+  border-radius: 0.4rem;
+  border: 1px solid var(--border);
+  background: var(--accent);
+  color: #0f1115;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+/* Comic Sans penalty mode */
+.comic-sans-mode,
+.comic-sans-mode * {
+  font-family: "Comic Sans MS", "Comic Sans", cursive !important;
+}
