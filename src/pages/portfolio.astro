@@ -2,37 +2,41 @@
 import NavLayout from '../layouts/NavLayout.astro';
 import { Image } from 'astro:assets';
 import placeholder from '../assets/placeholder-project.svg';
+import amy from '../assets/amy-screenshot.jpg';
+import tcg from '../assets/connorgroup-screenshot.jpg';
+import epic from '../assets/epic-screenshot.jpg';
+import thrive from '../assets/thriveivusa-screenshot.jpg';
 
 // Placeholder projects — swap in real images, titles, links, and descriptions.
 const projects = [
   {
-    title: "Project One",
-    description: "A short one- or two-line summary of what this project is and the problem it solves.",
-    tags: ["WordPress", "ACF", "PHP"],
-    image: placeholder,
-    href: "#",
+    title: "Connor Group",
+    description: "I worked for the Connor Group where I managed and built features for their existing multi-million dollar earning Wordpress multisite instance.",
+    tags: ["Wordpress", "API", "Custom Plugins", "Divi", "Yardi"],
+    image: tcg,
+    href: "https://connorgroup.com",
   },
   {
-    title: "Project Two",
-    description: "A short one- or two-line summary of what this project is and the problem it solves.",
-    tags: ["Vue", "TypeScript"],
-    image: placeholder,
-    href: "#",
+    title: "Amy Denae Weightloss",
+    description: "I worked with Amy to help manage her existing website and build out the social features she wanted for her users.",
+    tags: ["WordPress", "ACF", "PHP", "Elementor", "Gravity Forms", "Ads"],
+    image: amy,
+    href: "https://amydenaeweightloss.com",
   },
   {
-    title: "Project Three",
-    description: "A short one- or two-line summary of what this project is and the problem it solves.",
-    tags: ["Shopify", "JavaScript"],
-    image: placeholder,
-    href: "#",
+    title: "EPIC Art",
+    description: "I built out a custom design and now assist EPIC with maintaining and managing their digital presence.",
+    tags: ["Wordpress", "Design", "Elementor", "Gravity Forms"],
+    image: epic,
+    href: "https://epicartinspires.com/",
   },
   {
-    title: "Project Four",
-    description: "A short one- or two-line summary of what this project is and the problem it solves.",
-    tags: ["Figma", "Design System"],
-    image: placeholder,
-    href: "#",
-  },
+    title: "Thrive IV USA",
+    description: "As part of my work w/ Reborn Consultants, I built out a fully functional site for Thrive IV USA with deep integration into the Zenoti API.",
+    tags: ["Wordpress", "Design", "Elementor", "Gravity Forms", "Zenoti", "API"],
+    image: thrive,
+    href: "https://thriveivusa.com/",
+  }
 ];
 ---
 
@@ -43,7 +47,7 @@ const projects = [
 
     <div class="grid sm:grid-cols-2 gap-6 mt-6">
       {projects.map((project) => (
-        <a href={project.href} class="card block hover:no-underline">
+        <a href={project.href} class="card block hover:no-underline" target="_blank">
           <Image src={project.image} alt={project.title} class="w-full h-auto rounded-md mb-4" />
           <h3 class="!mb-1">{project.title}</h3>
           <p class="text-sm !mb-2">{project.description}</p>
