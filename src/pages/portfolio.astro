@@ -1,10 +1,59 @@
 ---
 import NavLayout from '../layouts/NavLayout.astro';
+import { Image } from 'astro:assets';
+import placeholder from '../assets/placeholder-project.svg';
+
+// Placeholder projects — swap in real images, titles, links, and descriptions.
+const projects = [
+  {
+    title: "Project One",
+    description: "A short one- or two-line summary of what this project is and the problem it solves.",
+    tags: ["WordPress", "ACF", "PHP"],
+    image: placeholder,
+    href: "#",
+  },
+  {
+    title: "Project Two",
+    description: "A short one- or two-line summary of what this project is and the problem it solves.",
+    tags: ["Vue", "TypeScript"],
+    image: placeholder,
+    href: "#",
+  },
+  {
+    title: "Project Three",
+    description: "A short one- or two-line summary of what this project is and the problem it solves.",
+    tags: ["Shopify", "JavaScript"],
+    image: placeholder,
+    href: "#",
+  },
+  {
+    title: "Project Four",
+    description: "A short one- or two-line summary of what this project is and the problem it solves.",
+    tags: ["Figma", "Design System"],
+    image: placeholder,
+    href: "#",
+  },
+];
 ---
 
 <NavLayout pageTitle="Matt Cotter | Portfolio">
   <section class="pt-6">
     <h1>Portfolio</h1>
-    <p>Coming soon.</p>
+    <p>A selection of recent work.</p>
+
+    <div class="grid sm:grid-cols-2 gap-6 mt-6">
+      {projects.map((project) => (
+        <a href={project.href} class="card block hover:no-underline">
+          <Image src={project.image} alt={project.title} class="w-full h-auto rounded-md mb-4" />
+          <h3 class="!mb-1">{project.title}</h3>
+          <p class="text-sm !mb-2">{project.description}</p>
+          <div class="flex flex-wrap gap-2">
+            {project.tags.map((tag) => (
+              <span class="tag">{tag}</span>
+            ))}
+          </div>
+        </a>
+      ))}
+    </div>
   </section>
 </NavLayout>

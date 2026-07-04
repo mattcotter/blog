@@ -1,6 +1,11 @@
 ---
 import NavLayout from './NavLayout.astro';
 const { frontmatter } = Astro.props;
+
+const site = Astro.site?.toString().replace(/\/$/, '') ?? '';
+const url = `${site}${Astro.url.pathname}`;
+const title = encodeURIComponent(frontmatter.title);
+const shareUrl = encodeURIComponent(url);
 ---
 
 <NavLayout pageTitle={frontmatter.title}>
@@ -13,10 +18,54 @@ const { frontmatter } = Astro.props;
     <slot />
 
     {frontmatter.tags && frontmatter.tags.length > 0 && (
-      <div class="flex flex-wrap gap-2 mt-8 pt-6">
-        {frontmatter.tags.map((tag: string) => (
-          <a href={`/tags/${tag}`} class="tag">{tag}</a>
-        ))}
+      <div class="mt-8 pt-6">
+        <div class="flex flex-wrap gap-2 mb-6">
+          {frontmatter.tags.map((tag: string) => (
+            <a href={`/tags/${tag}`} class="tag">{tag}</a>
+          ))}
+        </div>
+
+        <div class="flex items-center gap-4 text-sm">
+          <span class="meta">Share:</span>
+
+          <a
+            href={`https://bsky.app/intent/compose?text=${title}%20${shareUrl}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Bluesky
+          </a>
+
+          <a
+            href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>
+
+          <a
+            href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Facebook
+          </a>
+
+          <a
+            href={`https://twitter.com/intent/tweet?text=${title}&url=${shareUrl}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            X
+          </a>
+
+          <a
+            href={`mailto:?subject=${title}&body=${shareUrl}`}
+          >
+            Email
+          </a>
+        </div>
       </div>
     )}
   </article>

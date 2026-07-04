@@ -1,0 +1,79 @@
+---
+const { jobs } = Astro.props;
+
+const slides = [];
+
+for (let i = 0; i < jobs.length; i += 3) {
+  slides.push(jobs.slice(i, i + 3));
+}
+---
+
+<div class="embla">
+  <div class="embla__viewport">
+    <div class="embla__container">
+      {slides.map((group) => (
+        <div class="embla__slide">
+          <div class="space-y-6">
+            {group.map((job) => (
+              <article class="card">
+                <div class="flex justify-between items-baseline flex-wrap gap-2">
+                  <h3 class="mb-0!">{job.company}</h3>
+                  <span class="meta">{job.dates}</span>
+                </div>
+
+                <p class="italic mt-1 mb-1">{job.role}</p>
+
+                <span class="meta">{job.stack}</span>
+              </article>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <div class="flex justify-center gap-4 mt-8">
+    <button class="btn embla-prev">← Previous</button>
+    <button class="btn embla-next">Next →</button>
+  </div>
+</div>
+
+<style>
+.embla {
+  width: 100%;
+}
+
+.embla__viewport {
+  overflow: hidden;
+}
+
+.embla__container {
+  display: flex;
+}
+
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
+}
+</style>
+
+<script>
+  import EmblaCarousel from "embla-carousel";
+
+  const emblaNode = document.querySelector(".embla__viewport");
+
+  if (emblaNode) {
+    const embla = EmblaCarousel(emblaNode, {
+      loop: false,
+      align: "start",
+    });
+
+    document
+      .querySelector(".embla-prev")
+      ?.addEventListener("click", () => embla.scrollPrev());
+
+    document
+      .querySelector(".embla-next")
+      ?.addEventListener("click", () => embla.scrollNext());
+  }
+</script>

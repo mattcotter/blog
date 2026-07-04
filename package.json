@@ -13,6 +13,8 @@
     "@astrojs/rss": "^4.0.12",
     "@tailwindcss/vite": "^4.1.8",
     "astro": "^7.0.6",
+    "embla-carousel": "^8.6.0",
+    "embla-carousel-autoplay": "^8.6.0",
     "gray-matter": "^4.0.3",
     "swiper": "^14.0.1",
     "tailwindcss": "^4.1.8"
