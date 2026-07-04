@@ -1,19 +1,23 @@
 ---
-// src/layouts/BlogPostLayout.astro
 import NavLayout from './NavLayout.astro';
-const {frontmatter} = Astro.props
+const { frontmatter } = Astro.props;
 ---
 
 <NavLayout pageTitle={frontmatter.title}>
-  <article class="prose lg:prose-xl">
-    <div class="text-lg md:text-xl space-y-4 bg-white/5 ml-5 text-white p-10 rounded-4xl box-shadow border-1 border-black">
-      <h1>{frontmatter.title}</h1>
-      <div class="text-sm text-gray-400">
-        <span>By {frontmatter.author}</span> · <time datetime={frontmatter.pubDate}>{new Date(frontmatter.pubDate).toLocaleDateString()}</time>
+  <article class="pt-6 prose prose-invert max-w-none">
+    <h1>{frontmatter.title}</h1>
+    <p class="meta">
+      By {frontmatter.author} · <time datetime={frontmatter.pubDate}>{new Date(frontmatter.pubDate).toLocaleDateString()}</time>
+    </p>
+    <hr />
+    <slot />
+
+    {frontmatter.tags && frontmatter.tags.length > 0 && (
+      <div class="flex flex-wrap gap-2 mt-8 pt-6">
+        {frontmatter.tags.map((tag: string) => (
+          <a href={`/tags/${tag}`} class="tag">{tag}</a>
+        ))}
       </div>
-    </div>
-    <div class="p-10">
-      <slot />
-    </div>
+    )}
   </article>
 </NavLayout>

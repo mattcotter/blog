@@ -1,112 +1,103 @@
 ---
-import JobSwiper from '../components/JobSwiper.astro';
 import NavLayout from '../layouts/NavLayout.astro';
-
-const pageTitle = "Matt Cotter || 👨‍💻 About Me";
-
+import { Image } from 'astro:assets';
 import matt1 from '../assets/matt-1.png';
-import matt2 from '../assets/matt-2.png';
-import matt3 from '../assets/matt-3.png';
-import matt4 from '../assets/matt-4.png';
-import matt5 from '../assets/matt-5.png';
-import matt6 from '../assets/matt-6.png';
-import matt7 from '../assets/matt-7.png';
 
-const images = [matt1.src, matt2.src, matt3.src, matt4.src, matt5.src, matt6.src, matt7.src];
+const pageTitle = "Matt Cotter | About";
+
+const jobs = [
+  {
+    company: "Connor Group",
+    role: "Lead Web Developer",
+    dates: "September 2025 – Present",
+    stack: "WordPress, Divi, ACF, WP-CLI, Yardi CRM integrations",
+  },
+  {
+    company: "Reborn Consultants",
+    role: "Lead Web Developer",
+    dates: "July 2024 – September 2025",
+    stack: "WordPress, Elementor, Beaver Builder, ACF, Figma",
+  },
+  {
+    company: "Self-employed",
+    role: "Freelance Web Developer",
+    dates: "November 2023 – Present",
+    stack: "WordPress, Shopify, PHP",
+  },
+  {
+    company: "Stratacache",
+    role: "Application Developer",
+    dates: "October 2021 – January 2024",
+    stack: "Vue, TypeScript",
+  },
+  {
+    company: "NASIC, Department of Defense",
+    role: "IT Specialist — Wright-Patterson Air Force Base",
+    dates: "September 2020 – October 2021",
+    stack: "Vue, Django, Nuxt.js, Agile, TS Clearance",
+  },
+  {
+    company: "GE Aerospace",
+    role: "Lead Front End Developer",
+    dates: "October 2018 – April 2020",
+    stack: "Vue, JavaScript, CI/CD, API, Agile",
+  },
+  {
+    company: "RCF Information Systems",
+    role: "Web Developer",
+    dates: "June 2018 – October 2018",
+    stack: "Agile, contract work at Wright-Patterson AFB",
+  },
+  {
+    company: "Think Patented",
+    role: "Full Stack Developer",
+    dates: "January 2017 – June 2018",
+    stack: "Rebrand of TDH Marketing as Bitstorm Connect",
+  },
+  {
+    company: "TDH Marketing",
+    role: "Web Developer",
+    dates: "December 2014 – January 2017",
+    stack: "Joomla, Drupal, WordPress, SEO",
+  },
+];
 ---
 
 <NavLayout pageTitle={pageTitle}>
-  <div class="w-full">
-    <div class="text-lg md:text-xl space-y-4 bg-white/5 md:ml-5 text-white p-10 rounded-4xl box-shadow border-1 border-black">
-      <h1 class="">About</h1>
+  <section class="pt-6 flex flex-col sm:flex-row gap-6 items-start">
+    <Image src={matt1} alt="Matt Cotter" class="w-24 h-24 rounded-full object-cover shrink-0" />
+    <div>
+      <h1>Hey, I'm Matt</h1>
+      <p>I'm a front-end developer with over 12 years of experience.</p>
+      <p>
+        I've worked with companies large and small, building robust, user-focused
+        solutions across a range of industries — from internal tooling for the
+        Department of Defense to marketing sites for small businesses.
+      </p>
+      <p>
+        I've helped build McDonald's digital menu boards and led front-end efforts
+        for GE Aerospace's internal design system, used by hundreds of engineers
+        worldwide. No matter the size of the project, I focus on dependable work
+        that bridges design and development.
+      </p>
     </div>
-    <div class="p-10">
-      <h2 class="pb-4">Hey, I'm Matt!</h2>
-      <h3 class="pb-4">I'm a Front End Developer with over 12 years experience.</h3>
-      <p class="pb-4">
-        I’ve worked with companies both large and small, building robust, user-focused solutions across a wide range of industries. I’ve made a career of diving into complex challenges, whether that meant working on internal tooling for the Department of Defense at NASIC, or designing marketing websites for small businesses.
-      </p>
-      <p class="pb-4">
-        I've helped create and write code for McDonald's digital menu boards: I bring a pragmatic approach to solving problems with clean code and thoughtful UI. At GE Aerospace, I led front-end efforts for an internal design system used by hundreds of engineers around the world, helping unify their interface standards. No matter the size of the project, I focus on delivering dependable work that bridges design and development. Now, I can do that for you.
-      </p>
+  </section>
 
-      <div class="mx-auto w-[300px] h-[300px]">
-        <img
-            id="rotatingImage"
-            src={images[0]}
-            alt="Rotating Image"
-            class="w-full z-0 h-full object-cover rounded-lg"
-            data-images={JSON.stringify(images)}
-        />
-        <button
-            id="restartRotationBtn"
-            class="float-right -mt-20 z-10  bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full shadow-lg transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75"
-            aria-label="Restart image rotation"
-            title="Restart rotation"
-        >
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0 3.181 3.183a8.25 8.25 0 0 0 13.803-3.7M4.031 9.865a8.25 8.25 0 0 1 13.803-3.7l3.181 3.182m0-4.991v4.99" />
-        </svg>
-        
-        </button>
-        </div>
-      </div>
-      <hr class="p-10" />
-      <div class="w-full">
-        <div class="flex">
-            <JobSwiper />
-        </div>
-      </div>
+  <hr />
 
-    
-  </div>
+  <section>
+    <h2 class="mb-4">Experience</h2>
+    <ul class="space-y-6">
+      {jobs.map((job) => (
+        <li class="card">
+          <div class="flex items-baseline justify-between flex-wrap gap-1">
+            <h3 class="!mb-0">{job.company}</h3>
+            <span class="meta">{job.dates}</span>
+          </div>
+          <p class="mt-1 mb-1 italic">{job.role}</p>
+          <span class="meta">{job.stack}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
 </NavLayout>
-
-<script is:inline>
-  // --- Image Rotation Logic ---
-  const rotatingImage = document.getElementById('rotatingImage');
-  const restartRotationBtn = document.getElementById('restartRotationBtn');
-  const images = JSON.parse(rotatingImage.dataset.images || '[]');
-  let currentRotationIndex = 0;
-  let rotationTimeout;
-  const baseDelay = 250; // Increased base delay for slower start
-  const maxDelayIncrease = 500; // Maximum additional delay for slowdown
-  const numberOfFullCycles = 2; // How many full times it rotates before stopping
-  const totalRotationSteps = images.length * numberOfFullCycles;
-  let finalImageIndex; // This will be set randomly on each new rotation
-
-  const animateRotation = (step = 0) => {
-    if (step < totalRotationSteps) {
-      // Rotate through images for the specified number of cycles
-      rotatingImage.src = images[step % images.length];
-
-      // Calculate delay, slowing down as it approaches the end of the cycles
-      // This creates a gradual slowdown.
-      const progress = step / totalRotationSteps;
-      const currentDelay = baseDelay + (progress * maxDelayIncrease);
-      
-      rotationTimeout = setTimeout(() => animateRotation(step + 1), currentDelay);
-    } else {
-      // Once the full cycles are done, set the final random image with a slight pause
-      rotationTimeout = setTimeout(() => {
-        rotatingImage.src = images[finalImageIndex];
-      }, 300); // Small pause before showing the final image
-    }
-  };
-
-  const startRandomRotation = () => {
-    clearTimeout(rotationTimeout); // Clear any existing animation
-    currentRotationIndex = 0; // Reset the rotation counter
-    finalImageIndex = Math.floor(Math.random() * images.length); // Choose a new random image to end on
-    rotatingImage.src = images[0]; // Immediately show the first image to start the sequence
-    animateRotation(); // Begin the animation
-  };
-
-  // Start the rotation when the page loads
-  document.addEventListener('DOMContentLoaded', startRandomRotation);
-
-  // Attach event listener to the restart button
-  if (restartRotationBtn) {
-    restartRotationBtn.addEventListener('click', startRandomRotation);
-  }
-</script>
