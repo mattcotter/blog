@@ -74,6 +74,16 @@ const socialLinks = [
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
         <title>{pageTitle}</title>
+        <!-- Google tag (gtag.js) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-VB1TSGDEV4"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'G-VB1TSGDEV4');
+        </script>
+
         <script is:inline>
           (function () {
             const stored = localStorage.getItem('theme');
