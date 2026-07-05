@@ -76,15 +76,14 @@ const socialLinks = [
         <title>{pageTitle}</title>
         <!-- Google tag (gtag.js) -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-VB1TSGDEV4"></script>
+
         <script is:inline>
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
 
           gtag('config', 'G-VB1TSGDEV4');
-        </script>
-
-        <script is:inline>
+          
           (function () {
             const stored = localStorage.getItem('theme');
             const theme = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
