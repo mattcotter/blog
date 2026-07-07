@@ -12,7 +12,7 @@ const shareUrl = encodeURIComponent(url);
   <article class="pt-6 prose prose-invert max-w-none">
     <h1>{frontmatter.title}</h1>
     <p class="meta">
-      By {frontmatter.author} · <time datetime={frontmatter.pubDate}>{new Date(frontmatter.pubDate).toLocaleDateString()}</time>
+      By {frontmatter.author} · <time datetime={frontmatter.pubDate}>{new Date(frontmatter.pubDate).toLocaleDateString('en-US', { timeZone: 'UTC' })}</time>
     </p>
     <hr />
     <slot />

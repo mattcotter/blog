@@ -266,6 +266,17 @@ code {
   padding: 1.25rem;
 }
 
+.card:hover,
+.card:hover * {
+  text-decoration: none !important;
+}
+
+.card:hover .tag {
+  background: var(--text);
+  color: var(--bg);
+  border-color: var(--text);
+}
+
 .site-footer {
   max-width: 42rem;
   margin: 2rem auto 0;

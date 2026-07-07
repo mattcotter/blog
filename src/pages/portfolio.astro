@@ -47,15 +47,32 @@ const projects = [
 
     <div class="grid sm:grid-cols-2 gap-6 mt-6">
       {projects.map((project) => (
-        <a href={project.href} class="card block hover:no-underline" target="_blank">
+        <a href={project.href} class="card block relative group hover:no-underline" target="_blank">
           <Image src={project.image} alt={project.title} class="w-full h-auto rounded-md mb-4" />
           <h3 class="mb-1!">{project.title}</h3>
           <p class="text-sm mb-2!">{project.description}</p>
-          <div class="flex flex-wrap gap-2">
+          <div class="flex flex-wrap gap-2 pr-6">
             {project.tags.map((tag) => (
               <span class="tag">{tag}</span>
             ))}
           </div>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="absolute bottom-3 right-3 w-4 h-4 text-[var(--text-muted)] opacity-70 group-hover:opacity-100 transition-opacity"
+            aria-hidden="true"
+          >
+            <path d="M15 3h6v6" />
+            <path d="M10 14 21 3" />
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+          </svg>
         </a>
       ))}
     </div>
