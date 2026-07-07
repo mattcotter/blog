@@ -7,7 +7,7 @@ author: 'Matt Cotter'
 image:
     url: '/public/astro-to-wordpress.jpg'
     alt: 'Astro to Wordpress'
-tags: ["api", "gravity forms", "wordpress", "war stories", ""]
+tags: ["api", "gravity forms", "wordpress", "war stories", "zenoti"]
 ---
 
 # Deep Dive: WordPress, Gravity Forms & APIs, Oh My
