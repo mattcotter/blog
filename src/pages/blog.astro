@@ -1,58 +1,108 @@
 ---
 import NavLayout from '../layouts/NavLayout.astro';
+import { loadPosts, groupByYear, formatDate, tagHref, tagCounts } from '../utils/posts.js';
+import { site } from '../data/site.js';
 
-import fs from 'fs';
-import path from 'path';
-import matter from 'gray-matter';
-
-const pageTitle = "Matt Cotter | Blog";
-const blogDir = './src/pages/blog';
-const files = fs.readdirSync(blogDir).filter(file => file.endsWith('.md'));
-
-type PostMeta = {
-  title: string;
-  pubDate: string;
-  tags?: string[];
-  url: string;
-};
-
-const posts: PostMeta[] = files.map(file => {
-  const filePath = path.join(blogDir, file);
-  const content = fs.readFileSync(filePath, 'utf-8');
-  const { data } = matter(content);
-
-  return {
-    title: data.title,
-    pubDate: data.pubDate,
-    tags: data.tags ?? [],
-    url: `/blog/${file.replace('.md', '')}`,
-  };
-});
-
-posts.sort((a, b) => {
-  const dateA = new Date(a.pubDate).getTime() || 0;
-  const dateB = new Date(b.pubDate).getTime() || 0;
-  return dateB - dateA;
-});
+const posts = loadPosts(import.meta.glob('./blog/*.md', { eager: true }));
+const groups = groupByYear(posts);
+const topics = tagCounts(posts);
+const totalWords = posts.reduce((sum, post) => sum + post.wordCount, 0);
+const description =
+  'Essays on web development, WordPress, and the history of the internet by Matt Cotter.';
 ---
 
-<NavLayout pageTitle={pageTitle}>
-  <section class="pt-6">
-    <h1 class="mb-6">Blog</h1>
-    <ul class="space-y-6">
-      {posts.map((post) => (
-        <li class="pb-6 border-b border-[var(--border)] last:border-0">
-          <span class="meta block mb-1">{new Date(post.pubDate).toLocaleDateString('en-US', { timeZone: 'UTC' })}</span>
-          <a href={post.url} class="text-lg font-medium">{post.title}</a>
-          {post.tags && post.tags.length > 0 && (
-            <div class="flex flex-wrap gap-2 mt-2">
-              {post.tags.map(tag => (
-                <a href={`/tags/${tag}`} class="tag">{tag}</a>
-              ))}
-            </div>
-          )}
-        </li>
+<NavLayout pageTitle={`Writing — ${site.name}`} description={description}>
+  <section class="hero">
+    <p class="hero__name">Writing</p>
+
+    <h1 class="hero__lede">
+      Essays about building for the web — and <em>what it costs</em>.
+    </h1>
+
+    <div class="hero__meta">
+      <span class="mono">
+        {posts.length} essays · {totalWords.toLocaleString('en-US')} words · since {groups[groups.length - 1]?.year}
+      </span>
+      <a href="/rss.xml">Subscribe by RSS →</a>
+    </div>
+  </section>
+
+  <section class="band--tight">
+    <div class="tag-row" id="filters">
+      <button type="button" class="tag tag--on" data-filter="all">all</button>
+      {topics.map(({ tag, count }) => (
+        <button type="button" class="tag" data-filter={tag}>
+          {tag}<span class="tag__count">{count}</span>
+        </button>
       ))}
-    </ul>
+    </div>
+  </section>
+
+  <section class="band--tight">
+    <div class="ledger" id="archive">
+      {groups.map((group) => (
+        <div class="year-block" data-tags={group.posts.flatMap((p) => p.tags).join('|')}>
+          <div class="ledger__year">
+            <b>{group.year}</b>
+            <i>{group.posts.length} {group.posts.length === 1 ? 'essay' : 'essays'}</i>
+          </div>
+
+          {group.posts.map((post) => (
+            <article class="entry" data-tags={post.tags.join('|')}>
+              <div class="entry__date">{formatDate(post.pubDate)}</div>
+
+              <div>
+                <h2 class="entry__title"><a href={post.url}>{post.title}</a></h2>
+                {post.description && <p class="entry__desc">{post.description}</p>}
+                <div class="entry__foot">
+                  <span class="mono">{post.readingTime} min read</span>
+                  {post.tags.map((tag) => (
+                    <a href={tagHref(tag)} class="tag">{tag}</a>
+                  ))}
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      ))}
+    </div>
+
+    <p class="ledger-note" id="empty" hidden>Nothing filed under that topic yet.</p>
+    <p class="ledger-note">Titles turn <b>purple</b> once you've read them.</p>
   </section>
 </NavLayout>
+
+<script is:inline>
+  (function () {
+    var filters = document.getElementById('filters');
+    var empty = document.getElementById('empty');
+    if (!filters) return;
+
+    filters.addEventListener('click', function (event) {
+      var button = event.target.closest('[data-filter]');
+      if (!button) return;
+
+      var active = button.dataset.filter;
+
+      filters.querySelectorAll('[data-filter]').forEach(function (el) {
+        el.classList.toggle('tag--on', el === button);
+      });
+
+      var shown = 0;
+      document.querySelectorAll('#archive .entry').forEach(function (entry) {
+        var tags = (entry.dataset.tags || '').split('|');
+        var match = active === 'all' || tags.indexOf(active) !== -1;
+        entry.hidden = !match;
+        if (match) shown++;
+      });
+
+      // Hide a year heading when nothing under it survived the filter.
+      document.querySelectorAll('#archive .year-block').forEach(function (block) {
+        var visible = block.querySelectorAll('.entry:not([hidden])').length;
+        block.hidden = visible === 0;
+      });
+
+      empty.hidden = shown !== 0;
+    });
+  })();
+</script>

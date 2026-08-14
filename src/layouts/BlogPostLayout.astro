@@ -1,72 +1,97 @@
 ---
 import NavLayout from './NavLayout.astro';
-const { frontmatter } = Astro.props;
+import { loadPosts, readingTime, formatFullDate, tagHref } from '../utils/posts.js';
+import { site } from '../data/site.js';
 
-const site = Astro.site?.toString().replace(/\/$/, '') ?? '';
-const url = `${site}${Astro.url.pathname}`;
-const title = encodeURIComponent(frontmatter.title);
-const shareUrl = encodeURIComponent(url);
+const { frontmatter, rawContent } = Astro.props;
+
+const body = typeof rawContent === 'function' ? rawContent() : '';
+const minutes = readingTime(body);
+
+const posts = loadPosts(import.meta.glob('../pages/blog/*.md', { eager: true }));
+const here = Astro.url.pathname.replace(/\/+$/, '');
+const index = posts.findIndex((post) => post.url.replace(/\/+$/, '') === here);
+
+// posts are newest-first, so the *next* essay to read is the older one
+const newer = index > 0 ? posts[index - 1] : null;
+const older = index >= 0 && index < posts.length - 1 ? posts[index + 1] : null;
+
+const description = frontmatter.description || site.description;
+const canonical = new URL(Astro.url.pathname, site.url).toString();
+const shareUrl = encodeURIComponent(canonical);
+const shareTitle = encodeURIComponent(frontmatter.title);
+
+const shareLinks = [
+  { name: 'Bluesky', href: `https://bsky.app/intent/compose?text=${shareTitle}%20${shareUrl}` },
+  { name: 'LinkedIn', href: `https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}` },
+  { name: 'X', href: `https://twitter.com/intent/tweet?text=${shareTitle}&url=${shareUrl}` },
+  { name: 'Email', href: `mailto:?subject=${shareTitle}&body=${shareUrl}` },
+];
 ---
 
-<NavLayout pageTitle={frontmatter.title}>
-  <article class="pt-6 prose prose-invert max-w-none">
-    <h1>{frontmatter.title}</h1>
-    <p class="meta">
-      By {frontmatter.author} · <time datetime={frontmatter.pubDate}>{new Date(frontmatter.pubDate).toLocaleDateString('en-US', { timeZone: 'UTC' })}</time>
-    </p>
-    <hr />
-    <slot />
+<NavLayout
+  pageTitle={`${frontmatter.title} — ${site.name}`}
+  description={description}
+  ogType="article"
+  progress={true}
+  article={frontmatter}
+>
+  <article>
+    <header class="essay-head">
+      <p class="mono" style="margin-bottom:1rem">
+        <a href="/blog/">Writing</a> / {new Date(frontmatter.pubDate).getUTCFullYear()}
+      </p>
 
-    {frontmatter.tags && frontmatter.tags.length > 0 && (
-      <div class="mt-8 pt-6">
-        <div class="flex flex-wrap gap-2 mb-6">
-          {frontmatter.tags.map((tag: string) => (
-            <a href={`/tags/${tag}`} class="tag">{tag}</a>
+      <h1>{frontmatter.title}</h1>
+
+      {frontmatter.description && (
+        <p class="essay-head__desc">{frontmatter.description}</p>
+      )}
+
+      <div class="essay-head__meta">
+        <span class="mono">
+          {frontmatter.author} · <time datetime={frontmatter.pubDate}>{formatFullDate(frontmatter.pubDate)}</time> · {minutes} min read
+        </span>
+      </div>
+    </header>
+
+    <div class="essay">
+      <slot />
+    </div>
+
+    <footer class="essay-foot">
+      {frontmatter.tags?.length > 0 && (
+        <div class="tag-row">
+          {frontmatter.tags.map((tag) => (
+            <a href={tagHref(tag)} class="tag">{tag}</a>
           ))}
         </div>
+      )}
 
-        <div class="flex items-center gap-4 text-sm">
-          <span class="meta">Share:</span>
-
-          <a
-            href={`https://bsky.app/intent/compose?text=${title}%20${shareUrl}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Bluesky
-          </a>
-
-          <a
-            href={`https://www.linkedin.com/sharing/share-offsite/?url=${shareUrl}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            LinkedIn
-          </a>
-
-          <a
-            href={`https://www.facebook.com/sharer/sharer.php?u=${shareUrl}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Facebook
-          </a>
-
-          <a
-            href={`https://twitter.com/intent/tweet?text=${title}&url=${shareUrl}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            X
-          </a>
-
-          <a
-            href={`mailto:?subject=${title}&body=${shareUrl}`}
-          >
-            Email
-          </a>
-        </div>
+      <div class="share-row">
+        <span class="mono">Share</span>
+        {shareLinks.map((link) => (
+          <a href={link.href} target="_blank" rel="noopener noreferrer">{link.name}</a>
+        ))}
       </div>
-    )}
+
+      {(newer || older) && (
+        <nav class="pager" aria-label="More essays">
+          {older ? (
+            <a class="pager__item" href={older.url}>
+              <span class="pager__label">← Older</span>
+              <span class="pager__title">{older.title}</span>
+            </a>
+          ) : <span></span>}
+
+          {newer ? (
+            <a class="pager__item pager__item--next" href={newer.url}>
+              <span class="pager__label">Newer →</span>
+              <span class="pager__title">{newer.title}</span>
+            </a>
+          ) : <span></span>}
+        </nav>
+      )}
+    </footer>
   </article>
 </NavLayout>

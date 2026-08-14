@@ -1,145 +1,105 @@
 ---
 import NavLayout from '../layouts/NavLayout.astro';
 import { Image } from 'astro:assets';
-import matt1 from '../assets/matt-1.png';
-import ExperienceCarousel from "../components/ExperienceCarousel.astro";
-
-const pageTitle = "Matt Cotter | About";
+import logo from '../assets/matt-cotter-logo.png';
+import { site } from '../data/site.js';
 
 const jobs = [
-  {
-    company: "Connor Group",
-    role: "Lead Web Developer",
-    dates: "September 2025 – Present",
-    stack: "WordPress, Divi, ACF, WP-CLI, Yardi CRM integrations",
-  },
-  {
-    company: "Reborn Consultants",
-    role: "Lead Web Developer",
-    dates: "July 2024 – September 2025",
-    stack: "WordPress, Elementor, Beaver Builder, ACF, Figma",
-  },
-  {
-    company: "Self-employed",
-    role: "Freelance Web Developer",
-    dates: "November 2023 – Present",
-    stack: "WordPress, Shopify, PHP",
-  },
-  {
-    company: "Stratacache",
-    role: "Application Developer",
-    dates: "October 2021 – January 2024",
-    stack: "Vue, TypeScript",
-  },
-  {
-    company: "NASIC, Department of Defense",
-    role: "IT Specialist — Wright-Patterson Air Force Base",
-    dates: "September 2020 – October 2021",
-    stack: "Vue, Django, Nuxt.js, Agile, TS Clearance",
-  },
-  {
-    company: "GE Aerospace",
-    role: "Lead Front End Developer",
-    dates: "October 2018 – April 2020",
-    stack: "Vue, JavaScript, CI/CD, API, Agile",
-  },
-  {
-    company: "RCF Information Systems",
-    role: "Web Developer",
-    dates: "June 2018 – October 2018",
-    stack: "Agile, contract work at Wright-Patterson AFB",
-  },
-  {
-    company: "Think Patented",
-    role: "Full Stack Developer",
-    dates: "January 2017 – June 2018",
-    stack: "Rebrand of TDH Marketing as Bitstorm Connect",
-  },
-  {
-    company: "TDH Marketing",
-    role: "Web Developer",
-    dates: "December 2014 – January 2017",
-    stack: "Joomla, Drupal, WordPress, SEO",
-  },
+  { company: 'Self-employed', role: 'Freelance Web Developer', dates: 'Nov 2023 – Present', stack: 'WordPress, Shopify, PHP', current: true },
+  { company: 'Connor Group', role: 'Lead Web Developer', dates: 'Sep 2025 – Jul 2026', stack: 'WordPress, Divi, ACF, WP-CLI, Yardi CRM' },
+  { company: 'Reborn Consultants', role: 'Lead Web Developer', dates: 'Jul 2024 – Sep 2025', stack: 'WordPress, Elementor, Beaver Builder, ACF, Figma' },
+  { company: 'Stratacache', role: 'Application Developer', dates: 'Oct 2021 – Jan 2024', stack: 'Vue, TypeScript' },
+  { company: 'NASIC, Department of Defense', role: 'IT Specialist, Wright-Patterson AFB', dates: 'Sep 2020 – Oct 2021', stack: 'Vue, Django, Nuxt, Agile, TS Clearance' },
+  { company: 'GE Aerospace', role: 'Lead Front End Developer', dates: 'Oct 2018 – Apr 2020', stack: 'Vue, JavaScript, CI/CD, APIs, Agile' },
+  { company: 'RCF Information Systems', role: 'Web Developer', dates: 'Jun 2018 – Oct 2018', stack: 'Agile, contract work at Wright-Patterson AFB' },
+  { company: 'Think Patented', role: 'Full Stack Developer', dates: 'Jan 2017 – Jun 2018', stack: 'Rebrand of TDH Marketing as Bitstorm Connect' },
+  { company: 'TDH Marketing', role: 'Web Developer', dates: 'Dec 2014 – Jan 2017', stack: 'Joomla, Drupal, WordPress, SEO' },
 ];
 
-const jobSlides = [];
-
-for (let i = 0; i < jobs.length; i += 3) {
-  jobSlides.push(jobs.slice(i, i + 3));
-}
+const description =
+  'Matt Cotter is a front-end developer in Cincinnati with 13+ years of experience across the Department of Defense, GE Aerospace, agencies, and small business clients.';
 ---
 
-<NavLayout pageTitle={pageTitle}>
-  <section class="pt-6 flex flex-col sm:flex-row gap-6 items-start">
-    <Image src={matt1} alt="Matt Cotter" class="w-24 h-24 rounded-full object-cover shrink-0" />
+<NavLayout pageTitle={`About — ${site.name}`} description={description}>
+  <section class="about-head">
+    <div class="about-head__mark">
+      <Image src={logo} alt="Illustrated portrait of Matt Cotter" width={224} height={224} />
+    </div>
+
     <div>
-      <h1>👋 Hey, I'm Matt</h1>
-      <p>I'm a front-end developer with over 13+ years of experience.</p>
-      <p>
-        I've worked with companies large and small, building robust, user-focused
-        solutions across a range of industries — from internal tooling for the
-        Department of Defense to marketing sites for small businesses.
-      </p>
-      <p>
-        I've helped build McDonald's digital menu boards and led front-end efforts
-        for GE Aerospace's internal design system, used by hundreds of engineers
-        worldwide. No matter the size of the project, I focus on dependable work
-        that bridges design and development.
-      </p>
+      <h1 class="hero__lede" style="margin-bottom:1.25rem">
+        Hey, I'm Matt. I've been building websites since <em>before CSS could do layout.</em>
+      </h1>
 
-      <a
-        href="/resume.pdf"
-        download="Matt-Cotter-Resume.pdf"
-        class="btn border-2 p-3 inline-block mt-4"
-      >
-        Download Resume
-      </a>
+      <div class="prose">
+        <p>
+          I'm a front-end developer with more than 13 years of experience, based in
+          Cincinnati, Ohio. I've worked with companies large and small, building
+          user-focused solutions across a lot of very different industries, from
+          internal tooling for the Department of Defense to marketing sites for
+          one-person businesses.
+        </p>
+        <p>
+          I helped build <strong>McDonald's digital menu boards</strong> and led front-end
+          work on <strong>GE Aerospace's</strong> internal design system, used by hundreds
+          of engineers worldwide. Whatever the size of the project, the job is the same:
+          dependable work that bridges design and development.
+        </p>
+        <p>
+          I also <a href="/blog/">write about all of it</a>: the tooling, the WordPress
+          war stories, and the parts of this industry nobody warns you about.
+        </p>
+      </div>
+
+      <p style="margin-top:1.5rem">
+        <a href={site.resume} download class="btn">Download résumé (PDF)</a>
+      </p>
     </div>
   </section>
 
-  <hr />
+  <section class="band">
+    <div class="band-head">
+      <h2>Experience</h2>
+      <span class="mono">{jobs.length} roles since 2014</span>
+    </div>
 
-  <section>
-    <h2 class="mb-6">Experience</h2>
-  
-    <ExperienceCarousel jobs={jobs} />
+    <div class="roles">
+      {jobs.map((job) => (
+        <div class={`role${job.current ? ' role--current' : ''}`}>
+          <div class="role__dates">{job.dates}</div>
+          <div>
+            <div class="role__company">{job.company}</div>
+            <div class="role__role">{job.role}</div>
+            <div class="role__stack">{job.stack}</div>
+          </div>
+        </div>
+      ))}
+    </div>
   </section>
 
-  <hr />
-
-  <section class="py-10 max-w-3xl">
-    <h2>Work With Me</h2>
-
-    <p class="mt-4">
-      If you're looking for an experienced WordPress developer, front-end
-      developer, or freelance web developer who can take a project from design to
-      deployment, I'd love to help.
-    </p>
-
-    <p>
-      Over the past 13+ years I've built high-performing websites, custom
-      WordPress themes, Shopify stores, design systems, internal applications, and
-      marketing websites for startups, agencies, Fortune 500 companies, and
-      government organizations. I specialize in modern front-end development,
-      technical SEO, performance optimization, accessibility, and creating
-      maintainable websites that are easy for clients to manage.
-    </p>
-
-    <p>
-      Whether you need ongoing development support, a complete website rebuild,
-      custom WordPress functionality, Shopify development, or someone to improve
-      your site's speed and search visibility, I bring a practical, collaborative
-      approach focused on delivering reliable results.
-    </p>
-
-    <div class="mt-8 text-center">
-      <a
-        href="mailto:cotter.m@gmail.com"
-        class="btn border-2 p-3 text-center"
-      >
-        Work With Me
-      </a>
+  <section class="band">
+    <div class="band-head">
+      <h2>Work with me</h2>
     </div>
+
+    <div class="prose">
+      <p>
+        If you need an experienced WordPress or front-end developer who can take a
+        project from design through deployment, I'd like to help. Over 13+ years I've
+        built custom WordPress themes, Shopify stores, design systems, internal
+        applications, and marketing sites for startups, agencies, Fortune 500 companies,
+        and government organisations.
+      </p>
+      <p>
+        I specialise in modern front-end development, technical SEO, performance,
+        accessibility, and building sites that clients can actually maintain themselves.
+        Ongoing support, a full rebuild, custom functionality, or a speed and search
+        cleanup. All fair game.
+      </p>
+    </div>
+
+    <p style="margin-top:1.75rem">
+      <a href={`mailto:${site.email}`} class="btn btn--solid">Email me →</a>
+    </p>
   </section>
 </NavLayout>

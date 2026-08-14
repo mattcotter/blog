@@ -1,87 +1,101 @@
 ---
 import NavLayout from '../layouts/NavLayout.astro';
 import { Image } from 'astro:assets';
-import placeholder from '../assets/placeholder-project.svg';
 import amy from '../assets/amy-screenshot.jpg';
 import tcg from '../assets/connorgroup-screenshot.jpg';
 import epic from '../assets/epic-screenshot.jpg';
 import thrive from '../assets/thriveivusa-screenshot.jpg';
+import { site } from '../data/site.js';
 
-// Placeholder projects — swap in real images, titles, links, and descriptions.
 const projects = [
   {
-    title: "Connor Group",
-    description: "I worked for the Connor Group where I managed and built features for their existing multi-million dollar earning Wordpress multisite instance.",
-    tags: ["Wordpress", "API", "Custom Plugins", "Divi", "Yardi"],
+    title: 'Connor Group',
+    description:
+      'Manage and build features for an existing multi-million dollar WordPress multisite, including Yardi CRM integrations.',
+    tags: ['WordPress', 'Multisite', 'Custom plugins', 'Divi', 'Yardi API'],
     image: tcg,
-    href: "https://connorgroup.com",
+    href: 'https://connorgroup.com',
   },
   {
-    title: "Amy Denae Weightloss",
-    description: "I worked with Amy to help manage her existing website and build out the social features she wanted for her users.",
-    tags: ["WordPress", "ACF", "PHP", "Elementor", "Gravity Forms", "Ads"],
-    image: amy,
-    href: "https://amydenaeweightloss.com",
-  },
-  {
-    title: "EPIC Art",
-    description: "I built out a custom design and now assist EPIC with maintaining and managing their digital presence.",
-    tags: ["Wordpress", "Design", "Elementor", "Gravity Forms"],
-    image: epic,
-    href: "https://epicartinspires.com/",
-  },
-  {
-    title: "Thrive IV USA",
-    description: "As part of my work w/ Reborn Consultants, I built out a fully functional site for Thrive IV USA with deep integration into the Zenoti API.",
-    tags: ["Wordpress", "Design", "Elementor", "Gravity Forms", "Zenoti", "API"],
+    title: 'Thrive IV USA',
+    description:
+      'Built a full site with deep Zenoti API integration for booking and scheduling, as part of my work with Reborn Consultants.',
+    tags: ['WordPress', 'Zenoti API', 'Elementor', 'Gravity Forms'],
     image: thrive,
-    href: "https://thriveivusa.com/",
-  }
+    href: 'https://thriveivusa.com/',
+  },
+  {
+    title: 'Amy Denae Weight Loss',
+    description:
+      'Two years of ongoing development: maintaining the site and building the social features her members asked for.',
+    tags: ['WordPress', 'ACF', 'PHP', 'Gravity Forms', 'Ads'],
+    image: amy,
+    href: 'https://amydenaeweightloss.com',
+  },
+  {
+    title: 'EPIC Art',
+    description:
+      'Designed and built a custom site, and now handle their ongoing maintenance and digital presence.',
+    tags: ['Design', 'WordPress', 'Elementor', 'Gravity Forms'],
+    image: epic,
+    href: 'https://epicartinspires.com/',
+  },
 ];
+
+const description =
+  'Recent client and agency work by Matt Cotter: WordPress builds, API integrations, and custom front-end development.';
 ---
 
-<NavLayout pageTitle="Matt Cotter | Portfolio">
-  <section class="pt-6">
-    <h1>Portfolio</h1>
-    <p>A selection of recent work.</p>
+<NavLayout pageTitle={`Work — ${site.name}`} description={description}>
+  <section class="hero">
+    <p class="hero__name">Work</p>
 
-    <div class="grid sm:grid-cols-2 gap-6 mt-6">
+    <h1 class="hero__lede">
+      A few projects I can show.{' '}
+      <em>Most of the last decade was behind a login.</em>
+    </h1>
+
+    <div class="hero__meta">
+      <a href={site.resume} download>Download résumé (PDF)</a>
+      <a href={`mailto:${site.email}`}>Start a project →</a>
+    </div>
+  </section>
+
+  <section class="band">
+    <div class="band-head">
+      <h2>Selected projects</h2>
+      <span class="mono">{projects.length} of many</span>
+    </div>
+
+    <div class="project-grid">
       {projects.map((project) => (
-        <a href={project.href} class="card block relative group hover:no-underline" target="_blank">
-          <Image src={project.image} alt={project.title} class="w-full h-auto rounded-md mb-4" />
-          <h3 class="mb-1!">{project.title}</h3>
-          <p class="text-sm mb-2!">{project.description}</p>
-          <div class="flex flex-wrap gap-2 pr-6">
-            {project.tags.map((tag) => (
-              <span class="tag">{tag}</span>
-            ))}
+        <a class="project" href={project.href} target="_blank" rel="noopener noreferrer">
+          <Image src={project.image} alt={`Screenshot of the ${project.title} website`} />
+          <h3>{project.title}</h3>
+          <p>{project.description}</p>
+          <div class="tag-row">
+            {project.tags.map((tag) => <span class="tag">{tag}</span>)}
           </div>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="absolute bottom-3 right-3 w-4 h-4 text-[var(--text-muted)] opacity-70 group-hover:opacity-100 transition-opacity"
-            aria-hidden="true"
-          >
-            <path d="M15 3h6v6" />
-            <path d="M10 14 21 3" />
-            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-          </svg>
         </a>
       ))}
     </div>
-    <a
-      href="/MattCotterResume.pdf"
-      download="MattCotterResume.pdf"
-      class="btn border-2 p-3 block w-fit mx-auto mt-4"
-    >
-      Download Resume
-    </a>
+  </section>
+
+  <section class="band">
+    <div class="band-head">
+      <h2>Also worth knowing</h2>
+    </div>
+
+    <div class="prose">
+      <p>
+        Before the client work, I spent years on things that never get a public URL:
+        <strong>McDonald's digital menu boards</strong> at Stratacache, an internal design
+        system at <strong>GE Aerospace</strong> used by hundreds of engineers, and tooling
+        for the <strong>Department of Defense</strong> at Wright-Patterson Air Force Base.
+      </p>
+      <p>
+        That's why this page is short and <a href="/blog/">the writing</a> is long.
+      </p>
+    </div>
   </section>
 </NavLayout>

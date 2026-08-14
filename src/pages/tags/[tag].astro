@@ -1,29 +1,60 @@
 ---
 import NavLayout from '../../layouts/NavLayout.astro';
+import Ledger from '../../components/Ledger.astro';
+import { loadPosts, tagCounts, tagHref } from '../../utils/posts.js';
+import { site } from '../../data/site.js';
 
 export async function getStaticPaths() {
-  const allPosts = Object.values(import.meta.glob('../blog/*.md', { eager: true }));
-  const uniqueTags = [...new Set(allPosts.map((post: any) => post.frontmatter.tags).flat())];
-  return uniqueTags.map((tag) => {
-    const filteredPosts = allPosts.filter((post: any) => post.frontmatter.tags.includes(tag));
-    return {
-      params: { tag },
-      props: { posts: filteredPosts },
-    };
-  });
+  const posts = loadPosts(import.meta.glob('../blog/*.md', { eager: true }));
+  const tags = [...new Set(posts.flatMap((post) => post.tags))];
+
+  return tags.map((tag) => ({
+    params: { tag },
+    props: { posts: posts.filter((post) => post.tags.includes(tag)) },
+  }));
 }
 
 const { tag } = Astro.params;
 const { posts } = Astro.props;
-const filteredPosts = posts.filter((post: any) => post.frontmatter.tags?.includes(tag));
+
+const allPosts = loadPosts(import.meta.glob('../blog/*.md', { eager: true }));
+const related = tagCounts(allPosts)
+  .filter((entry) => entry.tag !== tag)
+  .slice(0, 10);
+
+const description = `Every essay by Matt Cotter filed under ${tag}.`;
 ---
-<NavLayout pageTitle={`Matt Cotter | ${tag}`}>
-  <section class="pt-6">
-    <h1 class="mb-4">Tag: {tag}</h1>
-    <ul class="space-y-2">
-      {filteredPosts.map((post: any) => (
-        <li><a href={post.url}>{post.frontmatter.title}</a></li>
-      ))}
-    </ul>
+
+<NavLayout pageTitle={`${tag} — Writing — ${site.name}`} description={description}>
+  <section class="hero">
+    <p class="hero__name">
+      <a href="/blog/">Writing</a> / Topic
+    </p>
+
+    <h1 class="hero__lede">{tag}</h1>
+
+    <div class="hero__meta">
+      <span class="mono">{posts.length} {posts.length === 1 ? 'essay' : 'essays'}</span>
+      <a href="/blog/">← All writing</a>
+    </div>
   </section>
+
+  <section class="band--tight">
+    <Ledger posts={posts} showYears={posts.length > 2} />
+  </section>
+
+  {related.length > 0 && (
+    <section class="band">
+      <div class="band-head">
+        <h2>Other topics</h2>
+      </div>
+      <div class="tag-row">
+        {related.map((entry) => (
+          <a href={tagHref(entry.tag)} class="tag">
+            {entry.tag}<span class="tag__count">{entry.count}</span>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
 </NavLayout>

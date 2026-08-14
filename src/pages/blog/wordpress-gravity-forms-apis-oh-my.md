@@ -10,8 +10,6 @@ image:
 tags: ["api", "gravity forms", "wordpress", "war stories", "zenoti"]
 ---
 
-# Deep Dive: WordPress, Gravity Forms & APIs, Oh My
-
 If you've spent any real time building on WordPress, you know the platform's dirty secret: the moment a client says "and it should also send this data to our CRM," you've left CMS-land and entered systems integration territory. Nobody warns you about this in the onboarding docs.
 
 I've hit that wall more than once, most recently building automated lead pipelines that connect WordPress front ends to Zenoti's API, and earlier, wiring up dynamic Gravity Forms workflows for multi-domain client sites. Here's what I've learned about making WordPress talk to the outside world without the whole thing turning into duct tape.

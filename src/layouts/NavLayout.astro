@@ -2,236 +2,264 @@
 import '../styles/global.css';
 import { Image } from 'astro:assets';
 import logo from '../assets/matt-cotter-logo.png';
+import { site, navLinks, socialLinks } from '../data/site.js';
 
-interface NavLayoutProps {
-  pageTitle: string;
-}
+const {
+  pageTitle,
+  description = site.description,
+  ogType = 'website',
+  progress = false,
+  article = null,
+} = Astro.props;
 
-const { pageTitle } = Astro.props;
+const canonical = new URL(Astro.url.pathname, site.url).toString();
+const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
 
-const navLinks = [
-  { name: 'Home', href: '/' },
-  { name: 'Portfolio', href: '/portfolio' },
-  { name: 'About', href: '/about' },
-  { name: 'Blog', href: '/blog' },
-];
+const isCurrent = (href) => {
+  const target = href.replace(/\/+$/, '') || '/';
+  return target === '/' ? path === '/' : path === target || path.startsWith(`${target}/`);
+};
 
-const socialLinks = [
-  {
-    name: 'GitHub',
-    href: 'https://github.com/mattcotter',
-    svg: `<svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="currentColor">
-  <path d="M12 .297c-6.63 0-12 5.373-12 12 
-    0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 
-    0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61
-    C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 
-    1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998
-    .108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 
-    0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 
-    0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 
-    1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23
-    .645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 
-    0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 
-    0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57 
-    C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-</svg>`
-  },
-  {
-    name: 'Bluesky',
-    href: 'https://bsky.app/profile/mattcotter.dev',
-    svg: `<svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 530" fill="currentColor">
-    <path d="m135.72 44.03c66.496 49.921 138.02 151.14 164.28 205.46 26.262-54.316 97.782-155.54 164.28-205.46 
-    47.98-36.021 125.72-63.892 125.72 24.795 0 17.712-10.155 148.79-16.111 170.07-20.703 73.984-96.144 92.854-163.25 81.433 
-    117.3 19.964 147.14 86.092 82.697 152.22-122.39 125.59-175.91-31.511-189.63-71.766-2.514-7.3797-3.6904-10.832-3.7077-7.8964
-    -0.0174-2.9357-1.1937 0.51669-3.7077 7.8964-13.714 40.255-67.233 197.36-189.63 71.766-64.444-66.128-34.605-132.26 
-    82.697-152.22-67.108 11.421-142.55-7.4491-163.25-81.433-5.9562-21.282-16.111-152.36-16.111-170.07 
-    0-88.687 77.742-60.816 125.72-24.795z"/>
-    </svg>`
-  },
-  {
-    name: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/cotterm',
-    svg: `<svg class="h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 382 382" fill="currentColor"><path d="M347.445,0H34.555C15.471,0,0,15.471,0,34.555v312.889C0,366.529,15.471,382,34.555,382h312.889  C366.529,382,382,366.529,382,347.444V34.555C382,15.471,366.529,0,347.445,0z M118.207,329.844c0,5.554-4.502,10.056-10.056,10.056  H65.345c-5.554,0-10.056-4.502-10.056-10.056V150.403c0-5.554,4.502-10.056,10.056-10.056h42.806  c5.554,0,10.056,4.502,10.056,10.056V329.844z M86.748,123.432c-22.459,0-40.666-18.207-40.666-40.666S64.289,42.1,86.748,42.1  s40.666,18.207,40.666,40.666S109.208,123.432,86.748,123.432z M341.91,330.654c0,5.106-4.14,9.246-9.246,9.246H286.73  c-5.106,0-9.246-4.14-9.246-9.246v-84.168c0-12.556,3.683-55.021-32.813-55.021c-28.309,0-34.051,29.066-35.204,42.11v97.079  c0,5.106-4.139,9.246-9.246,9.246h-44.426c-5.106,0-9.246-4.14-9.246-9.246V149.593c0-5.106,4.14-9.246,9.246-9.246h44.426  c5.106,0,9.246,4.14,9.246,9.246v15.655c10.497-15.753,26.097-27.912,59.312-27.912c73.552,0,73.131,68.716,73.131,106.472  L341.91,330.654L341.91,330.654z"/></svg>`
-  },
-  {
-    name: 'Email',
-    href: 'mailto:cotter.m@gmail.com',
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none"
-      viewBox="0 0 26 24" stroke="currentColor" stroke-width="1.5">
-      <path stroke-linecap="round" stroke-linejoin="round"
-        d="M3 6.75v10.5A2.25 2.25 0 0 0 5.25 19.5h13.5A2.25 2.25 0 0 0 21 17.25V6.75A2.25 2.25 0 0 0 18.75 4.5H5.25A2.25 2.25 0 0 0 3 6.75z" />
-      <path stroke-linecap="round" stroke-linejoin="round"
-        d="m3 6.75 9 6.75 9-6.75" />
-    </svg>`
-  }
-];
+const jsonLd = article
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BlogPosting',
+      headline: article.title,
+      description,
+      datePublished: article.pubDate,
+      author: { '@type': 'Person', name: article.author ?? site.name, url: site.url },
+      mainEntityOfPage: canonical,
+    }
+  : {
+      '@context': 'https://schema.org',
+      '@type': 'Person',
+      name: site.name,
+      url: site.url,
+      jobTitle: 'Front-end Developer',
+      email: `mailto:${site.email}`,
+    };
 ---
 
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-        <meta name="viewport" content="width=device-width" />
-        <meta name="generator" content={Astro.generator} />
-        <title>{pageTitle}</title>
-        <!-- Google tag (gtag.js) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-VB1TSGDEV4"></script>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
 
-        <script is:inline>
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
 
-          gtag('config', 'G-VB1TSGDEV4');
-          
-          (function () {
-            const stored = localStorage.getItem('theme');
-            const theme = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
-            document.documentElement.setAttribute('data-theme', theme);
-          })();
-        </script>
-    </head>
-    <body>
-      <div class="top-bar"></div>
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:site_name" content={site.name} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
 
-      <nav class="top-nav">
-          <a href="/" class="shrink-0 flex items-center">
-            <Image src={logo} alt="Matt Cotter" class="h-6 w-auto" />
-          </a>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={`${site.name} — Writing`}
+      href="/rss.xml"
+    />
 
-          <div class="flex items-center gap-4 text-sm">
-              {navLinks.slice(1).map((link) => (
-                <a href={link.href}>{link.name}</a>
-              ))}
-          </div>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400..700&family=JetBrains+Mono:wght@400..600&family=Literata:ital,opsz,wght@0,7..72,300..700;1,7..72,300..700&display=swap"
+    />
 
-          <div class="divider hidden sm:block"></div>
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
 
-          <div class="hidden sm:flex items-center gap-3">
-              {socialLinks.map((link) => (
-                <a href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.name}>
-                  <span set:html={link.svg}></span>
-                </a>
-              ))}
-          </div>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VB1TSGDEV4"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() { dataLayer.push(arguments); }
+      gtag('js', new Date());
+      gtag('config', 'G-VB1TSGDEV4');
+
+      // Set the theme before first paint so there's no flash.
+      (function () {
+        var stored = localStorage.getItem('theme');
+        var theme = stored || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+  </head>
+
+  <body data-progress={progress ? 'on' : 'off'}>
+    <a href="#main" class="skip-link">Skip to content</a>
+
+    <div class="top-bar" aria-hidden="true">
+      <div class="top-bar__fill"></div>
+    </div>
+
+    <div class="dock-rail">
+      <nav class="dock" aria-label="Primary">
+        <a href="/" class="dock__logo" aria-label={`${site.name} — home`}>
+          <Image src={logo} alt="" width={96} height={96} loading="eager" />
+        </a>
+
+        <div class="dock__links">
+          {navLinks.map((link) => (
+            <a href={link.href} aria-current={isCurrent(link.href) ? 'page' : undefined}>
+              {link.name}
+            </a>
+          ))}
+        </div>
+
+        <span class="dock__divider" aria-hidden="true"></span>
+
+        <div class="dock__social">
+          {socialLinks.map((link) => (
+            <a
+              href={link.href}
+              aria-label={link.name}
+              target={link.href.startsWith('http') ? '_blank' : undefined}
+              rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+            >
+              <span set:html={link.svg}></span>
+            </a>
+          ))}
+        </div>
       </nav>
 
-      <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle color theme">
-        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1.5m0 15V21m8.485-8.485h-1.5m-13.97 0h-1.5m14.849-6.364-1.06 1.06M6.196 17.804l-1.06 1.06m12.728 0-1.06-1.06M6.196 6.196l-1.06-1.06M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Z" />
-        </svg>
-        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
-        </svg>
+      <button id="theme-toggle" class="theme-toggle" aria-label="Switch to light theme">
+      <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1.5m0 15V21m8.485-8.485h-1.5m-13.97 0h-1.5m14.849-6.364-1.06 1.06M6.196 17.804l-1.06 1.06m12.728 0-1.06-1.06M6.196 6.196l-1.06-1.06M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Z" />
+      </svg>
+      <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
+      </svg>
       </button>
+    </div>
 
-      <main class="container">
-        <slot />
-      </main>
+    <main id="main" class="page">
+      <slot />
+    </main>
 
-      <footer class="site-footer">
-        <div class="flex justify-between items-start gap-8">
-          <div>
-            <div class="flex items-center gap-4">
-              {socialLinks.map((link) => (
-                <a href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.name}>
-                  <span set:html={link.svg}></span>
-                </a>
-              ))}
-            </div>
-      
-            <a href="mailto:cotter.m@gmail.com" class="meta block mt-3">
-              cotter.m@gmail.com
+    <footer class="site-footer">
+      <div>
+        <div class="site-footer__social">
+          {socialLinks.map((link) => (
+            <a
+              href={link.href}
+              aria-label={link.name}
+              target={link.href.startsWith('http') ? '_blank' : undefined}
+              rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+            >
+              <span set:html={link.svg}></span>
             </a>
-      
-            <p class="meta mt-1">
-              © {new Date().getFullYear()} Matt Cotter
-            </p>
-          </div>
-      
-          <div class="text-right">
-            <a href="#" id="game-trigger" class="meta">
-              🕹️ Let's Play a Game...
-            </a>
-          </div>
+          ))}
         </div>
-      </footer>
-
-      <div id="game-overlay" class="game-overlay" hidden>
-        <div class="game-modal-box">
-          <button id="game-close" class="game-close" aria-label="Close">&times;</button>
-          <h3>Let's Play a Game</h3>
-          <p id="game-message">Guess a number between 1 and 5.</p>
-          <div class="game-input-row">
-            <input id="game-guess" type="number" min="1" max="5" inputmode="numeric" />
-            <button id="game-submit">Guess</button>
-          </div>
-        </div>
+        <a href={`mailto:${site.email}`} class="mono">{site.email}</a>
+        <span class="mono">© {new Date().getFullYear()} {site.name} · {site.location} · Art by Olivia Cotter</span>
       </div>
 
-      <script is:inline>
-        const themeToggle = document.getElementById('theme-toggle');
-        themeToggle.addEventListener('click', () => {
-          const current = document.documentElement.getAttribute('data-theme');
-          const next = current === 'light' ? 'dark' : 'light';
-          document.documentElement.setAttribute('data-theme', next);
+      <a href="#" id="game-trigger" class="mono">🕹️ Let's play a game</a>
+    </footer>
+
+    <div id="game-overlay" class="game-overlay" hidden role="dialog" aria-modal="true" aria-labelledby="game-title">
+      <div class="game-box">
+        <button id="game-close" class="game-close" aria-label="Close">&times;</button>
+        <h3 id="game-title">Let's play a game</h3>
+        <p id="game-message">Guess a number between 1 and 5.</p>
+        <div class="game-row">
+          <label class="visually-hidden" for="game-guess">Your guess</label>
+          <input id="game-guess" type="number" min="1" max="5" inputmode="numeric" />
+          <button id="game-submit" class="btn btn--solid">Guess</button>
+        </div>
+      </div>
+    </div>
+
+    <script is:inline>
+      (function () {
+        // ---- Theme -------------------------------------------------------
+        var root = document.documentElement;
+        var toggle = document.getElementById('theme-toggle');
+
+        function syncToggleLabel() {
+          var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+          toggle.setAttribute('aria-label', 'Switch to ' + next + ' theme');
+        }
+        syncToggleLabel();
+
+        toggle.addEventListener('click', function () {
+          var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+          root.setAttribute('data-theme', next);
           localStorage.setItem('theme', next);
+          syncToggleLabel();
         });
 
-        const gameTrigger = document.getElementById('game-trigger');
-        const gameOverlay = document.getElementById('game-overlay');
-        const gameClose = document.getElementById('game-close');
-        const gameSubmit = document.getElementById('game-submit');
-        const gameGuess = document.getElementById('game-guess');
-        const gameMessage = document.getElementById('game-message');
-        let target = Math.floor(Math.random() * 5) + 1;
-        let hasAlerted = false;
+        // ---- Reading progress (essays only) ------------------------------
+        if (document.body.dataset.progress === 'on') {
+          var bar = document.querySelector('.top-bar__fill');
+          var ticking = false;
 
-        function openGame() {
+          var update = function () {
+            var max = document.documentElement.scrollHeight - window.innerHeight;
+            var ratio = max > 0 ? Math.min(1, window.scrollY / max) : 1;
+            bar.style.setProperty('--read', ratio.toFixed(4));
+            ticking = false;
+          };
+
+          update();
+          window.addEventListener('scroll', function () {
+            if (!ticking) { ticking = true; requestAnimationFrame(update); }
+          }, { passive: true });
+          window.addEventListener('resize', update);
+        }
+
+        // ---- Number guessing easter egg ----------------------------------
+        var trigger = document.getElementById('game-trigger');
+        var overlay = document.getElementById('game-overlay');
+        var closeBtn = document.getElementById('game-close');
+        var submit = document.getElementById('game-submit');
+        var input = document.getElementById('game-guess');
+        var message = document.getElementById('game-message');
+        var target = 0;
+
+        function openGame(e) {
+          e.preventDefault();
           target = Math.floor(Math.random() * 5) + 1;
-          hasAlerted = false;
-          gameMessage.textContent = 'Guess a number between 1 and 5.';
-          gameGuess.value = '';
-          gameOverlay.hidden = false;
-          gameGuess.focus();
+          message.textContent = 'Guess a number between 1 and 5.';
+          input.value = '';
+          overlay.hidden = false;
+          input.focus();
         }
 
-        function closeGame() {
-          gameOverlay.hidden = true;
-        }
+        function closeGame() { overlay.hidden = true; trigger.focus(); }
 
-        function submitGuess() {
-          const guess = parseInt(gameGuess.value, 10);
-          if (!guess || guess < 1 || guess > 5) {
-            gameMessage.textContent = 'Enter a number between 1 and 5.';
+        function guess() {
+          var value = parseInt(input.value, 10);
+          if (!value || value < 1 || value > 5) {
+            message.textContent = 'Pick a number between 1 and 5.';
             return;
           }
-          if (guess === target) {
-            document.documentElement.classList.remove('comic-sans-mode');
-            gameMessage.textContent = "🎉 You got it!";
-            setTimeout(closeGame, 1200);
+          if (value === target) {
+            root.classList.remove('comic-sans-mode');
+            message.textContent = 'Got it. Everything goes back to normal.';
+            setTimeout(closeGame, 1100);
           } else {
-            document.documentElement.classList.add('comic-sans-mode');
-            gameMessage.textContent = 'Guess again to change it back.';
-            if (!hasAlerted) {
-              hasAlerted = true;
-              alert('OH NO, you changed everything to comic sans! Guess again to change it back.');
-            }
+            root.classList.add('comic-sans-mode');
+            message.textContent = 'Wrong. The whole site is Comic Sans now. Guess again to undo it.';
           }
         }
 
-        gameTrigger.addEventListener('click', (e) => {
-          e.preventDefault();
-          openGame();
+        trigger.addEventListener('click', openGame);
+        closeBtn.addEventListener('click', closeGame);
+        overlay.addEventListener('click', function (e) { if (e.target === overlay) closeGame(); });
+        submit.addEventListener('click', guess);
+        input.addEventListener('keydown', function (e) { if (e.key === 'Enter') guess(); });
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && !overlay.hidden) closeGame();
         });
-        gameClose.addEventListener('click', closeGame);
-        gameOverlay.addEventListener('click', (e) => {
-          if (e.target === gameOverlay) closeGame();
-        });
-        gameSubmit.addEventListener('click', submitGuess);
-        gameGuess.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter') submitGuess();
-        });
-      </script>
-    </body>
+      })();
+    </script>
+  </body>
 </html>

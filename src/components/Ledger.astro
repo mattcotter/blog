@@ -1,0 +1,50 @@
+---
+import { groupByYear, formatDate, tagHref } from '../utils/posts.js';
+
+const { posts = [], showNote = true, showYears = true } = Astro.props;
+const groups = showYears
+  ? groupByYear(posts)
+  : [{ year: null, posts }];
+---
+
+<div class="ledger">
+  {groups.map((group) => (
+    <>
+      {group.year && (
+        <div class="ledger__year">
+          <b>{group.year}</b>
+          <i>{group.posts.length} {group.posts.length === 1 ? 'essay' : 'essays'}</i>
+        </div>
+      )}
+
+      {group.posts.map((post) => (
+        <article class="entry">
+          <div class="entry__date">
+            <span>{formatDate(post.pubDate)}</span>
+          </div>
+
+          <div>
+            <h3 class="entry__title">
+              <a href={post.url}>{post.title}</a>
+            </h3>
+
+            {post.description && <p class="entry__desc">{post.description}</p>}
+
+            <div class="entry__foot">
+              <span class="mono">{post.readingTime} min read</span>
+              {post.tags.map((tag) => (
+                <a href={tagHref(tag)} class="tag">{tag}</a>
+              ))}
+            </div>
+          </div>
+        </article>
+      ))}
+    </>
+  ))}
+</div>
+
+{showNote && posts.length > 0 && (
+  <p class="ledger-note">
+    Titles turn <b>purple</b> once you've read them.
+  </p>
+)}
