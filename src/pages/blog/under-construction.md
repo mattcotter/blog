@@ -7,7 +7,7 @@ author: 'Matt Cotter'
 image:
     url: '/public/astro-to-wordpress.jpg'
     alt: 'Astro to Wordpress'
-tags: ["personal", "career", "ai"]
+tags: ["career", "ai", "nostalgia", "web development"]
 ---
 
 I loved making websites before I was sold on the future of programming. I made my first site on AOL Hometown, a WYSIWYG website editor. I remember it being very basic and outgrowing trying to make it work very quickly, but I built my first website on it regardless. It wasn't pretty. It had a bright, textured background and animated GIFs with zero structure behind its content. I actually showed it to people.

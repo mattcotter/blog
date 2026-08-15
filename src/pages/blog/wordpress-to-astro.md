@@ -7,7 +7,7 @@ author: 'Matt Cotter'
 image:
     url: '/public/astro-to-wordpress.jpg'
     alt: 'WordPress to Astro'
-tags: ["astro", "wordpress", "design system"]
+tags: ["astro", "wordpress", "design system", "web development"]
 ---
 
 After years of building websites with WordPress and other PHP-based CMS platforms, I made a pivot that surprised even me: I moved to JavaScript.

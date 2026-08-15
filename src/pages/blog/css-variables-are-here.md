@@ -7,7 +7,7 @@ author: 'Matt Cotter'
 image:
     url: '/public/astro-to-wordpress.jpg'
     alt: 'Astro to Wordpress'
-tags: ["web development", "css", "javascript"]
+tags: ["web development", "css"]
 ---
 
 ## It's Finally Here

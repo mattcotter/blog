@@ -7,7 +7,7 @@ author: 'Matt Cotter'
 image:
     url: '/public/astro-to-wordpress.jpg'
     alt: 'Astro to Wordpress'
-tags: ["api", "gravity forms", "wordpress", "war stories", "zenoti"]
+tags: ["api", "gravity forms", "wordpress", "web development"]
 ---
 
 If you've spent any real time building on WordPress, you know the platform's dirty secret: the moment a client says "and it should also send this data to our CRM," you've left CMS-land and entered systems integration territory. Nobody warns you about this in the onboarding docs.

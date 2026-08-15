@@ -7,7 +7,7 @@ author: 'Matt Cotter'
 image:
     url: '/public/astro-to-wordpress.jpg'
     alt: 'Astro to Wordpress'
-tags: ["elementor", "divi", "internet", "ai"]
+tags: ["elementor", "divi", "internet", "ai", "nostalgia"]
 ---
 
 ## The 90s

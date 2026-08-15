@@ -7,7 +7,7 @@ author: 'Matt Cotter'
 image:
     url: '/public/astro-to-wordpress.jpg'
     alt: 'Astro to Wordpress'
-tags: ["ai"]
+tags: ["ai", "nostalgia"]
 ---
 
 I recently sat down with my family for a movie night. I was set on *["O Brother, Where Art Thou?"](https://www.imdb.com/title/tt0190590/)* after a family discussion about the Odyssey recently and the journey to finding a way to watch it was spectacular. First, it's not streaming anywhere currently and I refuse to pay $17 for a movie I don't technically own on Apple TV or another service. So, I stepped out and found a copy of the DVD for $5 at my local Half Price Books. It was their only copy.
