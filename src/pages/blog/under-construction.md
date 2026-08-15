@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/BlogPostLayout.astro
-title: 'I Say "Boo" To This Job Market'
+title: "Under Construction"
 pubDate: 2026-08-13
 description: "Old man yells at cloud"
 author: 'Matt Cotter'
@@ -20,6 +20,6 @@ I guess no one has a crystal ball and I am not one to blame others for my proble
 
 Maybe it's because I've gotten ghosted by too many hiring managers or applied to too many ghost jobs but to this timeline: I say 'boo'. I miss the old days of the internet, when people built things to build them and not turn them in to a side hustle.
 
-I'm off to go watch [https://en.wikipedia.org/wiki/Hackers_(film)](Hackers). **Hack the planet.**
+I'm off to go watch [Hackers](https://en.wikipedia.org/wiki/Hackers_(film)). **Hack the planet.**
 
 

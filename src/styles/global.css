@@ -1,13 +1,5 @@
 @import "tailwindcss";
 
-/* ==========================================================================
-   mattcotter.dev — writing-first design system
-
-   Palette note: the link colours descend from the browser defaults of the
-   old web (#0000EE / #551A8B), modernised for contrast. Visited essays stay
-   purple on purpose — see .ledger.
-   ========================================================================== */
-
 :root {
   /* dark is the default theme */
   --paper:   #0e1014;
@@ -28,6 +20,11 @@
 
   --go:      #34d399;
   --go-glow: rgba(52, 211, 153, 0.55);
+
+  /* inline formatting */
+  --ink-strong: #f9fafc;
+  --em:         #e8938a;
+  --mark:       rgba(250, 204, 21, 0.24);
 
   --selection: rgba(140, 160, 255, 0.28);
 
@@ -65,6 +62,10 @@
 
   --go:      #059669;
   --go-glow: rgba(5, 150, 105, 0.45);
+
+  --ink-strong: #05070a;
+  --em:         #a5372a;
+  --mark:       rgba(250, 204, 21, 0.5);
 
   --selection: rgba(29, 43, 212, 0.16);
 }
@@ -903,6 +904,88 @@ body[data-progress="on"] .top-bar__fill {
 }
 
 /* --------------------------------------------------------------------------
+   Inline formatting
+
+   The serif carries human emphasis (strong, em); the mono carries machine
+   edits (del, ins, kbd). Colour does the rest, kept close to the body ink so
+   a paragraph never turns into a fruit salad.
+   -------------------------------------------------------------------------- */
+
+.essay strong, .prose strong,
+.essay b, .prose b {
+  font-weight: 700;
+  color: var(--ink-strong);
+}
+
+.essay em, .prose em,
+.essay i, .prose i {
+  font-style: italic;
+  color: var(--ink-strong);
+}
+
+/* both at once shouldn't double up on contrast */
+.essay strong em, .essay em strong,
+.prose strong em, .prose em strong {
+  color: var(--em);
+  font-weight: 700;
+}
+
+/* deletions read as a diff, so they take the mono */
+.essay del, .prose del, .essay s, .prose s {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  color: var(--muted);
+  text-decoration: line-through;
+  text-decoration-color: var(--em);
+  text-decoration-thickness: 1.5px;
+}
+
+.essay ins, .prose ins {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--go);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 3px;
+}
+
+.essay mark, .prose mark {
+  background: var(--mark);
+  color: var(--ink);
+  padding: 0.06em 0.24em;
+  border-radius: 3px;
+}
+
+.essay kbd {
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  padding: 0.1em 0.4em;
+  white-space: nowrap;
+}
+
+.essay abbr[title] {
+  text-decoration: underline dotted var(--muted);
+  text-underline-offset: 3px;
+  cursor: help;
+}
+
+.essay small, .prose small { font-size: 0.85em; color: var(--muted); }
+
+.essay sup, .essay sub {
+  font-size: 0.7em;
+  line-height: 0;
+  color: var(--muted);
+}
+
+.essay q, .prose q { font-style: italic; color: var(--muted); }
+
+/* --------------------------------------------------------------------------
    Essay footer: share, prev/next
    -------------------------------------------------------------------------- */
 
@@ -1226,4 +1309,10 @@ body[data-progress="on"] .top-bar__fill {
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
+}
+
+a#game-trigger {
+  border-radius: 25px;
+  border: white 2px solid;
+  padding: 5px 10px;;
 }
