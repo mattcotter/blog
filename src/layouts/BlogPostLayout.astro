@@ -17,9 +17,15 @@ const newer = index > 0 ? posts[index - 1] : null;
 const older = index >= 0 && index < posts.length - 1 ? posts[index + 1] : null;
 
 const description = frontmatter.description || site.description;
-const canonical = new URL(Astro.url.pathname, site.url).toString();
+const canonical = new URL(`${here}/`, site.url).toString();
 const shareUrl = encodeURIComponent(canonical);
 const shareTitle = encodeURIComponent(frontmatter.title);
+
+// Frontmatter images live in /public, which is served from the site root — a
+// leading "/public/" in the path 404s. Strip it so old posts keep working.
+const ogImage = frontmatter.image?.url
+  ? frontmatter.image.url.replace(/^\/?public\//, '/')
+  : site.ogImage;
 
 const shareLinks = [
   { name: 'Bluesky', href: `https://bsky.app/intent/compose?text=${shareTitle}%20${shareUrl}` },
@@ -35,6 +41,12 @@ const shareLinks = [
   ogType="article"
   progress={true}
   article={frontmatter}
+  image={ogImage}
+  imageAlt={frontmatter.image?.alt ?? frontmatter.title}
+  breadcrumbs={[
+    { name: 'Home', href: '/' },
+    { name: 'Writing', href: '/blog/' },
+  ]}
 >
   <article>
     <header class="essay-head">
@@ -50,7 +62,7 @@ const shareLinks = [
 
       <div class="essay-head__meta">
         <span class="mono">
-          {frontmatter.author} · <time datetime={frontmatter.pubDate}>{formatFullDate(frontmatter.pubDate)}</time> · {minutes} min read
+          <a rel="author" href="/about/">{frontmatter.author}</a> · <time datetime={frontmatter.pubDate}>{formatFullDate(frontmatter.pubDate)}</time> · {minutes} min read
         </span>
       </div>
     </header>

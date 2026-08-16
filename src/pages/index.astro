@@ -17,14 +17,21 @@ const selectedWork = [
 ];
 ---
 
-<NavLayout pageTitle={`${site.name} — writing about the web`} description={site.description}>
+<NavLayout
+  pageTitle="Matt Cotter — Front-end Developer in Cincinnati, Ohio"
+  description={site.description}
+>
   <section class="hero">
-    <p class="hero__name">Matt Cotter · Front-end developer · {site.location}</p>
+    <p class="hero__name">{site.jobTitle} · {site.location}</p>
 
-    <h1 class="hero__lede">
-      Thirteen years of building for the web.{' '}
-      <em>I write about my career, AI, what the internet has forgetten, and where it's heading.</em>
-    </h1>
+    {/* The name has to be in the h1, not just the kicker above it — on a query
+        for "Matt Cotter" this is the strongest on-page signal you control. */}
+    <h1 class="hero__lede">Hi, I'm Matt Cotter. <span aria-hidden="true">👋</span></h1>
+
+    <p class="hero__lede hero__lede--sub">
+      <strong>I've spent the last thirteen years building for the web.</strong>{' '}
+      <em>I write about my career, AI, what the internet has forgotten, and where it's heading.</em>
+    </p>
 
     <p class="status">
       <span class="status__dot" aria-hidden="true"></span>
@@ -46,9 +53,10 @@ const selectedWork = [
           {featured.tags.slice(0, 3).map((tag) => <span class="tag">{tag}</span>)}
         </div>
 
-        <h3 class="feature__title">
+        {/* was an h3, which skipped a level straight from the h1 */}
+        <h2 class="feature__title">
           <a href={featured.url}>{featured.title}</a>
-        </h3>
+        </h2>
 
         <p class="feature__excerpt">{featured.excerpt}</p>
 

@@ -3,9 +3,34 @@ export const site = {
   url: 'https://mattcotter.dev',
   email: 'cotter.m@gmail.com',
   location: 'Cincinnati, Ohio',
+  jobTitle: 'Front-end Developer',
   description:
-    'Essays on the web, WordPress war stories, and 13 years of front-end work — by Matt Cotter, a front-end developer in Cincinnati.',
+    'Matt Cotter is a front-end developer in Cincinnati, Ohio, with 13+ years of experience — writing about the web, WordPress war stories, and where the internet is heading.',
   resume: '/MattCotterResume.pdf',
+
+  // Both live in /public so the URLs stay stable — Astro hashes anything in src/assets,
+  // which breaks crawlers and social scrapers that cache by URL.
+  ogImage: '/og-default.jpg', // 1200x630
+  headshot: '/matt-cotter.jpg', // ~1000x1000, square
+
+  // The single most important signal for ranking on your own name: it tells Google
+  // that all of these accounts are the same entity. Add every profile you control.
+  sameAs: [
+    'https://github.com/mattcotter',
+    'https://www.linkedin.com/in/cotterm',
+    'https://bsky.app/profile/mattcotter.dev',
+  ],
+
+  knowsAbout: [
+    'Front-end development',
+    'WordPress',
+    'Astro',
+    'Vue.js',
+    'JavaScript',
+    'PHP',
+    'Web performance',
+    'Design systems',
+  ],
 };
 
 export const navLinks = [
