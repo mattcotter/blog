@@ -28,17 +28,6 @@ const description =
   </section>
 
   <section class="band--tight">
-    <div class="tag-row" id="filters">
-      <button type="button" class="tag tag--on" data-filter="all">all</button>
-      {topics.map(({ tag, count }) => (
-        <button type="button" class="tag" data-filter={tag}>
-          {tag}<span class="tag__count">{count}</span>
-        </button>
-      ))}
-    </div>
-  </section>
-
-  <section class="band--tight">
     <div class="ledger" id="archive">
       {groups.map((group) => (
         <div class="year-block" data-tags={group.posts.flatMap((p) => p.tags).join('|')}>
@@ -69,6 +58,16 @@ const description =
 
     <p class="ledger-note" id="empty" hidden>Nothing filed under that topic yet.</p>
     <p class="ledger-note">Titles turn <b>purple</b> once you've read them.</p>
+  </section>
+  <section class="band--tight">
+    <div class="tag-row" id="filters">
+      <button type="button" class="tag tag--on" data-filter="all">all</button>
+      {topics.map(({ tag, count }) => (
+        <button type="button" class="tag" data-filter={tag}>
+          {tag}<span class="tag__count">{count}</span>
+        </button>
+      ))}
+    </div>
   </section>
 </NavLayout>
 

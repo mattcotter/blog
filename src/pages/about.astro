@@ -33,33 +33,40 @@ const description =
 
       <div class="prose">
         <p>
-          I'm a front-end developer with more than 13 years of experience, based in
-          Cincinnati, Ohio. I've worked with companies large and small, building
+          I'm a front-end developer with more than 13 years of professional experience, based in 
+          <strong> Cincinnati, Ohio</strong>. I've worked with companies large & small, building
           user-focused solutions across a lot of very different industries, from
           internal tooling for the Department of Defense to marketing sites for
           one-person businesses. 
         </p>
         <p>
-          I helped build <strong>McDonald's digital menu boards</strong> and led front-end
-          work on <strong>GE Aerospace's</strong> Design System Auxiliary (Aux for short), used by hundreds
-          of engineers worldwide. Whatever the size of the project, the job is the same:
-          dependable work that bridges design and development.
+          Programming has been a hobby of mine for over <strong>30 years</strong> & I love learning new technology.
+          Each job in my long resume has been an endeavor in learning something new & it's what keeps me grounded
+          in this industry. What sets me apart is my <strong>passion</strong> for what I do.
         </p>
         <p>
-          I also <a href="/blog/">write about all of it and then some</a>
+          I helped build digital menu boards for companies like <strong>McDonalds, Popeyes, & Tim Hortons</strong>. I led the front-end
+          work on <strong>GE Aerospace's</strong> Design System <strong>Auxiliary</strong>, used by hundreds
+          of engineers in their network worldwide. I helped build out <strong>Dayton YMCA's</strong> network of websites.
+          Whatever the size of the project, the job is the same: dependable work that bridges design & development.
+        </p>
+        <p>
+          I also <a href="/blog/">write a little about all of it and beyond.</a>
         </p>
       </div>
-
+      <div class="hero__meta">
       <p style="margin-top:1.5rem">
         <a href={site.resume} download class="btn">Download résumé (PDF)</a>
+        <a href={`mailto:${site.email}`} style="margin-left:1.5rem;">Start a project →</a>
       </p>
+      </div>
     </div>
   </section>
 
   <section class="band">
     <div class="band-head">
       <h2>Experience</h2>
-      <span class="mono">{jobs.length} roles since 2014</span>
+      <span class="mono">{jobs.length} roles since 2013</span>
     </div>
 
     <div class="roles">
@@ -75,30 +82,5 @@ const description =
       ))}
     </div>
   </section>
-
-  <section class="band">
-    <div class="band-head">
-      <h2>Work with me</h2>
-    </div>
-
-    <div class="prose">
-      <p>
-        If you need an experienced WordPress or front-end developer who can take a
-        project from design through deployment, I'd like to help. Over 13+ years I've
-        built custom WordPress themes, Shopify stores, design systems, internal
-        applications, and marketing sites for startups, agencies, Fortune 500 companies,
-        and government organisations.
-      </p>
-      <p>
-        I specialise in modern front-end development, technical SEO, performance,
-        accessibility, and building sites that clients can actually maintain themselves.
-        Ongoing support, a full rebuild, custom functionality, or a speed and search
-        cleanup. All fair game.
-      </p>
-    </div>
-
-    <p style="margin-top:1.75rem">
-      <a href={`mailto:${site.email}`} class="btn btn--solid">Email me →</a>
-    </p>
-  </section>
+  
 </NavLayout>
