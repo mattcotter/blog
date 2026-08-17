@@ -19,6 +19,7 @@ export const site = {
     'https://github.com/mattcotter',
     'https://www.linkedin.com/in/cotterm',
     'https://bsky.app/profile/mattcotter.dev',
+    'https://www.instagram.com/mattcotter/',
   ],
 
   knowsAbout: [
