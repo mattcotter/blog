@@ -903,14 +903,6 @@ body[data-progress="on"] .top-bar__fill {
   background-color: var(--shiki-light-bg, var(--surface));
 }
 
-/* --------------------------------------------------------------------------
-   Inline formatting
-
-   The serif carries human emphasis (strong, em); the mono carries machine
-   edits (del, ins, kbd). Colour does the rest, kept close to the body ink so
-   a paragraph never turns into a fruit salad.
-   -------------------------------------------------------------------------- */
-
 .essay strong, .prose strong,
 .essay b, .prose b {
   font-weight: 700;
@@ -1098,6 +1090,15 @@ body[data-progress="on"] .top-bar__fill {
 @media (max-width: 640px) {
   .about-head { flex-direction: column; gap: 1.25rem; }
 }
+
+.prose ul, .prose ol {
+  margin: 0 0 1.1rem;
+  padding-left: 1.4rem;
+}
+
+.prose li { margin-bottom: 0.4rem; list-style-type:disc;}
+.prose li::marker { color: var(--dock-bg); }
+
 
 /* Experience — a typed timeline, so the rail carries real information */
 .roles { display: grid; gap: 0; }
@@ -1315,4 +1316,48 @@ a#game-trigger {
   border-radius: 25px;
   border: white 2px solid;
   padding: 5px 10px;;
+}
+
+.brands__intro {
+  max-width: 46ch;
+  margin: 0 0 1.75rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.brands {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr));
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--rule);
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 1rem 0.9rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+.brand__name {
+  font-family: var(--font-read);
+  font-size: 1.05rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.2;
+}
+
+.brand__via {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.03em;
+  color: var(--muted);
+}
+
+@media (max-width: 640px) {
+  .brands { grid-template-columns: 1fr; }
 }

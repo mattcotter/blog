@@ -42,8 +42,24 @@ const projects = [
   },
 ];
 
+// Names only — no logos. Using someone's mark to imply endorsement is a
+// trademark problem; naming who you worked for is just a fact.
+// TODO: confirm the `via` line on the last five. Best guess from the résumé.
+const brands = [
+  { name: 'GE Aerospace', via: 'Lead Front End Developer, in-house' },
+  { name: "McDonald's", via: 'via Stratacache' },
+  { name: 'Popeyes', via: 'via Stratacache' },
+  { name: 'Tim Hortons', via: 'via Stratacache' },
+  { name: 'Connor Group', via: 'Web Developer, in-house' },
+  { name: 'YMCA', via: 'via TDH Marketing / Think Patented' },
+  { name: 'MEMI', via: 'via TDH Marketing / Think Patented' },
+  { name: 'LION', via: 'via Freelance' },
+  { name: 'Ohio Means Jobs', via: 'via TDH Marketing / Think Patented' },
+  { name: 'Karl Malone Polaris', via: 'via Reborn Consultants' },
+];
+
 const description =
-  'Recent client and agency work by Matt Cotter: WordPress builds, API integrations, and custom front-end development.';
+  'Recent client and agency work by Matt Cotter: WordPress builds, API integrations, and custom front-end development for brands including GE Aerospace, McDonald\u2019s, and the YMCA.';
 ---
 
 <NavLayout pageTitle={`Work — ${site.name}`} description={description}>
@@ -59,6 +75,26 @@ const description =
       <a href={site.resume} download>Download résumé (PDF)</a>
       <a href={`mailto:${site.email}`}>Start a project →</a>
     </div>
+  </section>
+
+  <section class="band">
+    <div class="band-head">
+      <h2>Brands I've worked with</h2>
+      <span class="mono">{brands.length} selected over 13 years</span>
+    </div>
+
+    <p class="brands__intro">
+      Over the years, I've worked multi-million dollar brands. Some national, and a lot more locally.
+    </p>
+
+    <ul class="brands">
+      {brands.map((brand) => (
+        <li class="brand">
+          <span class="brand__name">{brand.name}</span>
+          <span class="brand__via"><em>{brand.via}</em></span>
+        </li>
+      ))}
+    </ul>
   </section>
 
   <section class="band">
@@ -88,13 +124,12 @@ const description =
 
     <div class="prose">
       <p>
-        Before the client work, I spent years on things that never get a public URL:
-        <strong>McDonald's digital menu boards</strong> at Stratacache, an internal design
-        system at <strong>GE Aerospace</strong> used by hundreds of engineers, and tooling
-        for the <strong>Department of Defense</strong> at Wright-Patterson Air Force Base.
-      </p>
-      <p>
-        That's why this page is short and <a href="/blog/">the writing</a> is long.
+        A lot of that work never gets a public URL, such as: 
+        <ul>
+          <li>Digital menu boards running in thousands of restaurant locations like <strong>McDonalds</strong></li>
+          <li>An internal design system used by hundreds of engineers at <strong>GE Aerospace</strong></li>
+          <li>Applications built under a Top Secret clearance for the <strong> Department of Defense</strong> at Wright-Patterson Air Force Base.</li>
+        </ul>
       </p>
     </div>
   </section>
