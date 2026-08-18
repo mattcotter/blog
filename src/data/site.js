@@ -10,8 +10,10 @@ export const site = {
 
   // Both live in /public so the URLs stay stable — Astro hashes anything in src/assets,
   // which breaks crawlers and social scrapers that cache by URL.
-  ogImage: '/og-default.jpg', // 1200x630
-  headshot: '/matt-cotter.jpg', // ~1000x1000, square
+  // The default OG image is imported in NavLayout.astro so Astro emits a
+  // hashed, cache-busted URL — a plain /path here would go stale in
+  // Facebook's and LinkedIn's scraper caches after every edit.
+  headshot: '/matt-cotter.jpg', // ~1000x1000, square, lives in /public
 
   // The single most important signal for ranking on your own name: it tells Google
   // that all of these accounts are the same entity. Add every profile you control.

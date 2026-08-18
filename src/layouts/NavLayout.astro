@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
-import { Image } from 'astro:assets';
-import logo from '../assets/matt-cotter-logo.png';
+import LogoDark from '../assets/matt-cotter-logo-black.svg';
+import LogoLight from '../assets/matt-cotter-logo.svg';
 import { site, navLinks, socialLinks } from '../data/site.js';
 
 const {
@@ -174,7 +174,7 @@ const jsonLd = {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400..700&family=JetBrains+Mono:wght@400..600&family=Literata:ital,opsz,wght@0,7..72,300..700;1,7..72,300..700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400..700&family=Literata:ital,opsz,wght@0,7..72,300..700;1,7..72,300..700&display=swap"
     />
 
     <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />
@@ -205,7 +205,11 @@ const jsonLd = {
     <div class="dock-rail">
       <nav class="dock" aria-label="Primary">
         <a href="/" class="dock__logo" aria-label={`${site.name} — home`}>
-          <Image src={logo} alt="" width={96} height={96} loading="eager" />
+          {/* Two files, swapped by theme. No fill override — each SVG keeps
+              its own baked colour. The dock inverts, so the light dock (dark
+              theme) gets the black mark and vice versa. */}
+          <LogoDark class="logo--dark" width={96} height={96} aria-hidden="true" />
+          <LogoLight class="logo--light" width={96} height={96} aria-hidden="true" />
         </a>
 
         <div class="dock__links">

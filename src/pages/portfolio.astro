@@ -57,16 +57,18 @@ const projects = [
 // Names only — no logos. Using someone's mark to imply endorsement is a
 // trademark problem; naming who you worked for is just a fact.
 // TODO: confirm the `via` line on the last five. Best guess from the résumé.
+// `plate: true` marks the light-artwork logos — they need a dark backing in
+// light mode or they disappear against the page. Everything else sits bare.
 const brands = [
-  { name: 'GE Aerospace', via: 'Lead Front End Developer, in-house', logo: geaerospace },
+  { name: 'GE Aerospace', via: 'Lead Front End Developer, in-house', logo: geaerospace, plate: true },
   { name: "McDonald's", via: 'via Stratacache', logo: mcdonalds },
   { name: 'Popeyes', via: 'via Stratacache', logo: popeyes },
   { name: 'Tim Hortons', via: 'via Stratacache', logo: timhortons },
   { name: 'Connor Group', via: 'Web Developer, in-house', logo: tcglogo },
-  { name: 'The YMCA', via: 'via TDH Marketing / Think Patented', logo: ymca },
-  { name: 'MEMI', via: 'via TDH Marketing / Think Patented', logo: memi },
+  { name: 'The YMCA', via: 'via TDH Marketing / Think Patented', logo: ymca, plate: true },
+  { name: 'MEMI', via: 'via TDH Marketing / Think Patented', logo: memi, plate: true },
   { name: 'LION', via: 'via Contract', logo: lionlogo },
-  { name: 'Ohio Means Jobs', via: 'via TDH Marketing / Think Patented', logo: omj },
+  { name: 'Ohio Means Jobs', via: 'via TDH Marketing / Think Patented', logo: omj, plate: true },
   { name: 'Karl Malone Polaris', via: 'via Reborn Consultants', logo: karlmalone },
 ];
 
@@ -102,7 +104,7 @@ const description =
     <ul class="brands">
       {brands.map((brand) => (
         <li class="brand">
-          <div class="brand__plate">
+          <div class:list={['brand__plate', brand.plate && 'brand__plate--backed']}>
             {/* alt="" because the name sits right below — a screen reader
                 announcing both would just read the brand twice. */}
             <Image src={brand.logo} alt="" height={50} loading="lazy" decoding="async" />

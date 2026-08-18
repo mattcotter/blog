@@ -23,9 +23,12 @@ const shareTitle = encodeURIComponent(frontmatter.title);
 
 // Frontmatter images live in /public, which is served from the site root — a
 // leading "/public/" in the path 404s. Strip it so old posts keep working.
+// undefined lets NavLayout fall back to the imported default. Frontmatter
+// paths are stripped of a leading /public/ — that directory is served from
+// the site root, so the prefix 404s.
 const ogImage = frontmatter.image?.url
   ? frontmatter.image.url.replace(/^\/?public\//, '/')
-  : site.ogImage;
+  : undefined;
 
 const shareLinks = [
   { name: 'Bluesky', href: `https://bsky.app/intent/compose?text=${shareTitle}%20${shareUrl}` },

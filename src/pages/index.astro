@@ -8,7 +8,6 @@ const posts = loadPosts(import.meta.glob('./blog/*.md', { eager: true }));
 const [featured, ...rest] = posts;
 const topics = tagCounts(posts).slice(0, 8);
 
-// A short, honest strip of work. The full case studies live on /portfolio.
 const selectedWork = [
   { name: 'Connor Group', stack: 'WordPress multisite · Yardi API', href: 'https://connorgroup.com' },
   { name: 'Thrive IV USA', stack: 'WordPress · Zenoti API', href: 'https://thriveivusa.com/' },
@@ -24,18 +23,21 @@ const selectedWork = [
   <section class="hero">
     <p class="hero__name">{site.jobTitle} · {site.location}</p>
 
-    {/* The name has to be in the h1, not just the kicker above it — on a query
-        for "Matt Cotter" this is the strongest on-page signal you control. */}
-    <h1 class="hero__lede">Hi, I'm Matt Cotter. <span aria-hidden="true">👋</span></h1>
+    {/* Benefit-led, but the name still has to live in the h1 — it's the
+        strongest on-page signal for a "Matt Cotter" query. */}
+    <h1 class="hero__lede">
+      Hi, I'm Matt Cotter. <em>I build fast websites.</em>
+    </h1>
 
-    <p class="hero__lede hero__lede--sub">
-      <strong>I've spent the last thirteen years building for the web.</strong>{' '}
-      <em>I write about my career, AI, what the internet has forgotten, and where it's heading.</em>
+    <p class="hero__lede--sub">
+      <strong>Thirteen years of WordPress, a lot of Javascript, and API integrations</strong>. {' '}
+      <em>I've built for GE and the Department of Defense, and for the small businesses
+      who need it to just work.</em>
     </p>
 
     <p class="status">
       <span class="status__dot" aria-hidden="true"></span>
-      Freelancing · available for work
+      Available for work
     </p>
 
     <div class="hero__meta">
@@ -53,7 +55,6 @@ const selectedWork = [
           {featured.tags.slice(0, 3).map((tag) => <span class="tag">{tag}</span>)}
         </div>
 
-        {/* was an h3, which skipped a level straight from the h1 */}
         <h2 class="feature__title">
           <a href={featured.url}>{featured.title}</a>
         </h2>

@@ -32,7 +32,11 @@
                "Source Serif 4", Georgia, serif;
   --font-ui:   "Inter Tight", "Inter", -apple-system, BlinkMacSystemFont,
                "Segoe UI", Roboto, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  /* Aliased to the UI stack: the ~40 rules referencing --font-mono now render
+     in Inter Tight without needing to be touched. */
+  --font-mono: var(--font-ui);
+  /* Real monospace, kept only where it does a job. System stack = no request. */
+  --font-code: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 
   --w-page: 58rem;
   --w-text: 40rem;
@@ -97,7 +101,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   Type scale — Literata does the reading, JetBrains Mono does the data
+   Type scale — Literata reads, Inter Tight labels. Ratio is ~1.25 a step.
    -------------------------------------------------------------------------- */
 
 h1, h2, h3, h4, h5, h6 {
@@ -110,9 +114,10 @@ h1, h2, h3, h4, h5, h6 {
   text-wrap: balance;
 }
 
-h1 { font-size: clamp(2rem, 1.4rem + 2.4vw, 2.9rem); }
-h2 { font-size: clamp(1.45rem, 1.2rem + 1vw, 1.8rem); }
-h3 { font-size: 1.25rem; }
+h1 { font-size: clamp(2.1rem, 1.5rem + 2.4vw, 3.1rem); line-height: 1.12; }
+h2 { font-size: clamp(1.5rem, 1.25rem + 1vw, 1.9rem);  line-height: 1.2; }
+h3 { font-size: 1.3rem;  line-height: 1.3; }
+h4 { font-size: 1.05rem; line-height: 1.4; }
 
 p { margin: 0 0 1rem; }
 
@@ -125,14 +130,16 @@ hr {
   margin: 3rem 0;
 }
 
-/* Small mono label used for dates, counts, section eyebrows */
+/* Eyebrow label for dates, counts, section kickers. A monospace at 0.06em
+   reads as terminal output; a tracked sans reads as a designed kicker. */
 .mono {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 500;
-  letter-spacing: 0.06em;
+  font-family: var(--font-ui);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.11em;
   text-transform: uppercase;
   color: var(--muted);
+  font-feature-settings: "tnum" 1;
 }
 
 .dim { color: var(--muted); }
@@ -155,7 +162,11 @@ hr {
   gap: 1rem;
   margin-bottom: 1.5rem;
 }
-.band-head h2 { font-size: 1.1rem; letter-spacing: 0.02em; }
+/* Section headings have to outrank the card headings inside them. */
+.band-head h2 {
+  font-size: clamp(1.5rem, 1.25rem + 1vw, 1.9rem);
+  letter-spacing: -0.015em;
+}
 .band-head .mono { flex-shrink: 0; }
 
 /* --------------------------------------------------------------------------
@@ -238,16 +249,24 @@ body[data-progress="on"] .top-bar__fill {
   border-radius: 999px;
 }
 
-.dock__logo img {
+/* Two artwork files, swapped by theme rather than recoloured. Each SVG keeps
+   its own baked fill, so nothing here dims it or shifts it on hover. */
+.dock__logo svg {
   height: var(--logo-size);
   width: var(--logo-size);
   margin: calc((var(--logo-size) - 1.55rem) / -2) 0;
   display: block;
-  object-fit: contain;
+  transition: none;
 }
 
-/* light theme = dark dock, so the ink has to go white */
-:root[data-theme="light"] .dock__logo img { filter: invert(1); }
+/* Dark theme = light dock, so the black mark reads. */
+.dock__logo .logo--light { display: none; }
+
+:root[data-theme="light"] .dock__logo .logo--dark  { display: none; }
+:root[data-theme="light"] .dock__logo .logo--light { display: block; }
+
+/* No hover treatment on the mark — it's a home link, not a nav item. */
+.dock a.dock__logo:hover { background: none; }
 
 .dock__links { display: flex; align-items: center; gap: 0.15rem; }
 
@@ -316,7 +335,7 @@ body[data-progress="on"] .top-bar__fill {
   .dock__divider, .dock__social { display: none; }
   /* the mark stays put at every width */
   .dock__logo { display: flex; }
-  .dock__logo img { --logo-size: 2.1rem; }
+  .dock__logo svg { --logo-size: 2.1rem; }
   .theme-toggle { width: 2.2rem; height: 2.2rem; }
 }
 
@@ -338,12 +357,12 @@ body[data-progress="on"] .top-bar__fill {
 
 .hero__lede {
   font-family: var(--font-read);
-  font-size: clamp(1.4rem, 1.05rem + 1.5vw, 1.95rem);
-  line-height: 1.35;
-  letter-spacing: -0.015em;
+  font-size: clamp(2.1rem, 1.5rem + 2.4vw, 3.1rem);
+  line-height: 1.12;
+  letter-spacing: -0.022em;
   color: var(--ink);
-  max-width: 36ch;
-  margin: 0 0 1.5rem;
+  max-width: 22ch;
+  margin: 0 0 1.25rem;
   text-wrap: balance;
 }
 
@@ -351,6 +370,22 @@ body[data-progress="on"] .top-bar__fill {
   font-style: italic;
   color: var(--muted);
 }
+
+/* The supporting line under the h1. A paragraph on purpose — it sits below
+   the h1 in the document outline as well as visually. */
+.hero__lede--sub {
+  font-family: var(--font-read);
+  font-size: clamp(1.15rem, 1rem + 0.6vw, 1.4rem);
+  line-height: 1.5;
+  letter-spacing: -0.005em;
+  color: var(--muted);
+  max-width: 46ch;
+  margin: 0 0 1.5rem;
+  text-wrap: pretty;
+}
+
+.hero__lede--sub strong { color: var(--ink); font-weight: 600; }
+.hero__lede--sub em { font-style: italic; }
 
 .hero__meta {
   display: flex;
@@ -440,10 +475,10 @@ body[data-progress="on"] .top-bar__fill {
 
 .feature__title {
   font-family: var(--font-read);
-  font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.1rem);
+  font-size: clamp(1.5rem, 1.3rem + 0.8vw, 1.8rem);
   font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -0.02em;
+  line-height: 1.25;
+  letter-spacing: -0.018em;
   margin: 0 0 0.75rem;
 }
 
@@ -724,7 +759,7 @@ body[data-progress="on"] .top-bar__fill {
 }
 
 .project h3 {
-  font-size: 1.15rem;
+  font-size: 1.3rem;
   margin-bottom: 0.4rem;
   color: var(--ink);
 }
@@ -864,7 +899,7 @@ body[data-progress="on"] .top-bar__fill {
 
 /* Inline code + blocks */
 .essay code {
-  font-family: var(--font-mono);
+  font-family: var(--font-code);
   font-size: 0.85em;
   background: var(--surface);
   border: 1px solid var(--rule);
@@ -873,7 +908,7 @@ body[data-progress="on"] .top-bar__fill {
 }
 
 .essay pre {
-  font-family: var(--font-mono);
+  font-family: var(--font-code);
   font-size: 0.85rem;
   line-height: 1.6;
   padding: 1.1rem 1.25rem;
@@ -924,7 +959,7 @@ body[data-progress="on"] .top-bar__fill {
 
 /* deletions read as a diff, so they take the mono */
 .essay del, .prose del, .essay s, .prose s {
-  font-family: var(--font-mono);
+  font-family: var(--font-code);
   font-size: 0.88em;
   color: var(--muted);
   text-decoration: line-through;
@@ -933,7 +968,7 @@ body[data-progress="on"] .top-bar__fill {
 }
 
 .essay ins, .prose ins {
-  font-family: var(--font-mono);
+  font-family: var(--font-code);
   font-size: 0.88em;
   color: var(--ink);
   text-decoration: underline;
@@ -950,7 +985,7 @@ body[data-progress="on"] .top-bar__fill {
 }
 
 .essay kbd {
-  font-family: var(--font-mono);
+  font-family: var(--font-code);
   font-size: 0.8em;
   color: var(--ink);
   background: var(--surface);
@@ -1067,14 +1102,18 @@ body[data-progress="on"] .top-bar__fill {
   border: 1px solid var(--rule);
 }
 
-.about-head__mark img {
+.about-head__mark svg {
   width: 100%;
   height: 100%;
-  object-fit: contain;
   display: block;
 }
 
-:root:not([data-theme="light"]) .about-head__mark img { filter: invert(1); }
+/* Inverse of the dock: this mark sits on the page, so the dark theme
+   needs the white artwork. */
+.about-head__mark .logo--dark { display: none; }
+
+:root[data-theme="light"] .about-head__mark .logo--light { display: none; }
+:root[data-theme="light"] .about-head__mark .logo--dark  { display: block; }
 
 .prose {
   font-family: var(--font-read);
@@ -1346,12 +1385,27 @@ a#game-trigger {
  
 /* Fixed 50px slot. The logos range from 45px to 316px wide, so without a
    shared-height box the names below them would sit at ragged heights. */
+/* Every plate carries the same padding and radius, backed or not, so the only
+   thing that changes between themes is the background colour — nothing shifts
+   position when you flip the toggle. */
 .brand__plate {
   display: flex;
   align-items: center;
-  height: 50px;
+  box-sizing: border-box;
+  height: calc(50px + 1.2rem);
+  width: fit-content;
   max-width: 100%;
-  margin-bottom: 0.35rem;
+  padding: 0.6rem 0.75rem;
+  margin-bottom: 0.6rem;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  transition: background-color 0.2s ease;
+}
+
+/* Light artwork (GE, YMCA, MEMI, Ohio Means Jobs) vanishes against a light
+   page. Only the fill appears — the box was always there. */
+:root[data-theme="light"] .brand__plate--backed {
+  background: #14171c;
 }
  
 .brand__plate img {
@@ -1385,4 +1439,8 @@ a#game-trigger {
  
 @media (max-width: 640px) {
   .brands { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 640px) {
+  .hero__lede { max-width: 100%; }
 }

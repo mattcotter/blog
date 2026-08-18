@@ -1,7 +1,7 @@
 ---
 import NavLayout from '../layouts/NavLayout.astro';
-import { Image } from 'astro:assets';
-import logo from '../assets/matt-cotter-logo.png';
+import LogoDark from '../assets/matt-cotter-logo-black.svg';
+import LogoLight from '../assets/matt-cotter-logo.svg';
 import { site } from '../data/site.js';
 
 const jobs = [
@@ -20,10 +20,13 @@ const description =
   'Matt Cotter is a front-end developer in Cincinnati with 13+ years of experience across the Department of Defense, GE Aerospace, agencies, and small business clients.';
 ---
 
-<NavLayout pageTitle={`About — ${site.name}`} description={description}>
+<NavLayout pageTitle={`About — ${site.name}`} description={description} profile={true}>
   <section class="about-head">
     <div class="about-head__mark">
-      <Image src={logo} alt="Illustrated portrait of Matt Cotter" width={224} height={224} />
+      {/* Opposite pairing to the dock — this mark sits on the page, not the
+          inverted pill, so the dark theme wants the white artwork. */}
+      <LogoLight class="logo--light" width={224} height={224} role="img" aria-label="Illustrated portrait of Matt Cotter" />
+      <LogoDark class="logo--dark" width={224} height={224} role="img" aria-label="Illustrated portrait of Matt Cotter" />
     </div>
 
     <div>
