@@ -5,6 +5,18 @@ import amy from '../assets/amy-screenshot.jpg';
 import tcg from '../assets/connorgroup-screenshot.jpg';
 import epic from '../assets/epic-screenshot.jpg';
 import thrive from '../assets/thriveivusa-screenshot.jpg';
+
+import geaerospace from '../assets/logos/geaerospace.png';
+import mcdonalds from '../assets/logos/mcdonalds.png';
+import popeyes from '../assets/logos/popeyes.png';
+import timhortons from '../assets/logos/timhortons.png';
+import tcglogo from '../assets/logos/tcglogo.png';
+import ymca from '../assets/logos/ymca.png';
+import memi from '../assets/logos/memi.png';
+import lionlogo from '../assets/logos/lionlogo.png';
+import omj from '../assets/logos/omj.png';
+import karlmalone from '../assets/logos/karlmalone.png';
+
 import { site } from '../data/site.js';
 
 const projects = [
@@ -46,16 +58,16 @@ const projects = [
 // trademark problem; naming who you worked for is just a fact.
 // TODO: confirm the `via` line on the last five. Best guess from the résumé.
 const brands = [
-  { name: 'GE Aerospace', via: 'Lead Front End Developer, in-house' },
-  { name: "McDonald's", via: 'via Stratacache' },
-  { name: 'Popeyes', via: 'via Stratacache' },
-  { name: 'Tim Hortons', via: 'via Stratacache' },
-  { name: 'Connor Group', via: 'Web Developer, in-house' },
-  { name: 'YMCA', via: 'via TDH Marketing / Think Patented' },
-  { name: 'MEMI', via: 'via TDH Marketing / Think Patented' },
-  { name: 'LION', via: 'via Freelance' },
-  { name: 'Ohio Means Jobs', via: 'via TDH Marketing / Think Patented' },
-  { name: 'Karl Malone Polaris', via: 'via Reborn Consultants' },
+  { name: 'GE Aerospace', via: 'Lead Front End Developer, in-house', logo: geaerospace },
+  { name: "McDonald's", via: 'via Stratacache', logo: mcdonalds },
+  { name: 'Popeyes', via: 'via Stratacache', logo: popeyes },
+  { name: 'Tim Hortons', via: 'via Stratacache', logo: timhortons },
+  { name: 'Connor Group', via: 'Web Developer, in-house', logo: tcglogo },
+  { name: 'The YMCA', via: 'via TDH Marketing / Think Patented', logo: ymca },
+  { name: 'MEMI', via: 'via TDH Marketing / Think Patented', logo: memi },
+  { name: 'LION', via: 'via Contract', logo: lionlogo },
+  { name: 'Ohio Means Jobs', via: 'via TDH Marketing / Think Patented', logo: omj },
+  { name: 'Karl Malone Polaris', via: 'via Reborn Consultants', logo: karlmalone },
 ];
 
 const description =
@@ -90,11 +102,17 @@ const description =
     <ul class="brands">
       {brands.map((brand) => (
         <li class="brand">
+          <div class="brand__plate">
+            {/* alt="" because the name sits right below — a screen reader
+                announcing both would just read the brand twice. */}
+            <Image src={brand.logo} alt="" height={50} loading="lazy" decoding="async" />
+          </div>
           <span class="brand__name">{brand.name}</span>
-          <span class="brand__via"><em>{brand.via}</em></span>
+          <span class="brand__via">{brand.via}</span>
         </li>
       ))}
     </ul>
+
   </section>
 
   <section class="band">
