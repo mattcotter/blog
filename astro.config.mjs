@@ -7,7 +7,7 @@ import sitemap from '@astrojs/sitemap';
 
 
 export default defineConfig({
-  site: 'https://www.mattcotter.dev',
+  site: 'https://mattcotter.dev',
 
   server: {
     host: true, 
