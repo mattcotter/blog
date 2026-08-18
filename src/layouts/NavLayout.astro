@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import ogDefault from '../assets/og-logo-photo.jpg';
 import LogoDark from '../assets/matt-cotter-logo-black.svg';
 import LogoLight from '../assets/matt-cotter-logo.svg';
 import { site, navLinks, socialLinks } from '../data/site.js';
@@ -10,7 +11,7 @@ const {
   ogType = 'website',
   progress = false,
   article = null,
-  image = site.ogImage,
+  image = null, // falls back to ogDefault below
   imageAlt = `${site.name} — ${site.jobTitle}`,
   breadcrumbs = null, // [{ name, href }] — omit the current page, it's appended for you
   profile = false, // true on /about so the page is typed as a ProfilePage
@@ -22,7 +23,10 @@ const {
 const path = Astro.url.pathname.replace(/\/+$/, '') || '/';
 const canonical = new URL(path === '/' ? '/' : `${path}/`, site.url).toString();
 
-const ogImage = new URL(image, site.url).toString();
+// Imported asset when nothing is passed, so we get real dimensions and a
+// hashed URL. A page-supplied `image` is a plain /public path string.
+const ogAsset = image ? null : ogDefault;
+const ogImage = new URL(image ?? ogDefault.src, site.url).toString();
 const headshot = new URL(site.headshot, site.url).toString();
 
 const isCurrent = (href) => {
@@ -147,8 +151,8 @@ const jsonLd = {
     <meta property="og:site_name" content={site.name} />
     <meta property="og:locale" content="en_US" />
     <meta property="og:image" content={ogImage} />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    {ogAsset && <meta property="og:image:width" content={String(ogAsset.width)} />}
+    {ogAsset && <meta property="og:image:height" content={String(ogAsset.height)} />}
     <meta property="og:image:alt" content={imageAlt} />
 
     {article && publishedISO && <meta property="article:published_time" content={publishedISO} />}
