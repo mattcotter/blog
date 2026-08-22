@@ -1,4 +1,7 @@
 ---
+import '@fontsource-variable/inter-tight/wght.css';
+import '@fontsource-variable/literata/opsz.css';
+import '@fontsource-variable/literata/opsz-italic.css';
 import '../styles/global.css';
 import ogDefault from '../assets/og-logo-photo.jpg';
 import LogoDark from '../assets/matt-cotter-logo-black.svg';
@@ -11,10 +14,10 @@ const {
   ogType = 'website',
   progress = false,
   article = null,
-  image = null, // falls back to ogDefault below
+  image = null, 
   imageAlt = `${site.name} — ${site.jobTitle}`,
-  breadcrumbs = null, // [{ name, href }] — omit the current page, it's appended for you
-  profile = false, // true on /about so the page is typed as a ProfilePage
+  breadcrumbs = null, 
+  profile = false, 
   noindex = false,
 } = Astro.props;
 
@@ -172,13 +175,6 @@ const jsonLd = {
       type="application/rss+xml"
       title={`${site.name} — Writing`}
       href="/rss.xml"
-    />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400..700&family=Literata:ital,opsz,wght@0,7..72,300..700;1,7..72,300..700&display=swap"
     />
 
     <script type="application/ld+json" is:inline set:html={JSON.stringify(jsonLd)} />

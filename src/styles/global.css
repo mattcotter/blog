@@ -28,10 +28,13 @@
 
   --selection: rgba(140, 160, 255, 0.28);
 
-  --font-read: "Literata", "Charter", "Bitstream Charter", "Iowan Old Style",
-               "Source Serif 4", Georgia, serif;
-  --font-ui:   "Inter Tight", "Inter", -apple-system, BlinkMacSystemFont,
-               "Segoe UI", Roboto, sans-serif;
+  /* Fontsource registers the variable faces under a "... Variable" family name.
+     The non-variable names are kept next in line so a locally installed copy
+     still resolves before falling through to the system stack. */
+  --font-read: "Literata Variable", "Literata", "Charter", "Bitstream Charter",
+               "Iowan Old Style", "Source Serif 4", Georgia, serif;
+  --font-ui:   "Inter Tight Variable", "Inter Tight", "Inter", -apple-system,
+               BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   /* Aliased to the UI stack: the ~40 rules referencing --font-mono now render
      in Inter Tight without needing to be touched. */
   --font-mono: var(--font-ui);
